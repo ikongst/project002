@@ -1,0 +1,208 @@
+/*---------GLOBAL DEFINITIONS-----------*/
+LIN_description_file;
+LIN_protocol_version             = "2.1";
+LIN_language_version             = "2.1";
+LIN_speed                        = 19.2 kbps;
+/* ----------NODE DEFINITIONS---------- */
+Nodes {
+   Master:
+      LINMaster,                                             /* Master node name */
+      5.0 ms,                                                /* Time base */
+      0.1 ms;                                                /* Jitter */
+   Slaves:
+      Motor;
+}
+/* ----------SIGNAL DEFINITIONS---------- */
+Signals {
+   /* Signal_name                : Size,       Init,            Publisher, Subscriber(s) */
+   RefSpeed                      : 16,        0x0,            LINMaster, Motor;
+   ActSpeed                      : 16,        0x0,                Motor, LINMaster;
+   ActCurrent                    :  8,        0x0,                Motor, LINMaster;
+   ActVoltage                    :  8,        0x0,                Motor, LINMaster;
+   RespErr                       :  1,        0x0,                Motor, LINMaster;
+   StallSt                       :  1,        0x0,                Motor, LINMaster;
+   InnerErr                      :  1,        0x0,                Motor, LINMaster;
+   OverCurrErr                   :  1,        0x0,                Motor, LINMaster;
+   OverTempErr                   :  1,        0x0,                Motor, LINMaster;
+   PowerErr                      :  2,        0x0,                Motor, LINMaster;
+   Temperature                   :  8,        0x0,                Motor, LINMaster;
+   NTC                           :  8,        0x0,                Motor, LINMaster;
+   InternalVer                   :  8,        0x0,                Motor, LINMaster;
+   feedback4                     :  8,        0x0,                Motor, LINMaster;
+   feedback5                     :  8,        0x0,                Motor, LINMaster;
+   feedback6                     :  8,        0x0,                Motor, LINMaster;
+   feedback7                     :  8,        0x0,                Motor, LINMaster;
+   feedback8                     :  8,        0x0,                Motor, LINMaster;
+   SS_GDU                        :  1,        0x0,                Motor, LINMaster;
+   SS_OC                         :  1,        0x0,                Motor, LINMaster;
+   SS_SC                         :  1,        0x0,                Motor, LINMaster;
+   SS_Offset                     :  1,        0x0,                Motor, LINMaster;
+   SS_PB                         :  1,        0x0,                Motor, LINMaster;
+   SS_CurLimit                   :  1,        0x0,                Motor, LINMaster;
+   SS_CurOver                    :  1,        0x0,                Motor, LINMaster;
+   SS_TempLimit                  :  1,        0x0,                Motor, LINMaster;
+   SS_TempOver                   :  1,        0x0,                Motor, LINMaster;
+}
+/* ----------DIAGNOSTIC SIGNAL DEFINITIONS---------- */
+Diagnostic_signals {
+   /* MasterReq Reserved Signals */
+   MasterReqB0         :    8,   0;
+   MasterReqB1         :    8,   0;
+   MasterReqB2         :    8,   0;
+   MasterReqB3         :    8,   0;
+   MasterReqB4         :    8,   0;
+   MasterReqB5         :    8,   0;
+   MasterReqB6         :    8,   0;
+   MasterReqB7         :    8,   0;
+   /* SlaveResp Reserved Signals */
+   SlaveRespB0         :    8,   0;
+   SlaveRespB1         :    8,   0;
+   SlaveRespB2         :    8,   0;
+   SlaveRespB3         :    8,   0;
+   SlaveRespB4         :    8,   0;
+   SlaveRespB5         :    8,   0;
+   SlaveRespB6         :    8,   0;
+   SlaveRespB7         :    8,   0;
+}
+/* ----------UNCONDITIONAL FRAME DEFINITIONS---------- */
+Frames {
+   MotorCtrl           : 0x11, LINMaster           ,    8 {
+      RefSpeed            , 8;
+   }
+   MotorStatus         : 0x12, Motor               ,    8 {
+      ActSpeed            , 0;
+      ActVoltage          , 16;
+      ActCurrent          , 24;
+      RespErr             , 32;
+      StallSt             , 33;
+      InnerErr            , 34;
+      OverCurrErr         , 35;
+      OverTempErr         , 36;
+      PowerErr            , 37;
+   }
+   SystemStatus        : 0x13, Motor               ,    8 {
+      Temperature         , 0;
+      NTC                 , 8;
+      InternalVer         , 16;
+      SS_GDU              , 24;
+      SS_OC               , 25;
+      SS_SC               , 26;
+      SS_PB               , 27;
+      SS_Offset           , 28;
+      SS_CurLimit         , 29;
+      SS_CurOver          , 30;
+      SS_TempLimit        , 31;
+      SS_TempOver         , 32;
+      feedback7           , 48;
+      feedback8           , 56;
+   }
+}
+/* ----------DIAGNOSTIC FRAME DEFINITIONS---------- */
+Diagnostic_frames {
+   MasterReq           : 0x3c {
+      MasterReqB0         , 0;
+      MasterReqB1         , 8;
+      MasterReqB2         , 16;
+      MasterReqB3         , 24;
+      MasterReqB4         , 32;
+      MasterReqB5         , 40;
+      MasterReqB6         , 48;
+      MasterReqB7         , 56;
+   }
+   SlaveResp           : 0x3d {
+      SlaveRespB0         , 0;
+      SlaveRespB1         , 8;
+      SlaveRespB2         , 16;
+      SlaveRespB3         , 24;
+      SlaveRespB4         , 32;
+      SlaveRespB5         , 40;
+      SlaveRespB6         , 48;
+      SlaveRespB7         , 56;
+   }
+}
+/* ----------NODE ATTRIBUTE DEFINITIONS---------- */
+Node_attributes {
+   Motor {
+      LIN_protocol               = "2.1";                    /* Node protocol version */
+      configured_NAD             = 0x1;                      /* configured NAD of node (1-125) */
+      initial_NAD                = 0x1;                      /* initial NAD of node (1-125) */
+      product_id                 = 0x1234, 0x5678,    0x0;   /* Product id */
+      response_error             = RespErr;                  /* Response error signal */
+      P2_min                     = 50 ms;                    /* P2_min */
+      ST_min                     = 0 ms;                     /* ST_min */
+      N_As_timeout               = 1000 ms;                  /* N_As timeout value */
+      N_Cr_timeout               = 1000 ms;                  /* N_Cr timeout value */
+      configurable_frames {
+         MotorCtrl;
+         MotorStatus;
+         SystemStatus;
+      }
+   }
+}
+/* ----------SCHEDULE TABLE DEFINITIONS---------- */
+Schedule_tables {
+   Run {
+      MotorCtrl                           delay 10.0 ms;
+      MotorStatus                         delay 10.0 ms;
+      SystemStatus                        delay 10.0 ms;
+   }
+}
+/* ----------SIGNAL ENCODDING DEFINITIONS---------- */
+Signal_encoding_types {
+   ActSpeed_Encoding {
+      physical_value,0,65535,1.0,0.0,"rpm";
+   }
+   RefSpeed_Encoding {
+      physical_value,0,127,1.0,0.0,"digital";
+   }
+   ActVoltage_Encoding {
+      physical_value,0,254,0.1,0.0,"V";
+   }
+   ActCurrent_Encoding {
+      physical_value,0,254,0.4,0.0,"A";
+   }
+   RespErr_Encoding {
+      logical_value,0,"Normal";
+      logical_value,1,"Error";
+   }
+   StallSt_Encoding {
+      logical_value,0,"Normal";
+      logical_value,1,"Stall";
+   }
+   InnerErr_Encoding {
+      logical_value,0,"Normal";
+      logical_value,1,"Inner Error";
+   }
+   OverCurrErr_Encoding {
+      logical_value,0,"Norma";
+      logical_value,1,"Over Current";
+   }
+   OverTempErr_Encoding {
+      logical_value,0,"Normal";
+      logical_value,1,"Over Temperature";
+   }
+   PowerErr_Encoding {
+      logical_value,0,"Norma";
+      logical_value,1,"Over Voltage";
+      logical_value,2,"Under Voltage";
+      logical_value,3,"Reserved";
+   }
+   Temperature_Encoding {
+      physical_value,0,255,1.0,-50.0,"¡æ";
+   }
+}
+/* ----------SIGNAL REPRESENTATION DEFINITIONS---------- */
+Signal_representation {
+   RefSpeed_Encoding   :RefSpeed;
+   ActSpeed_Encoding   :ActSpeed;
+   ActVoltage_Encoding :ActVoltage;
+   ActCurrent_Encoding :ActCurrent;
+   RespErr_Encoding    :RespErr;
+   StallSt_Encoding    :StallSt;
+   InnerErr_Encoding   :InnerErr;
+   OverCurrErr_Encoding:OverCurrErr;
+   OverTempErr_Encoding:OverTempErr;
+   PowerErr_Encoding   :PowerErr;
+   Temperature_Encoding:Temperature, NTC;
+}
+

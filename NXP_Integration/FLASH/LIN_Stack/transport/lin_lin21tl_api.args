@@ -1,0 +1,106 @@
+-allow_macro_redefs
+-DSWLIBS_DEFAULT_IMPLEMENTATION=SWLIBS_DEFAULT_IMPLEMENTATION_F16
+-nostdinc
+-nosyspath
+-i
+"$(ProjDirPath)/app/BSW"
+-i
+"$(ProjDirPath)/app/Common"
+-i
+"$(ProjDirPath)/app/CustomerInterface"
+-i
+"$(ProjDirPath)/app/DataLog"
+-i
+"$(ProjDirPath)/app/Diagnostic"
+-i
+"$(ProjDirPath)/app/InternalDiagnostic"
+-i
+"$(ProjDirPath)/app/Measurement"
+-i
+"$(ProjDirPath)/app/MotorOperation"
+-i
+"$(ProjDirPath)/app/ProjectConfig"
+-i
+"$(ProjDirPath)/app/Protection"
+-i
+"$(ProjDirPath)/app/SystemSchedule"
+-i
+"$(ProjDirPath)/app/UDS"
+-i
+"$(ProjDirPath)/lin_cfg"
+-i
+"$(ProjDirPath)/Lib"
+-i
+"$(ProjDirPath)/Project_Settings/Debugger"
+-i
+"$(ProjDirPath)/Project_Settings/Linker_Files"
+-i
+"$(ProjDirPath)/Project_Settings/Startup_Code"
+-i
+"$(ProjDirPath)/Project_Headers"
+-i
+"$(ProjDirPath)/LIN_Stack"
+-i
+"$(ProjDirPath)/LIN_Stack/bsp/AUTOBAUD"
+-i
+"$(ProjDirPath)/LIN_Stack/bsp/SCI"
+-i
+"$(ProjDirPath)/LIN_Stack/coreapi"
+-i
+"$(ProjDirPath)/LIN_Stack/diagnostic"
+-i
+"$(ProjDirPath)/LIN_Stack/include"
+-i
+"$(ProjDirPath)/LIN_Stack/lowlevel"
+-i
+"$(ProjDirPath)/LIN_Stack/transport"
+-i
+"$(ProjDirPath)/Config"
+-i
+"$(ProjDirPath)/src"
+-i
+"$(ProjDirPath)/src/FreeMASTER"
+-i
+"$(ProjDirPath)/src/FreeMASTER/S12ZVM"
+-i
+"$(ProjDirPath)/src/S12ZVM_system"
+-i
+"$(ProjDirPath)"
+-i
+"$(ProjDirPath)/src/S12ZVM_system/peripherals"
+-i
+"$(ProjDirPath)/src/S12ZVM_system/startup_CW"
+-i
+"$(ProjDirPath)/src/FreeMASTER/src_common"
+-i
+"$(MC9S12ZVM_AMMCLIB_V1_1_28)/include"
+-i
+"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/include"
+-i
+"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/src"
+-i
+"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/lib_small"
+-I-
+-I"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/include"
+-I-
+-I"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/src"
+-I-
+-I"$(MCUToolsBaseDirEnv)/S12lisa_Support/s12lisac/lib_small"
+-w possible
+-w extended
+-w extracomma
+-w emptydecl
+-w structclass
+-model small
+-bfield_lsbit_first
+-bfield_reduce_type
+-opt level=3
+-opt speed
+-requireprotos
+-lang c99
+-Cpp_Exceptions off
+-RTTI off
+-wchar_t off
+-char unsigned
+-msgstyle parseable
+-sym full
