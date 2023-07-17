@@ -218,6 +218,17 @@ long gettimerclk(void)
 	return (1000000);
 }
 
+
+void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength)
+{
+	
+}
+void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength)
+{
+	
+}
+
+
 void NVM_ProgramPage(unsigned char ucpageindex)
 {
 	

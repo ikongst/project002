@@ -97,10 +97,6 @@ v011, 2023-01-13, kongyun: add power error detection and record.
 #define FLASH_ADDRESS_DTC_MAX_INDEX                    ((FLASH_ADDRESS_DCT12-FLASH_ADDRESS_DTC1)>>4)
 
 void getdatafromflash(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
-//getdatafromflash(pvaluearr[FLASH_ADDRESS_CALCULATION_LENGTH], FLASH_ADDRESS_CALCULATION_START, FLASH_ADDRESS_CALCULATION_LENGTH);
-//getdatafromflash(pvaluearr[FLASH_ADDRESS_PARTNUMBER_LENGTH], FLASH_ADDRESS_PARTNUMBER_PCBA, FLASH_ADDRESS_PARTNUMBER_LENGTH);
-//getdatafromflash(pvaluearr[FLASH_ADDRESS_PARTNUMBER_LENGTH], FLASH_ADDRESS_PARTNUMBER_MOTOR, FLASH_ADDRESS_PARTNUMBER_LENGTH);
-//getdatafromflash(pvaluearr[FLASH_ADDRESS_PARTNUMBER_LENGTH], FLASH_ADDRESS_PARTNUMBER_PCBA, FLASH_ADDRESS_PARTNUMBER_LENGTH);
 void flashoperation(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
 
 extern unsigned int guiLibVersion_Datalog;

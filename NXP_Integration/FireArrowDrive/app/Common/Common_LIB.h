@@ -19,6 +19,7 @@
 #include "NTC.h"
 #include "BSW.h"
 
-//#include "UDS.h"
+#include "UDS.h"
+#include "lin.h"
 
 #endif

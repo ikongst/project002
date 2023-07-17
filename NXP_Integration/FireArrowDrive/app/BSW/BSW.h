@@ -87,6 +87,9 @@ void settrriger_fall(void);
 unsigned int gettimercntr(void);
 long gettimerclk(void); 
 
+void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
+void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
+
 // memory operation.
 #define FlashPageSize 128
 extern unsigned char TargetData[FlashPageSize];

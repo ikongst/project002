@@ -52,8 +52,10 @@ v011, 2023-01-13, kongyun: uds function optimized.
 											 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 											 TBdrv_Ch_Cfg HS3_Cfg);
 	void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int wduty);
-	void flashoperation(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
-  void getdatafromflash(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
+	
+	void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
+    void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
+    
 	void PWMDetection_INT(void);
 	void KONGST_TIMER21_Start(void);
 	
