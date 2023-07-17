@@ -12,9 +12,12 @@
 #include "meas_S12zvm.h"
 #include "motorinter.h"
 #include "pwm_control.h"
+#include "eeprom_S12Z.h"
+
 
 extern pwmControl_t pwmControlData;
 extern appFaultStatus_t	permFaults;	
+
 
 
 
@@ -219,13 +222,33 @@ long gettimerclk(void)
 }
 
 
-void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength)
+unsigned int Write_buf[8]={0x0001,0x0002,0x0003,0x0004,0x0005,0x0006,0x0007,0x0008};
+unsigned int read_buf[8];
+void BSW_NVM_ProgramPage(unsigned char ucpageindex,unsigned int *ptr)
 {
-	
+  unsigned char i;
+  unsigned long int addr=ucpageindex*16+0x100000;
+  for(i=0;i<4;i++)
+  EEPROM_Erase_Sector(addr+i*4);
+  for(i=0;i<2;i++)
+  read_buf[6+i]=EEPROM_Program(addr+i*8,ptr+i*4,4);  
 }
+unsigned int BSW_NVM_ReadData(unsigned char ucpageindex)
+{
+   unsigned char i;
+   unsigned long int addr=ucpageindex*16+0x100000;
+   for(i=0;i<8;i++)
+   read_buf[i]=EEPROM_Read_Word(addr+i*2);
+   return 0xffff;
+}
+
 void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength)
 {
-	
+	BSW_NVM_ProgramPage(dataaddress,Write_buf);
+}
+void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength)
+{
+	BSW_NVM_ReadData(startaddress);
 }
 
 
