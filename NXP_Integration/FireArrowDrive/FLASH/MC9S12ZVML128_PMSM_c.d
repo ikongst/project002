@@ -124,6 +124,7 @@ MC9S12ZVML128_PMSM_c.obj: F:\ServerSW\NXP\Project_Integration\NXP_Integration\Fi
 	C:\NXP\AMMCLIB\MC9S12ZVM_AMMCLIB_v1.1.28\include\AMCLIB_Windmilling.h \
 	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\src\meas_s12zvm.h \
 	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\src\actuate_s12zvm.h \
+	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\eeprom_S12Z.h \
 	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\src\pwm_control.h \
 	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\Config\PMSM_appconfig.h \
 	F:\ServerSW\NXP\Project_Integration\NXP_Integration\FireArrowDrive\motorinter.h \

@@ -30,7 +30,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 lin_cfg/lin_cfg_c.obj: ../lin_cfg/lin_cfg.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #28 $<'
+	@echo 'Executing target #29 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"lin_cfg/lin_cfg.args" -o "lin_cfg/lin_cfg_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

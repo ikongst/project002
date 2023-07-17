@@ -37,7 +37,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 app/Measurement/Measurement_c.obj: ../app/Measurement/Measurement.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #32 $<'
+	@echo 'Executing target #33 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Measurement/Measurement.args" -o "app/Measurement/Measurement_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -50,7 +50,7 @@ app/Measurement/%.d: ../app/Measurement/%.c
 
 app/Measurement/NTC_c.obj: ../app/Measurement/NTC.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #33 $<'
+	@echo 'Executing target #34 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Measurement/NTC.args" -o "app/Measurement/NTC_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

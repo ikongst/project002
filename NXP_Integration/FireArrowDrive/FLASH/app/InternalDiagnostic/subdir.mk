@@ -30,7 +30,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 app/InternalDiagnostic/InternalDiagnostic_c.obj: ../app/InternalDiagnostic/InternalDiagnostic.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #34 $<'
+	@echo 'Executing target #35 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/InternalDiagnostic/InternalDiagnostic.args" -o "app/InternalDiagnostic/InternalDiagnostic_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

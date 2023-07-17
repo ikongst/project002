@@ -30,7 +30,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 LIN_Stack/diagnostic/lin_diagnostic_service_c.obj: ../LIN_Stack/diagnostic/lin_diagnostic_service.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #50 $<'
+	@echo 'Executing target #51 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"LIN_Stack/diagnostic/lin_diagnostic_service.args" -o "LIN_Stack/diagnostic/lin_diagnostic_service_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

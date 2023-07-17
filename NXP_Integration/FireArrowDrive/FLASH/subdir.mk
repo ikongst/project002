@@ -7,30 +7,37 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS_QUOTED += \
 "../MC9S12ZVML128_PMSM.c" \
+"../eeprom_S12Z.c" \
 "../motorinter.c" \
 
 C_SRCS += \
 ../MC9S12ZVML128_PMSM.c \
+../eeprom_S12Z.c \
 ../motorinter.c \
 
 OBJS += \
 ./MC9S12ZVML128_PMSM_c.obj \
+./eeprom_S12Z_c.obj \
 ./motorinter_c.obj \
 
 OBJS_QUOTED += \
 "./MC9S12ZVML128_PMSM_c.obj" \
+"./eeprom_S12Z_c.obj" \
 "./motorinter_c.obj" \
 
 C_DEPS += \
 ./MC9S12ZVML128_PMSM_c.d \
+./eeprom_S12Z_c.d \
 ./motorinter_c.d \
 
 C_DEPS_QUOTED += \
 "./MC9S12ZVML128_PMSM_c.d" \
+"./eeprom_S12Z_c.d" \
 "./motorinter_c.d" \
 
 OBJS_OS_FORMAT += \
 ./MC9S12ZVML128_PMSM_c.obj \
+./eeprom_S12Z_c.obj \
 ./motorinter_c.obj \
 
 
@@ -48,9 +55,22 @@ MC9S12ZVML128_PMSM_c.d: ../MC9S12ZVML128_PMSM.c
 	
 	@echo ' '
 
-motorinter_c.obj: ../motorinter.c
+eeprom_S12Z_c.obj: ../eeprom_S12Z.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #27 $<'
+	@echo 'Invoking: S12Z Compiler'
+	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"eeprom_S12Z.args" -o "./eeprom_S12Z_c.obj" "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+eeprom_S12Z_c.d: ../eeprom_S12Z.c
+	@echo 'Regenerating dependency file: $@'
+	
+	@echo ' '
+
+motorinter_c.obj: ../motorinter.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #28 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"motorinter.args" -o "./motorinter_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

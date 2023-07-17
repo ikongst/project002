@@ -31,6 +31,7 @@
 "$(ProjDirPath)/FLASH/src/FreeMASTER/src_common/freemaster_tsa_c.obj"
 "$(ProjDirPath)/FLASH/src/FreeMASTER/S12ZVM/freemaster_HC12_c.obj"
 "$(ProjDirPath)/FLASH/MC9S12ZVML128_PMSM_c.obj"
+"$(ProjDirPath)/FLASH/eeprom_S12Z_c.obj"
 "$(ProjDirPath)/FLASH/motorinter_c.obj"
 "$(ProjDirPath)/FLASH/lin_cfg/lin_cfg_c.obj"
 "$(ProjDirPath)/FLASH/app/SystemSchedule/SystemSchedule_c.obj"

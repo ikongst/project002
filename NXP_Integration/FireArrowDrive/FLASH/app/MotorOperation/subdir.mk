@@ -30,7 +30,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 app/MotorOperation/MotorOperation_c.obj: ../app/MotorOperation/MotorOperation.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #31 $<'
+	@echo 'Executing target #32 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/MotorOperation/MotorOperation.args" -o "app/MotorOperation/MotorOperation_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

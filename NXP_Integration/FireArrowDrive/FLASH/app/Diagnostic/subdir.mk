@@ -51,7 +51,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 app/Diagnostic/Diagnostic_c.obj: ../app/Diagnostic/Diagnostic.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #35 $<'
+	@echo 'Executing target #36 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Diagnostic/Diagnostic.args" -o "app/Diagnostic/Diagnostic_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -64,7 +64,7 @@ app/Diagnostic/%.d: ../app/Diagnostic/%.c
 
 app/Diagnostic/Diagnostic_GAC_c.obj: ../app/Diagnostic/Diagnostic_GAC.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #36 $<'
+	@echo 'Executing target #37 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Diagnostic/Diagnostic_GAC.args" -o "app/Diagnostic/Diagnostic_GAC_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -72,7 +72,7 @@ app/Diagnostic/Diagnostic_GAC_c.obj: ../app/Diagnostic/Diagnostic_GAC.c
 
 app/Diagnostic/Diagnostic_Geely_c.obj: ../app/Diagnostic/Diagnostic_Geely.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #37 $<'
+	@echo 'Executing target #38 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Diagnostic/Diagnostic_Geely.args" -o "app/Diagnostic/Diagnostic_Geely_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -80,7 +80,7 @@ app/Diagnostic/Diagnostic_Geely_c.obj: ../app/Diagnostic/Diagnostic_Geely.c
 
 app/Diagnostic/Diagnostic_Platform_c.obj: ../app/Diagnostic/Diagnostic_Platform.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #38 $<'
+	@echo 'Executing target #39 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/Diagnostic/Diagnostic_Platform.args" -o "app/Diagnostic/Diagnostic_Platform_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

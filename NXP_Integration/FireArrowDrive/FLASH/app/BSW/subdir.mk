@@ -30,7 +30,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 app/BSW/BSW_c.obj: ../app/BSW/BSW.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #42 $<'
+	@echo 'Executing target #43 $<'
 	@echo 'Invoking: S12Z Compiler'
 	"$(S12Z_ToolsDirEnv)/mwccs12lisa" -c @@"app/BSW/BSW.args" -o "app/BSW/BSW_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

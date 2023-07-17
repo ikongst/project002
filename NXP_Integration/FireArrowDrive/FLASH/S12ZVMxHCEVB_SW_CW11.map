@@ -32,6 +32,7 @@ freemaster_scope_c.obj                  Model: SMALL,         Lang: ANSI-C,     
 freemaster_serial_c.obj                 Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
 freemaster_HC12_c.obj                   Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
 MC9S12ZVML128_PMSM_c.obj                Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
+eeprom_S12Z_c.obj                       Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
 motorinter_c.obj                        Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
 lin_cfg_c.obj                           Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
 SystemSchedule_c.obj                    Model: SMALL,         Lang: ANSI-C,        Compiler Version: C/C++ Compiler for S12/L-ISA v-5.0.45 build 18298
@@ -102,7 +103,7 @@ _startupData is allocated at 0xFE003E and uses 20 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1500     3518
-  _Copy    *toCopyDownBeg 0xFE6745
+  _Copy    *toCopyDownBeg 0xFE6763
   int      nofInitBodies  0
   _Cpp     *initBodies    0xFE0059
   int      nofFiniBodies  0
@@ -116,8 +117,8 @@ Section Name                    Size  Type     From       To       Segment
 .init                             62     R   0xFE0000   0xFE003D   ROM
 .startData                        27     R   0xFE003E   0xFE0058   ROM
 .rodata                          692     R   0xFE005C   0xFE030F   ROM
-.text                          25653     R   0xFE0310   0xFE6744   ROM
-.copy                            586     R   0xFE6745   0xFE698E   ROM
+.text                          25683     R   0xFE0310   0xFE6762   ROM
+.copy                            586     R   0xFE6763   0xFE69AC   ROM
 .stack                          1280   R/W     0x1000     0x14FF   RAM
 ptuTrigE                          40   R/W     0x1500     0x1527   RAM
 adcLists                         128   R/W     0x1528     0x15A7   RAM
@@ -525,7 +526,7 @@ vector                           496     R   0xFFFE10   0xFFFFFF   OSVECTORS
 .common                         2897   R/W     0x176D     0x22BD   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):        6B7C (dec:    27516)
+READ_ONLY (R):        6B9A (dec:    27546)
 READ_WRITE (R/W):     12BE (dec:     4798)
 NO_INIT (N/I):         1E4 (dec:      484)
 
@@ -733,29 +734,29 @@ MODULE:                 -- freemaster_HC12_c.obj --
 MODULE:                 -- MC9S12ZVML128_PMSM_c.obj --
 - PROCEDURES:
      systick_1ms                             FE1673       9       9       1   .text       
-     main                                    FE167C      74     116       1   .text       
-     ADC0error_ISR                           FE16F0      57      87       1   .text       
-     ADC1error_ISR                           FE1747      57      87       1   .text       
-     ADC0done_ISR                            FE179E       8       8       1   .text       
-     ADC1done_ISR                            FE17A6       8       8       1   .text       
-     PMFreloadA_ISR                          FE17AE     18E     398       1   .text       
-     TIM0chan3_ISR                           FE193C       A      10       1   .text       
-     TIM0overflow_ISR                        FE1946       E      14       1   .text       
-     stateReset                              FE1954     2BA     698       3   .text       
-     stateFault                              FE1C0E      68     104      80   .text       
-     stateInit                               FE1C76     113     275       6   .text       
-     stateReady                              FE1D89      2F      47       3   .text       
-     stateCalib                              FE1DB8      40      64       2   .text       
-     stateAlign                              FE1DF8      BA     186       2   .text       
-     stateRun                                FE1EB2     1E0     480       2   .text       
-     focSlowLoop                             FE2092     14C     332       1   .text       
-     focFastLoop                             FE21DE     1AB     427       1   .text       
-     faultDetection                          FE2389      83     131       1   .text       
-     stateLedOFF                             FE240C       5       5       3   .text       
-     stateLedON                              FE2411       5       5       1   .text       
-     stateLedFLASHING_SLOW                   FE2416      27      39       1   .text       
-     stateLedFLASHING_FASTER                 FE243D      2B      43       1   .text       
-     stateLedFLASHING_FAST                   FE2468      27      39       1   .text       
+     main                                    FE167C      7A     122       1   .text       
+     ADC0error_ISR                           FE16F6      57      87       1   .text       
+     ADC1error_ISR                           FE174D      57      87       1   .text       
+     ADC0done_ISR                            FE17A4       8       8       1   .text       
+     ADC1done_ISR                            FE17AC       8       8       1   .text       
+     PMFreloadA_ISR                          FE17B4     18E     398       1   .text       
+     TIM0chan3_ISR                           FE1942       A      10       1   .text       
+     TIM0overflow_ISR                        FE194C       E      14       1   .text       
+     stateReset                              FE195A     2BA     698       3   .text       
+     stateFault                              FE1C14      68     104      80   .text       
+     stateInit                               FE1C7C     113     275       6   .text       
+     stateReady                              FE1D8F      2F      47       3   .text       
+     stateCalib                              FE1DBE      40      64       2   .text       
+     stateAlign                              FE1DFE      BA     186       2   .text       
+     stateRun                                FE1EB8     1E0     480       2   .text       
+     focSlowLoop                             FE2098     14C     332       1   .text       
+     focFastLoop                             FE21E4     1AB     427       1   .text       
+     faultDetection                          FE238F      83     131       1   .text       
+     stateLedOFF                             FE2412       5       5       3   .text       
+     stateLedON                              FE2417       5       5       1   .text       
+     stateLedFLASHING_SLOW                   FE241C      27      39       1   .text       
+     stateLedFLASHING_FASTER                 FE2443      2B      43       1   .text       
+     stateLedFLASHING_FAST                   FE246E      27      39       1   .text       
 - VARIABLES:
      useRawDCBusForElim                        1712       1       1       1   .data       
      OL_SpeedRampInc                           1C84       4       4      19   .common     
@@ -790,11 +791,15 @@ MODULE:                 -- MC9S12ZVML128_PMSM_c.obj --
      tempfaults                                1D5C       6       6       3   .common     
      cntrState                                 1D64      15      21      84   .common     
      drvFOC                                    1D7C     150     336     364   .common     
+MODULE:                 -- eeprom_S12Z_c.obj --
+- PROCEDURES:
+     EEPROM_Init                             FE2495      18      24       1   .text       
+- VARIABLES:
 MODULE:                 -- motorinter_c.obj --
 - PROCEDURES:
-     MotorDrive_Start                        FE248F      10      16       2   .text       
-     MotorDrive_Stop                         FE249F       F      15       2   .text       
-     MotorDrive_Regulation                   FE24AE      35      53       1   .text       
+     MotorDrive_Start                        FE24AD      10      16       2   .text       
+     MotorDrive_Stop                         FE24BD       F      15       2   .text       
+     MotorDrive_Regulation                   FE24CC      35      53       1   .text       
 - VARIABLES:
      Runcommand                                1ECC       1       1       4   .common     
      directemp                                 1ECD       1       1       2   .common     
@@ -808,7 +813,7 @@ MODULE:                 -- motorinter_c.obj --
      SpeedIN                                   1EDC       2       2       1   .common     
 MODULE:                 -- lin_cfg_c.obj --
 - PROCEDURES:
-     ld_read_by_id_callout                   FE24E3      1D      29       2   .text       
+     ld_read_by_id_callout                   FE2501      1D      29       2   .text       
 - VARIABLES:
      lin_virtual_ifc                         FE005C       1       1       5   .rodata     
      LIN_NXP_response_error_signal           FE005D       1       1       1   .rodata     
@@ -850,10 +855,10 @@ MODULE:                 -- lin_cfg_c.obj --
      tl_service_status                         174C       1       1      13   .data       
 MODULE:                 -- SystemSchedule_c.obj --
 - PROCEDURES:
-     PWMLIN_quickservice                     FE2500      11      17       1   .text       
-     SetFlag_1MS                             FE2511       5       5       1   .text       
-     SystemSchedule_Init                     FE2516      13      19       1   .text       
-     SystemSchedule_Main                     FE2529      C2     194       1   .text       
+     PWMLIN_quickservice                     FE251E      11      17       1   .text       
+     SetFlag_1MS                             FE252F       5       5       1   .text       
+     SystemSchedule_Init                     FE2534      13      19       1   .text       
+     SystemSchedule_Main                     FE2547      C2     194       1   .text       
 - VARIABLES:
      sucsystemticket_1ms                       1F2E       1       1       3   .common     
      _ZZ19SystemSchedule_MainvE13ticketcounter       1F2F       1       1       3   .common     
@@ -863,12 +868,12 @@ MODULE:                 -- ProjectConfig_c.obj --
      gucswversion_internal                     174D       1       1       1   .data       
 MODULE:                 -- MotorOperation_c.obj --
 - PROCEDURES:
-     stopmotor                               FE25EB       8       8       5   .text       
-     startmotor                              FE25F3      10      16       1   .text       
-     speedregulation                         FE2603      18      24       1   .text       
-     checksleepmode                          FE261B      38      56       1   .text       
-     gotosleedmode                           FE2653      38      56       1   .text       
-     MotorOperation_Main                     FE268B     139     313       1   .text       
+     stopmotor                               FE2609       8       8       5   .text       
+     startmotor                              FE2611      10      16       1   .text       
+     speedregulation                         FE2621      18      24       1   .text       
+     checksleepmode                          FE2639      38      56       1   .text       
+     gotosleedmode                           FE2671      38      56       1   .text       
+     MotorOperation_Main                     FE26A9     139     313       1   .text       
 - VARIABLES:
      guiSpeedSet                               1F30       2       2       4   .common     
      gucMotorDriveState                        1F32       1       1       2   .common     
@@ -879,10 +884,10 @@ MODULE:                 -- MotorOperation_c.obj --
      suidelaycounter_Stop                      1F38       2       2       7   .common     
 MODULE:                 -- Measurement_c.obj --
 - PROCEDURES:
-     calibrationudpate                       FE27C4      93     147       1   .text       
-     compensationupdate                      FE2857       4       4       1   .text       
-     Data_filter                             FE285B     16D     365       1   .text       
-     Measurement_Main                        FE29C8       4       4       1   .text       
+     calibrationudpate                       FE27E2      93     147       1   .text       
+     compensationupdate                      FE2875       4       4       1   .text       
+     Data_filter                             FE2879     16D     365       1   .text       
+     Measurement_Main                        FE29E6       4       4       1   .text       
 - VARIABLES:
      Kvoltage                                  1F3C       2       2       3   .common     
      Bvoltage                                  1F3E       2       2       3   .common     
@@ -912,9 +917,9 @@ MODULE:                 -- Measurement_c.obj --
      guiVoltage                                1F8A       2       2      11   .common     
 MODULE:                 -- Diagnostic_c.obj --
 - PROCEDURES:
-     pwmdiagnostic                           FE29CC      E2     226       1   .text       
-     lindiagnostic                           FE2AAE       5       5       1   .text       
-     Diagnostic_Main                         FE2AB3       F      15       1   .text       
+     pwmdiagnostic                           FE29EA      E2     226       1   .text       
+     lindiagnostic                           FE2ACC       5       5       1   .text       
+     Diagnostic_Main                         FE2AD1       F      15       1   .text       
 - VARIABLES:
      gucTest_PINstatus                         1F8C       1       1       2   .common     
      guiTest_diag_period                       1F8E       2       2       1   .common     
@@ -932,8 +937,8 @@ MODULE:                 -- Diagnostic_c.obj --
      _ZZ13pwmdiagnosticvE22t2ndpeiodTime_previous_1       1FA6       2       2       2   .common     
 MODULE:                 -- Diagnostic_Platform_c.obj --
 - PROCEDURES:
-     LINDiagnostic_Platform                  FE2AC2     203     515       1   .text       
-     GetLowtimefromFailureMode               FE2CC5      79     121       1   .text       
+     LINDiagnostic_Platform                  FE2AE0     203     515       1   .text       
+     GetLowtimefromFailureMode               FE2CE3      79     121       1   .text       
 - VARIABLES:
      responseerrorcounter                      1FA8       2       2       3   .common     
      feedbacklowtimeOLD                        1FAA       2       2       3   .common     
@@ -949,10 +954,10 @@ MODULE:                 -- Common_c.obj --
      guiDebug_PowerLimit                       1FB8       2       2       3   .common     
 MODULE:                 -- TaskAnalysis_c.obj --
 - PROCEDURES:
-     ANALYSIS_TIMERSTART                     FE2D3E      26      38      10   .text       
-     ANALYSIS_TIMERSTOP                      FE2D64      27      39       3   .text       
-     TaskAnalysis_Overflow_INT               FE2D8B       7       7       1   .text       
-     TaskAnalysis_Main                       FE2D92      9E     158       1   .text       
+     ANALYSIS_TIMERSTART                     FE2D5C      26      38      10   .text       
+     ANALYSIS_TIMERSTOP                      FE2D82      27      39       3   .text       
+     TaskAnalysis_Overflow_INT               FE2DA9       7       7       1   .text       
+     TaskAnalysis_Main                       FE2DB0      9E     158       1   .text       
 - VARIABLES:
      gucAnalysisTimerOverflowFlagCounter       1FBC       2       2       4   .common     
      guiSystemTicketCounter_65536us            1FBE       2       2       3   .common     
@@ -965,35 +970,35 @@ MODULE:                 -- TaskAnalysis_c.obj --
      gucTaskCheckedFlag                        20E8      12      18       4   .common     
 MODULE:                 -- BSW_c.obj --
 - PROCEDURES:
-     BSW_PWM_Init                            FE2E30      19      25       2   .text       
-     BSW_LIN_Init                            FE2E49      10      16       2   .text       
-     BSW_LIN_service                         FE2E59       1       1       1   .text       
-     BSW_MotorStop                           FE2E5A       5       5       2   .text       
-     BSW_MotorStart                          FE2E5F       5       5       1   .text       
-     BSW_MotorRegulation                     FE2E64       6       6       1   .text       
-     BSW_KL15Config                          FE2E6A       1       1       1   .text       
-     BSW_setpinstatus_interface              FE2E6B       7       7       2   .text       
-     EnterintoSleep                          FE2E72       5       5       1   .text       
-     getrawvoltage                           FE2E77       4       4       1   .text       
-     getrawcurrent                           FE2E7B       4       4       1   .text       
-     getrawtemperature                       FE2E7F       7       7       1   .text       
-     getNTCDigitals                          FE2E86       B      11       1   .text       
-     getactualspeed                          FE2E91       4       4       1   .text       
-     ucgetPINInterfaceStatus                 FE2E95       6       6       1   .text       
-     ucgetPINEnableStatus                    FE2E9B       7       7       1   .text       
-     uigetGDUerror                           FE2EA2       7       7       1   .text       
-     uigetSCerror                            FE2EA9       2       2       1   .text       
-     uigetPBerror                            FE2EAB       2       2       1   .text       
-     uigetOCerror                            FE2EAD       2       2       1   .text       
-     uigetPowererror                         FE2EAF       2       2       1   .text       
-     uigetCurOffsetVal                       FE2EB1       4       4       1   .text       
-     uigetlinsignal                          FE2EB5      4F      79       1   .text       
-     settrriger_rise                         FE2F04       9       9       2   .text       
-     settrriger_fall                         FE2F0D       9       9       1   .text       
-     gettimercntr                            FE2F16       4       4       5   .text       
-     gettimerclk                             FE2F1A       6       6       1   .text       
-     NVM_ProgramPage                         FE2F20       1       1       1   .text       
-     NVM_ReadData                            FE2F21       4       4       1   .text       
+     BSW_PWM_Init                            FE2E4E      19      25       2   .text       
+     BSW_LIN_Init                            FE2E67      10      16       2   .text       
+     BSW_LIN_service                         FE2E77       1       1       1   .text       
+     BSW_MotorStop                           FE2E78       5       5       2   .text       
+     BSW_MotorStart                          FE2E7D       5       5       1   .text       
+     BSW_MotorRegulation                     FE2E82       6       6       1   .text       
+     BSW_KL15Config                          FE2E88       1       1       1   .text       
+     BSW_setpinstatus_interface              FE2E89       7       7       2   .text       
+     EnterintoSleep                          FE2E90       5       5       1   .text       
+     getrawvoltage                           FE2E95       4       4       1   .text       
+     getrawcurrent                           FE2E99       4       4       1   .text       
+     getrawtemperature                       FE2E9D       7       7       1   .text       
+     getNTCDigitals                          FE2EA4       B      11       1   .text       
+     getactualspeed                          FE2EAF       4       4       1   .text       
+     ucgetPINInterfaceStatus                 FE2EB3       6       6       1   .text       
+     ucgetPINEnableStatus                    FE2EB9       7       7       1   .text       
+     uigetGDUerror                           FE2EC0       7       7       1   .text       
+     uigetSCerror                            FE2EC7       2       2       1   .text       
+     uigetPBerror                            FE2EC9       2       2       1   .text       
+     uigetOCerror                            FE2ECB       2       2       1   .text       
+     uigetPowererror                         FE2ECD       2       2       1   .text       
+     uigetCurOffsetVal                       FE2ECF       4       4       1   .text       
+     uigetlinsignal                          FE2ED3      4F      79       1   .text       
+     settrriger_rise                         FE2F22       9       9       2   .text       
+     settrriger_fall                         FE2F2B       9       9       1   .text       
+     gettimercntr                            FE2F34       4       4       5   .text       
+     gettimerclk                             FE2F38       6       6       1   .text       
+     NVM_ProgramPage                         FE2F3E       1       1       1   .text       
+     NVM_ReadData                            FE2F3F       4       4       1   .text       
 - VARIABLES:
      TargetData                                20FC      80     128       2   .common     
      clearlindatacounter                       217C       2       2       4   .common     
@@ -1411,82 +1416,82 @@ MODULE:                 -- mc9s12zvml128_c.obj --
      _INT_CFADDR                                 17       1       1       0   .__absdata__INT_CFADDR__
 MODULE:                 -- lin_commontl_api_c.obj --
 - PROCEDURES:
-     ld_get_raw                              FE2F25       E      14       3   .text       
-     ld_receive_message                      FE2F33     12C     300       3   .text       
+     ld_get_raw                              FE2F43       E      14       3   .text       
+     ld_receive_message                      FE2F51     12C     300       3   .text       
 - VARIABLES:
 MODULE:                 -- lin_commontl_proto_c.obj --
 - PROCEDURES:
-     lin_tl_make_slaveres_pdu                FE305F     199     409       5   .text       
-     lin_tl_get_pdu                          FE31F8      2A      42       1   .text       
-     lin_process_pdu                         FE3222     14B     331       1   .text       
-     lin_tl_handler                          FE336D      BB     187       1   .text       
-     lin_tl_attach_service                   FE3428      FE     254       1   .text       
-     tl_put_raw                              FE3526      94     148       3   .text       
-     tl_get_raw                              FE35BA      73     115       2   .text       
+     lin_tl_make_slaveres_pdu                FE307D     199     409       5   .text       
+     lin_tl_get_pdu                          FE3216      2A      42       1   .text       
+     lin_process_pdu                         FE3240     14B     331       1   .text       
+     lin_tl_handler                          FE338B      BB     187       1   .text       
+     lin_tl_attach_service                   FE3446      FE     254       1   .text       
+     tl_put_raw                              FE3544      94     148       3   .text       
+     tl_get_raw                              FE35D8      73     115       2   .text       
 - VARIABLES:
      @82                                     FE00B8       5       5       1   .rodata     
 MODULE:                 -- lin_c.obj --
 - PROCEDURES:
-     initLIN                                 FE362D       D      13       1   .text       
-     lin_lld_init                            FE363A      11      17       1   .text       
-     lin_lld_ignore_response                 FE364B       E      14       1   .text       
-     lin_lld_set_low_power_mode              FE3659       E      14       2   .text       
-     lin_lld_set_response                    FE3667      1A      26       1   .text       
-     lin_lld_rx_response                     FE3681      10      16       1   .text       
-     lin_process_parity                      FE3691      6D     109       3   .text       
-     lin_checksum                            FE36FE      2D      45       2   .text       
-     lin_lld_timer_init                      FE372B       5       5       1   .text       
+     initLIN                                 FE364B       D      13       1   .text       
+     lin_lld_init                            FE3658      11      17       1   .text       
+     lin_lld_ignore_response                 FE3669       E      14       1   .text       
+     lin_lld_set_low_power_mode              FE3677       E      14       2   .text       
+     lin_lld_set_response                    FE3685      1A      26       1   .text       
+     lin_lld_rx_response                     FE369F      10      16       1   .text       
+     lin_process_parity                      FE36AF      6D     109       3   .text       
+     lin_checksum                            FE371C      2D      45       2   .text       
+     lin_lld_timer_init                      FE3749       5       5       1   .text       
 - VARIABLES:
 MODULE:                 -- lin_diagnostic_service_c.obj --
 - PROCEDURES:
-     lin_diagservice_assign_frame_id_range     FE3730      A4     164       1   .text       
-     lin_diagservice_read_by_identifier      FE37D4      CE     206       1   .text       
-     lin_condittional_change_nad             FE38A2      84     132       1   .text       
-     lin_diagsrv_functional_service          FE3926       F      15       1   .text       
+     lin_diagservice_assign_frame_id_range     FE374E      A4     164       1   .text       
+     lin_diagservice_read_by_identifier      FE37F2      CE     206       1   .text       
+     lin_condittional_change_nad             FE38C0      84     132       1   .text       
+     lin_diagsrv_functional_service          FE3944       F      15       1   .text       
 - VARIABLES:
      @154                                    FE00C0       5       5       1   .rodata     
 MODULE:                 -- lin_common_api_c.obj --
 - PROCEDURES:
-     l_sys_init                              FE3935       6       6       1   .text       
-     l_ifc_init                              FE393B       5       5       1   .text       
+     l_sys_init                              FE3953       6       6       1   .text       
+     l_ifc_init                              FE3959       5       5       1   .text       
 - VARIABLES:
 MODULE:                 -- lin_common_proto_c.obj --
 - PROCEDURES:
-     lin_pid_response_callback_handler       FE3940      36      54      10   .text       
-     lin_process_pid                         FE3976      A8     168       1   .text       
-     lin_update_rx                           FE3A1E      57      87       1   .text       
-     lin_update_tx                           FE3A75      69     105       1   .text       
-     lin_handle_error                        FE3ADE      64     100       1   .text       
-     lin_bus_activity_timeout                FE3B42       9       9       1   .text       
-     lin_update_tx_flags                     FE3B4B      4D      77       1   .text       
-     lin_update_rx_diag_frame                FE3B98      13      19       1   .text       
-     lin_make_res_diag_frame                 FE3BAB       5       5       1   .text       
-     lin_get_frame_index                     FE3BB0      25      37       4   .text       
-     lin_process_uncd_frame                  FE3BD5      74     116       3   .text       
+     lin_pid_response_callback_handler       FE395E      36      54      10   .text       
+     lin_process_pid                         FE3994      A8     168       1   .text       
+     lin_update_rx                           FE3A3C      57      87       1   .text       
+     lin_update_tx                           FE3A93      69     105       1   .text       
+     lin_handle_error                        FE3AFC      64     100       1   .text       
+     lin_bus_activity_timeout                FE3B60       9       9       1   .text       
+     lin_update_tx_flags                     FE3B69      4D      77       1   .text       
+     lin_update_rx_diag_frame                FE3BB6      13      19       1   .text       
+     lin_make_res_diag_frame                 FE3BC9       5       5       1   .text       
+     lin_get_frame_index                     FE3BCE      25      37       4   .text       
+     lin_process_uncd_frame                  FE3BF3      74     116       3   .text       
 - VARIABLES:
      frame_index                               217E       1       1       7   .common     
      frame_signal_error                        217F       1       1       3   .common     
 MODULE:                 -- lin_lin21_proto_c.obj --
 - PROCEDURES:
-     lin_update_word_status_lin21            FE3C49      34      52       4   .text       
-     lin_update_err_signal                   FE3C7D      36      54       2   .text       
-     lin_make_res_evnt_frame                 FE3CB3      20      32       1   .text       
+     lin_update_word_status_lin21            FE3C67      34      52       4   .text       
+     lin_update_err_signal                   FE3C9B      36      54       2   .text       
+     lin_make_res_evnt_frame                 FE3CD1      20      32       1   .text       
 - VARIABLES:
 MODULE:                 -- lin_isr_c.obj --
 - PROCEDURES:
-     SCI0_INT                                FE3CD3       6       6       1   .text       
-     TIMchan2_ISR                            FE3CD9      16      22       1   .text       
+     SCI0_INT                                FE3CF1       6       6       1   .text       
+     TIMchan2_ISR                            FE3CF7      16      22       1   .text       
 - VARIABLES:
 MODULE:                 -- lin_lld_sci_c.obj --
 - PROCEDURES:
-     lin_lld_sci_init                        FE3CEF      48      72       1   .text       
-     lin_lld_sci_ignore_response             FE3D37       5       5       1   .text       
-     lin_lld_sci_set_low_power_mode          FE3D3C       5       5       1   .text       
-     lin_lld_sci_rx_response                 FE3D41      12      18       1   .text       
-     lin_lld_sci_tx_response                 FE3D53      25      37       1   .text       
-     lin_lld_sci_timeout                     FE3D78      BE     190       1   .text       
-     lin_goto_idle_state                     FE3E36      11      17       6   .text       
-     lin_lld_sci_isr                         FE3E47     22F     559       1   .text       
+     lin_lld_sci_init                        FE3D0D      48      72       1   .text       
+     lin_lld_sci_ignore_response             FE3D55       5       5       1   .text       
+     lin_lld_sci_set_low_power_mode          FE3D5A       5       5       1   .text       
+     lin_lld_sci_rx_response                 FE3D5F      12      18       1   .text       
+     lin_lld_sci_tx_response                 FE3D71      25      37       1   .text       
+     lin_lld_sci_timeout                     FE3D96      BE     190       1   .text       
+     lin_goto_idle_state                     FE3E54      11      17       6   .text       
+     lin_lld_sci_isr                         FE3E65     22F     559       1   .text       
 - VARIABLES:
      cnt_byte                                  2180       1       1       7   .common     
      ptr                                       2184       3       3       3   .common     
@@ -1503,21 +1508,21 @@ MODULE:                 -- lin_lld_sci_c.obj --
      pid                                       1755       1       1       3   .data       
 MODULE:                 -- lin_lld_timesrv_c.obj --
 - PROCEDURES:
-     lin_lld_timer_S12_init                  FE4076      19      25       1   .text       
-     lin_lld_timer_isr                       FE408F       5       5       1   .text       
+     lin_lld_timer_S12_init                  FE4094      19      25       1   .text       
+     lin_lld_timer_isr                       FE40AD       5       5       1   .text       
 - VARIABLES:
 MODULE:                 -- rts12z.o (ansii.lib) --
 - PROCEDURES:
-     __clear                                 FE4094       6       6       1   .text       
+     __clear                                 FE40B2       6       6       1   .text       
 - VARIABLES:
 MODULE:                 -- CustomerInterface_c.obj (LIB_CustomerInterface_v010_NXP_600W.lib) --
 - PROCEDURES:
-     checkhighlowsignal                      FE409A      92     146       1   .text       
-     checkinvalidsignal                      FE412C      42      66       1   .text       
-     getcontrolspeedbycustomerinput          FE416E      CD     205       1   .text       
-     checkemergencymode                      FE423B      F3     243       1   .text       
-     ucPINStatusKL15_filter                  FE432E      34      52       1   .text       
-     CustomerInterface_Main                  FE4362      B3     179       1   .text       
+     checkhighlowsignal                      FE40B8      92     146       1   .text       
+     checkinvalidsignal                      FE414A      42      66       1   .text       
+     getcontrolspeedbycustomerinput          FE418C      CD     205       1   .text       
+     checkemergencymode                      FE4259      F3     243       1   .text       
+     ucPINStatusKL15_filter                  FE434C      34      52       1   .text       
+     CustomerInterface_Main                  FE4380      B3     179       1   .text       
 - VARIABLES:
      gucPWMInvalidStatus                       1756       1       1       6   .data       
      _ZZ18checkhighlowsignalhE18savedhighlowstatus       1757       1       1       4   .data       
@@ -1545,11 +1550,11 @@ MODULE:                 -- CustomerInterface_c.obj (LIB_CustomerInterface_v010_N
      finallycontrolspeed                       21B5       2       2       8   .common     
 MODULE:                 -- CustomerInterface_InputSignal_c.obj (LIB_CustomerInterface_v010_NXP_600W.lib) --
 - PROCEDURES:
-     InterfaceConfig                         FE4415      26      38       1   .text       
-     interfacestatusdetection                FE443B      D3     211       1   .text       
-     flashstartcheck                         FE450E      A4     164       1   .text       
-     updatepwmsignal                         FE45B2      D5     213       1   .text       
-     InputSignalDetection                    FE4687      1B      27       1   .text       
+     InterfaceConfig                         FE4433      26      38       1   .text       
+     interfacestatusdetection                FE4459      D3     211       1   .text       
+     flashstartcheck                         FE452C      A4     164       1   .text       
+     updatepwmsignal                         FE45D0      D5     213       1   .text       
+     InputSignalDetection                    FE46A5      1B      27       1   .text       
 - VARIABLES:
      guiPWMSignal_Freq                         21B7       2       2       5   .common     
      guiPWMSignal_Duty                         21B9       2       2       8   .common     
@@ -1576,10 +1581,10 @@ MODULE:                 -- CustomerInterface_InputSignal_c.obj (LIB_CustomerInte
      suiLINOptionValidDelay                    175C       2       2       5   .data       
 MODULE:                 -- PWMDetection_c.obj (LIB_CustomerInterface_v010_NXP_600W.lib) --
 - PROCEDURES:
-     PWMDetection_Init                       FE46A2      19      25       2   .text       
-     PWMDetection_Main                       FE46BB      63      99       1   .text       
-     PWMDetection_INT                        FE471E      90     144       1   .text       
-     PWM_overflow_INT                        FE47AE       8       8       1   .text       
+     PWMDetection_Init                       FE46C0      19      25       2   .text       
+     PWMDetection_Main                       FE46D9      63      99       1   .text       
+     PWMDetection_INT                        FE473C      90     144       1   .text       
+     PWM_overflow_INT                        FE47CC       8       8       1   .text       
 - VARIABLES:
      guiPWMDetection_Duty                      21D3       2       2       3   .common     
      guiPWMDetection_Freq                      21D5       2       2       3   .common     
@@ -1597,24 +1602,24 @@ MODULE:                 -- PWMDetection_c.obj (LIB_CustomerInterface_v010_NXP_60
      suconepwmdetectedflag                     175E       1       1       4   .data       
 MODULE:                 -- SpeedCurve_Platform_c.obj (LIB_CustomerInterface_v010_NXP_600W.lib) --
 - PROCEDURES:
-     GetSpeedByDigital                       FE47B6      41      65       1   .text       
+     GetSpeedByDigital                       FE47D4      41      65       1   .text       
 - VARIABLES:
      SPEEDCURVETABLE_CUSTOMER                FE00C5     100     256       5   .rodata     
      SPEEDCURVETABLE_LIN                     FE01C5     100     256       1   .rodata     
 MODULE:                 -- DataLog_c.obj (LIB_Datalog_v011_NXP.lib) --
 - PROCEDURES:
-     starttimebaserecording                  FE47F7     279     633       1   .text       
-     startinternalerrorrecording             FE4A70      6F     111       1   .text       
-     startspeedstatusrecording               FE4ADF     1F9     505       1   .text       
+     starttimebaserecording                  FE4815     279     633       1   .text       
+     startinternalerrorrecording             FE4A8E      6F     111       1   .text       
+     startspeedstatusrecording               FE4AFD     1F9     505       1   .text       
 - VARIABLES:
      guiLibVersion_Datalog                     175F       2       2       1   .data       
      readwritearr                              21F7      10      16      85   .common     
 MODULE:                 -- FlashOperation_c.obj (LIB_Datalog_v011_NXP.lib) --
 - PROCEDURES:
-     get4bytesfromflash                      FE4CD8      44      68       1   .text       
-     getdatafromflash                        FE4D1C      80     128       3   .text       
-     get1pagedatafromflash                   FE4D9C      2F      47       1   .text       
-     flashoperation                          FE4DCB      65     101       6   .text       
+     get4bytesfromflash                      FE4CF6      44      68       1   .text       
+     getdatafromflash                        FE4D3A      80     128       3   .text       
+     get1pagedatafromflash                   FE4DBA      2F      47       1   .text       
+     flashoperation                          FE4DE9      65     101       6   .text       
 - VARIABLES:
      pagestartaddressar                        1761       8       8       1   .data       
 MODULE:                 -- InternalError_c.obj (LIB_Datalog_v011_NXP.lib) --
@@ -1629,15 +1634,15 @@ MODULE:                 -- TimeBase_c.obj (LIB_Datalog_v011_NXP.lib) --
      gulTimeSpeedRangeArr                      222F      20      32      32   .common     
 MODULE:                 -- Protection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     MathRangeLimit16                        FE4E30      1E      30       3   .text       
-     speedlimitbycurrent                     FE4E4E      B8     184       1   .text       
-     speedlimitbypower                       FE4F06      BA     186       1   .text       
-     speedlimitbytemperature                 FE4FC0      AF     175       1   .text       
-     speedlimitation2                        FE506F      A5     165       1   .text       
-     getlimitcurrentbyvoltage                FE5114      6F     111       1   .text       
-     getlimitcurrentbytemperature            FE5183      6F     111       1   .text       
-     getlimitpower                           FE51F2      6F     111       1   .text       
-     Protection_Main                         FE5261     31D     797       1   .text       
+     MathRangeLimit16                        FE4E4E      1E      30       3   .text       
+     speedlimitbycurrent                     FE4E6C      B8     184       1   .text       
+     speedlimitbypower                       FE4F24      BA     186       1   .text       
+     speedlimitbytemperature                 FE4FDE      AF     175       1   .text       
+     speedlimitation2                        FE508D      A5     165       1   .text       
+     getlimitcurrentbyvoltage                FE5132      6F     111       1   .text       
+     getlimitcurrentbytemperature            FE51A1      6F     111       1   .text       
+     getlimitpower                           FE5210      6F     111       1   .text       
+     Protection_Main                         FE527F     31D     797       1   .text       
 - VARIABLES:
      guiLibVersion_Protection                  1769       2       2       1   .data       
      guiMaxSpeedCalculated                     224F       2       2       9   .common     
@@ -1656,8 +1661,8 @@ MODULE:                 -- Protection_c.obj (LIB_Protection_v017_NXP_600W.lib) -
      gProtectionFlags                          226A       4       4      40   .common     
 MODULE:                 -- blockageprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     overload_protection                     FE557E      9A     154       1   .text       
-     blockage_protection                     FE5618      AF     175       1   .text       
+     overload_protection                     FE559C      9A     154       1   .text       
+     blockage_protection                     FE5636      AF     175       1   .text       
 - VARIABLES:
      gucOneBlockedFlag                         226E       1       1       5   .common     
      gucBlockedCounter                         226F       1       1       5   .common     
@@ -1672,8 +1677,8 @@ MODULE:                 -- blockageprotection_c.obj (LIB_Protection_v017_NXP_600
      stallcounter                              227C       2       2       5   .common     
 MODULE:                 -- currentprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     overcurrent_protection                  FE56C7      72     114       1   .text       
-     limitcurrent_protection                 FE5739      72     114       1   .text       
+     overcurrent_protection                  FE56E5      72     114       1   .text       
+     limitcurrent_protection                 FE5757      72     114       1   .text       
 - VARIABLES:
      overcurrentflag                           227E       1       1       4   .common     
      overcurrentcounter                        227F       2       2      14   .common     
@@ -1681,12 +1686,12 @@ MODULE:                 -- currentprotection_c.obj (LIB_Protection_v017_NXP_600W
      currentlimitcounter                       2282       2       2      14   .common     
 MODULE:                 -- electronicsprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     el_GDU_protection                       FE57AB      89     137       1   .text       
-     el_shortcircuit_protection              FE5834      89     137       1   .text       
-     el_phasesbroken_protection              FE58BD      89     137       1   .text       
-     el_overcurrentHW_protection             FE5946      89     137       1   .text       
-     el_POWER_protection                     FE59CF      89     137       1   .text       
-     el_currentoffset_protection             FE5A58      35      53       1   .text       
+     el_GDU_protection                       FE57C9      89     137       1   .text       
+     el_shortcircuit_protection              FE5852      89     137       1   .text       
+     el_phasesbroken_protection              FE58DB      89     137       1   .text       
+     el_overcurrentHW_protection             FE5964      89     137       1   .text       
+     el_POWER_protection                     FE59ED      89     137       1   .text       
+     el_currentoffset_protection             FE5A76      35      53       1   .text       
 - VARIABLES:
      gucOneElectronicsError                    2284       1       1       8   .common     
      electronicserrorflag                      2285       1       1       4   .common     
@@ -1713,14 +1718,14 @@ MODULE:                 -- electronicsprotection_c.obj (LIB_Protection_v017_NXP_
      offsetcounter                             22A9       2       2       5   .common     
 MODULE:                 -- powerprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     limitpower_protection                   FE5A8D      7D     125       1   .text       
+     limitpower_protection                   FE5AAB      7D     125       1   .text       
 - VARIABLES:
      powerlimitflag                            22AB       1       1       4   .common     
      powerlimitcounter                         22AC       2       2      14   .common     
 MODULE:                 -- temperatureprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     temperaturewarning_protection           FE5B0A      72     114       1   .text       
-     temperatureerror_protection             FE5B7C      76     118       1   .text       
+     temperaturewarning_protection           FE5B28      72     114       1   .text       
+     temperatureerror_protection             FE5B9A      76     118       1   .text       
 - VARIABLES:
      temperaturederatingflag                   22AE       1       1       4   .common     
      temperaturederatingcounter                22AF       2       2      14   .common     
@@ -1729,9 +1734,9 @@ MODULE:                 -- temperatureprotection_c.obj (LIB_Protection_v017_NXP_
      suitempresumefilter_10ms                  176B       2       2       1   .data       
 MODULE:                 -- voltageprotection_c.obj (LIB_Protection_v017_NXP_600W.lib) --
 - PROCEDURES:
-     overvoltage_protection                  FE5BF2      72     114       1   .text       
-     lowvoltage_protection                   FE5C64      72     114       1   .text       
-     undervoltage_protection                 FE5CD6      72     114       1   .text       
+     overvoltage_protection                  FE5C10      72     114       1   .text       
+     lowvoltage_protection                   FE5C82      72     114       1   .text       
+     undervoltage_protection                 FE5CF4      72     114       1   .text       
 - VARIABLES:
      overvoltageerrorflag                      22B4       1       1       4   .common     
      overvoltagecounter                        22B5       2       2      14   .common     
@@ -1745,99 +1750,99 @@ MODULE:                 -- appl_diag_c.obj (LIB_UDS_v011_NXP.lib) --
      gucEOLTFirstSkipFlag                      22BD       1       1       4   .common     
 MODULE:                 -- AMCLIB_BemfObsrvDQ_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     AMCLIB_BemfObsrvDQInit_F16              FE5D48      1D      29       3   .text       
-     AMCLIB_BemfObsrvDQ_F16                  FE5D65     1C0     448       1   .text       
+     AMCLIB_BemfObsrvDQInit_F16              FE5D66      1D      29       3   .text       
+     AMCLIB_BemfObsrvDQ_F16                  FE5D83     1C0     448       1   .text       
 - VARIABLES:
 MODULE:                 -- AMCLIB_CurrentLoop_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     AMCLIB_CurrentLoopInit_F16              FE5F25       B      11       3   .text       
-     AMCLIB_CurrentLoopSetState_F16          FE5F30      1A      26       2   .text       
-     AMCLIB_CurrentLoop_F16                  FE5F4A     18C     396       2   .text       
+     AMCLIB_CurrentLoopInit_F16              FE5F43       B      11       3   .text       
+     AMCLIB_CurrentLoopSetState_F16          FE5F4E      1A      26       2   .text       
+     AMCLIB_CurrentLoop_F16                  FE5F68     18C     396       2   .text       
 - VARIABLES:
 MODULE:                 -- AMCLIB_SpeedLoop_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     AMCLIB_SpeedLoopInit_F16                FE60D6       C      12       2   .text       
-     AMCLIB_SpeedLoopSetState_F16            FE60E2      36      54       1   .text       
-     AMCLIB_SpeedLoop_F16                    FE6118      6E     110       1   .text       
+     AMCLIB_SpeedLoopInit_F16                FE60F4       C      12       2   .text       
+     AMCLIB_SpeedLoopSetState_F16            FE6100      36      54       1   .text       
+     AMCLIB_SpeedLoop_F16                    FE6136      6E     110       1   .text       
 - VARIABLES:
 MODULE:                 -- AMCLIB_TrackObsrv_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     AMCLIB_TrackObsrvInit_F16               FE6186       B      11       2   .text       
-     AMCLIB_TrackObsrv_F16                   FE6191      82     130       1   .text       
+     AMCLIB_TrackObsrvInit_F16               FE61A4       B      11       2   .text       
+     AMCLIB_TrackObsrv_F16                   FE61AF      82     130       1   .text       
 - VARIABLES:
 MODULE:                 -- GDFLIB_FilterIIR1_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GDFLIB_FilterIIR1Init_F16               FE6213       5       5       1   .text       
-     GDFLIB_FilterIIR1_F16                   FE6218      2A      42       1   .text       
+     GDFLIB_FilterIIR1Init_F16               FE6231       5       5       1   .text       
+     GDFLIB_FilterIIR1_F16                   FE6236      2A      42       1   .text       
 - VARIABLES:
 MODULE:                 -- GDFLIB_FilterMA_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GDFLIB_FilterMAInit_F16                 FE6242       3       3       1   .text       
-     GDFLIB_FilterMA_F16                     FE6245      14      20       3   .text       
+     GDFLIB_FilterMAInit_F16                 FE6260       3       3       1   .text       
+     GDFLIB_FilterMA_F16                     FE6263      14      20       3   .text       
 - VARIABLES:
 MODULE:                 -- GFLIB_Atan_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_Atan_F16                          FE6259      42      66       1   .text       
+     GFLIB_Atan_F16                          FE6277      42      66       1   .text       
 - VARIABLES:
      f16gflibAtanCoef                        FE02C8      30      48       1   .rodata     
 MODULE:                 -- GFLIB_ControllerPIpAW_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_ControllerPIpAW_F16               FE629B      92     146       1   .text       
+     GFLIB_ControllerPIpAW_F16               FE62B9      92     146       1   .text       
 - VARIABLES:
 MODULE:                 -- GFLIB_ControllerPIrAW_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_ControllerPIrAW_F16               FE632D      51      81       2   .text       
+     GFLIB_ControllerPIrAW_F16               FE634B      51      81       2   .text       
 - VARIABLES:
 MODULE:                 -- GFLIB_Cos_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_Cos_F16                           FE637E      67     103       4   .text       
+     GFLIB_Cos_F16                           FE639C      67     103       4   .text       
 - VARIABLES:
      f16gflibCosCoef                         FE02F8       8       8       4   .rodata     
 MODULE:                 -- GFLIB_IntegratorTR_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_IntegratorTR_F16                  FE63E5      29      41       1   .text       
+     GFLIB_IntegratorTR_F16                  FE6403      29      41       1   .text       
 - VARIABLES:
 MODULE:                 -- GFLIB_Limit_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_Limit_F16                         FE640E       D      13       2   .text       
+     GFLIB_Limit_F16                         FE642C       D      13       2   .text       
 - VARIABLES:
 MODULE:                 -- GFLIB_SinCos_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_SinCos_F16                        FE641B      85     133       1   .text       
+     GFLIB_SinCos_F16                        FE6439      85     133       1   .text       
 - VARIABLES:
      f16gflibSinCosCoef                      FE0300       8       8       1   .rodata     
 MODULE:                 -- GFLIB_Sin_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_Sin_F16                           FE64A0      61      97       4   .text       
+     GFLIB_Sin_F16                           FE64BE      61      97       4   .text       
 - VARIABLES:
      f16gflibSinCoef                         FE0308       8       8       4   .rodata     
 MODULE:                 -- GFLIB_Sqrt_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GFLIB_Sqrt_F16                          FE6501      B2     178       2   .text       
+     GFLIB_Sqrt_F16                          FE651F      B2     178       2   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_Clark_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_Clark_F16                        FE65B3      23      35       1   .text       
+     GMCLIB_Clark_F16                        FE65D1      23      35       1   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_DecouplingPMSM_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_DecouplingPMSM_F16               FE65D6      4C      76       1   .text       
+     GMCLIB_DecouplingPMSM_F16               FE65F4      4C      76       1   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_ElimDcBusRip_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_ElimDcBusRip_F16                 FE6622      35      53       1   .text       
+     GMCLIB_ElimDcBusRip_F16                 FE6640      35      53       1   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_ParkInv_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_ParkInv_F16                      FE6657      2F      47       2   .text       
+     GMCLIB_ParkInv_F16                      FE6675      2F      47       2   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_Park_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_Park_F16                         FE6686      37      55       2   .text       
+     GMCLIB_Park_F16                         FE66A4      37      55       2   .text       
 - VARIABLES:
 MODULE:                 -- GMCLIB_SvmStd_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a) --
 - PROCEDURES:
-     GMCLIB_SvmStd_F16                       FE66BD      88     136       2   .text       
+     GMCLIB_SvmStd_F16                       FE66DB      88     136       2   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1863,7 +1868,8 @@ MODULE STATISTIC
   freemaster_scope_c.obj                      33    171      0
   freemaster_serial_c.obj                     73    488      0
   freemaster_HC12_c.obj                        1    267      0
-  MC9S12ZVML128_PMSM_c.obj                   569   3612      0
+  MC9S12ZVML128_PMSM_c.obj                   569   3618      0
+  eeprom_S12Z_c.obj                            0     24      0
   motorinter_c.obj                            17     84      0
   lin_cfg_c.obj                              122     29     81
   SystemSchedule_c.obj                         2    235      0
@@ -1952,11 +1958,11 @@ SECTION: ".text"
   stateReset stateFault stateInit stateReady stateCalib stateAlign stateRun 
   focSlowLoop focFastLoop faultDetection stateLedOFF stateLedON 
   stateLedFLASHING_SLOW stateLedFLASHING_FASTER stateLedFLASHING_FAST 
-  MotorDrive_Start MotorDrive_Stop MotorDrive_Regulation ld_read_by_id_callout 
-  PWMLIN_quickservice SetFlag_1MS SystemSchedule_Init SystemSchedule_Main 
-  stopmotor startmotor speedregulation checksleepmode gotosleedmode 
-  MotorOperation_Main calibrationudpate compensationupdate Data_filter 
-  Measurement_Main pwmdiagnostic lindiagnostic Diagnostic_Main 
+  EEPROM_Init MotorDrive_Start MotorDrive_Stop MotorDrive_Regulation 
+  ld_read_by_id_callout PWMLIN_quickservice SetFlag_1MS SystemSchedule_Init 
+  SystemSchedule_Main stopmotor startmotor speedregulation checksleepmode 
+  gotosleedmode MotorOperation_Main calibrationudpate compensationupdate 
+  Data_filter Measurement_Main pwmdiagnostic lindiagnostic Diagnostic_Main 
   LINDiagnostic_Platform GetLowtimefromFailureMode ANALYSIS_TIMERSTART 
   ANALYSIS_TIMERSTOP TaskAnalysis_Overflow_INT TaskAnalysis_Main BSW_PWM_Init 
   BSW_LIN_Init BSW_LIN_service BSW_MotorStop BSW_MotorStart BSW_MotorRegulation 
@@ -3785,213 +3791,214 @@ OBJECT LIST SORTED BY ADDRESS
      FMSTR_AddressToBuffer                   FE1618      24      36       1   .text       
      FMSTR_AddressFromBuffer                 FE163C      37      55       6   .text       
      systick_1ms                             FE1673       9       9       1   .text       
-     main                                    FE167C      74     116       1   .text       
-     ADC0error_ISR                           FE16F0      57      87       1   .text       
-     ADC1error_ISR                           FE1747      57      87       1   .text       
-     ADC0done_ISR                            FE179E       8       8       1   .text       
-     ADC1done_ISR                            FE17A6       8       8       1   .text       
-     PMFreloadA_ISR                          FE17AE     18E     398       1   .text       
-     TIM0chan3_ISR                           FE193C       A      10       1   .text       
-     TIM0overflow_ISR                        FE1946       E      14       1   .text       
-     stateReset                              FE1954     2BA     698       3   .text       
-     stateFault                              FE1C0E      68     104      80   .text       
-     stateInit                               FE1C76     113     275       6   .text       
-     stateReady                              FE1D89      2F      47       3   .text       
-     stateCalib                              FE1DB8      40      64       2   .text       
-     stateAlign                              FE1DF8      BA     186       2   .text       
-     stateRun                                FE1EB2     1E0     480       2   .text       
-     focSlowLoop                             FE2092     14C     332       1   .text       
-     focFastLoop                             FE21DE     1AB     427       1   .text       
-     faultDetection                          FE2389      83     131       1   .text       
-     stateLedOFF                             FE240C       5       5       3   .text       
-     stateLedON                              FE2411       5       5       1   .text       
-     stateLedFLASHING_SLOW                   FE2416      27      39       1   .text       
-     stateLedFLASHING_FASTER                 FE243D      2B      43       1   .text       
-     stateLedFLASHING_FAST                   FE2468      27      39       1   .text       
-     MotorDrive_Start                        FE248F      10      16       2   .text       
-     MotorDrive_Stop                         FE249F       F      15       2   .text       
-     MotorDrive_Regulation                   FE24AE      35      53       1   .text       
-     ld_read_by_id_callout                   FE24E3      1D      29       2   .text       
-     PWMLIN_quickservice                     FE2500      11      17       1   .text       
-     SetFlag_1MS                             FE2511       5       5       1   .text       
-     SystemSchedule_Init                     FE2516      13      19       1   .text       
-     SystemSchedule_Main                     FE2529      C2     194       1   .text       
-     stopmotor                               FE25EB       8       8       5   .text       
-     startmotor                              FE25F3      10      16       1   .text       
-     speedregulation                         FE2603      18      24       1   .text       
-     checksleepmode                          FE261B      38      56       1   .text       
-     gotosleedmode                           FE2653      38      56       1   .text       
-     MotorOperation_Main                     FE268B     139     313       1   .text       
-     calibrationudpate                       FE27C4      93     147       1   .text       
-     compensationupdate                      FE2857       4       4       1   .text       
-     Data_filter                             FE285B     16D     365       1   .text       
-     Measurement_Main                        FE29C8       4       4       1   .text       
-     pwmdiagnostic                           FE29CC      E2     226       1   .text       
-     lindiagnostic                           FE2AAE       5       5       1   .text       
-     Diagnostic_Main                         FE2AB3       F      15       1   .text       
-     LINDiagnostic_Platform                  FE2AC2     203     515       1   .text       
-     GetLowtimefromFailureMode               FE2CC5      79     121       1   .text       
-     ANALYSIS_TIMERSTART                     FE2D3E      26      38      10   .text       
-     ANALYSIS_TIMERSTOP                      FE2D64      27      39       3   .text       
-     TaskAnalysis_Overflow_INT               FE2D8B       7       7       1   .text       
-     TaskAnalysis_Main                       FE2D92      9E     158       1   .text       
-     BSW_PWM_Init                            FE2E30      19      25       2   .text       
-     BSW_LIN_Init                            FE2E49      10      16       2   .text       
-     BSW_LIN_service                         FE2E59       1       1       1   .text       
-     BSW_MotorStop                           FE2E5A       5       5       2   .text       
-     BSW_MotorStart                          FE2E5F       5       5       1   .text       
-     BSW_MotorRegulation                     FE2E64       6       6       1   .text       
-     BSW_KL15Config                          FE2E6A       1       1       1   .text       
-     BSW_setpinstatus_interface              FE2E6B       7       7       2   .text       
-     EnterintoSleep                          FE2E72       5       5       1   .text       
-     getrawvoltage                           FE2E77       4       4       1   .text       
-     getrawcurrent                           FE2E7B       4       4       1   .text       
-     getrawtemperature                       FE2E7F       7       7       1   .text       
-     getNTCDigitals                          FE2E86       B      11       1   .text       
-     getactualspeed                          FE2E91       4       4       1   .text       
-     ucgetPINInterfaceStatus                 FE2E95       6       6       1   .text       
-     ucgetPINEnableStatus                    FE2E9B       7       7       1   .text       
-     uigetGDUerror                           FE2EA2       7       7       1   .text       
-     uigetSCerror                            FE2EA9       2       2       1   .text       
-     uigetPBerror                            FE2EAB       2       2       1   .text       
-     uigetOCerror                            FE2EAD       2       2       1   .text       
-     uigetPowererror                         FE2EAF       2       2       1   .text       
-     uigetCurOffsetVal                       FE2EB1       4       4       1   .text       
-     uigetlinsignal                          FE2EB5      4F      79       1   .text       
-     settrriger_rise                         FE2F04       9       9       2   .text       
-     settrriger_fall                         FE2F0D       9       9       1   .text       
-     gettimercntr                            FE2F16       4       4       5   .text       
-     gettimerclk                             FE2F1A       6       6       1   .text       
-     NVM_ProgramPage                         FE2F20       1       1       1   .text       
-     NVM_ReadData                            FE2F21       4       4       1   .text       
-     ld_get_raw                              FE2F25       E      14       3   .text       
-     ld_receive_message                      FE2F33     12C     300       3   .text       
-     lin_tl_make_slaveres_pdu                FE305F     199     409       5   .text       
-     lin_tl_get_pdu                          FE31F8      2A      42       1   .text       
-     lin_process_pdu                         FE3222     14B     331       1   .text       
-     lin_tl_handler                          FE336D      BB     187       1   .text       
-     lin_tl_attach_service                   FE3428      FE     254       1   .text       
-     tl_put_raw                              FE3526      94     148       3   .text       
-     tl_get_raw                              FE35BA      73     115       2   .text       
-     initLIN                                 FE362D       D      13       1   .text       
-     lin_lld_init                            FE363A      11      17       1   .text       
-     lin_lld_ignore_response                 FE364B       E      14       1   .text       
-     lin_lld_set_low_power_mode              FE3659       E      14       2   .text       
-     lin_lld_set_response                    FE3667      1A      26       1   .text       
-     lin_lld_rx_response                     FE3681      10      16       1   .text       
-     lin_process_parity                      FE3691      6D     109       3   .text       
-     lin_checksum                            FE36FE      2D      45       2   .text       
-     lin_lld_timer_init                      FE372B       5       5       1   .text       
-     lin_diagservice_assign_frame_id_range     FE3730      A4     164       1   .text       
-     lin_diagservice_read_by_identifier      FE37D4      CE     206       1   .text       
-     lin_condittional_change_nad             FE38A2      84     132       1   .text       
-     lin_diagsrv_functional_service          FE3926       F      15       1   .text       
-     l_sys_init                              FE3935       6       6       1   .text       
-     l_ifc_init                              FE393B       5       5       1   .text       
-     lin_pid_response_callback_handler       FE3940      36      54      10   .text       
-     lin_process_pid                         FE3976      A8     168       1   .text       
-     lin_update_rx                           FE3A1E      57      87       1   .text       
-     lin_update_tx                           FE3A75      69     105       1   .text       
-     lin_handle_error                        FE3ADE      64     100       1   .text       
-     lin_bus_activity_timeout                FE3B42       9       9       1   .text       
-     lin_update_tx_flags                     FE3B4B      4D      77       1   .text       
-     lin_update_rx_diag_frame                FE3B98      13      19       1   .text       
-     lin_make_res_diag_frame                 FE3BAB       5       5       1   .text       
-     lin_get_frame_index                     FE3BB0      25      37       4   .text       
-     lin_process_uncd_frame                  FE3BD5      74     116       3   .text       
-     lin_update_word_status_lin21            FE3C49      34      52       4   .text       
-     lin_update_err_signal                   FE3C7D      36      54       2   .text       
-     lin_make_res_evnt_frame                 FE3CB3      20      32       1   .text       
-     SCI0_INT                                FE3CD3       6       6       1   .text       
-     TIMchan2_ISR                            FE3CD9      16      22       1   .text       
-     lin_lld_sci_init                        FE3CEF      48      72       1   .text       
-     lin_lld_sci_ignore_response             FE3D37       5       5       1   .text       
-     lin_lld_sci_set_low_power_mode          FE3D3C       5       5       1   .text       
-     lin_lld_sci_rx_response                 FE3D41      12      18       1   .text       
-     lin_lld_sci_tx_response                 FE3D53      25      37       1   .text       
-     lin_lld_sci_timeout                     FE3D78      BE     190       1   .text       
-     lin_goto_idle_state                     FE3E36      11      17       6   .text       
-     lin_lld_sci_isr                         FE3E47     22F     559       1   .text       
-     lin_lld_timer_S12_init                  FE4076      19      25       1   .text       
-     lin_lld_timer_isr                       FE408F       5       5       1   .text       
-     __clear                                 FE4094       6       6       1   .text       
-     checkhighlowsignal                      FE409A      92     146       1   .text       
-     checkinvalidsignal                      FE412C      42      66       1   .text       
-     getcontrolspeedbycustomerinput          FE416E      CD     205       1   .text       
-     checkemergencymode                      FE423B      F3     243       1   .text       
-     ucPINStatusKL15_filter                  FE432E      34      52       1   .text       
-     CustomerInterface_Main                  FE4362      B3     179       1   .text       
-     InterfaceConfig                         FE4415      26      38       1   .text       
-     interfacestatusdetection                FE443B      D3     211       1   .text       
-     flashstartcheck                         FE450E      A4     164       1   .text       
-     updatepwmsignal                         FE45B2      D5     213       1   .text       
-     InputSignalDetection                    FE4687      1B      27       1   .text       
-     PWMDetection_Init                       FE46A2      19      25       2   .text       
-     PWMDetection_Main                       FE46BB      63      99       1   .text       
-     PWMDetection_INT                        FE471E      90     144       1   .text       
-     PWM_overflow_INT                        FE47AE       8       8       1   .text       
-     GetSpeedByDigital                       FE47B6      41      65       1   .text       
-     starttimebaserecording                  FE47F7     279     633       1   .text       
-     startinternalerrorrecording             FE4A70      6F     111       1   .text       
-     startspeedstatusrecording               FE4ADF     1F9     505       1   .text       
-     get4bytesfromflash                      FE4CD8      44      68       1   .text       
-     getdatafromflash                        FE4D1C      80     128       3   .text       
-     get1pagedatafromflash                   FE4D9C      2F      47       1   .text       
-     flashoperation                          FE4DCB      65     101       6   .text       
-     MathRangeLimit16                        FE4E30      1E      30       3   .text       
-     speedlimitbycurrent                     FE4E4E      B8     184       1   .text       
-     speedlimitbypower                       FE4F06      BA     186       1   .text       
-     speedlimitbytemperature                 FE4FC0      AF     175       1   .text       
-     speedlimitation2                        FE506F      A5     165       1   .text       
-     getlimitcurrentbyvoltage                FE5114      6F     111       1   .text       
-     getlimitcurrentbytemperature            FE5183      6F     111       1   .text       
-     getlimitpower                           FE51F2      6F     111       1   .text       
-     Protection_Main                         FE5261     31D     797       1   .text       
-     overload_protection                     FE557E      9A     154       1   .text       
-     blockage_protection                     FE5618      AF     175       1   .text       
-     overcurrent_protection                  FE56C7      72     114       1   .text       
-     limitcurrent_protection                 FE5739      72     114       1   .text       
-     el_GDU_protection                       FE57AB      89     137       1   .text       
-     el_shortcircuit_protection              FE5834      89     137       1   .text       
-     el_phasesbroken_protection              FE58BD      89     137       1   .text       
-     el_overcurrentHW_protection             FE5946      89     137       1   .text       
-     el_POWER_protection                     FE59CF      89     137       1   .text       
-     el_currentoffset_protection             FE5A58      35      53       1   .text       
-     limitpower_protection                   FE5A8D      7D     125       1   .text       
-     temperaturewarning_protection           FE5B0A      72     114       1   .text       
-     temperatureerror_protection             FE5B7C      76     118       1   .text       
-     overvoltage_protection                  FE5BF2      72     114       1   .text       
-     lowvoltage_protection                   FE5C64      72     114       1   .text       
-     undervoltage_protection                 FE5CD6      72     114       1   .text       
-     AMCLIB_BemfObsrvDQInit_F16              FE5D48      1D      29       3   .text       
-     AMCLIB_BemfObsrvDQ_F16                  FE5D65     1C0     448       1   .text       
-     AMCLIB_CurrentLoopInit_F16              FE5F25       B      11       3   .text       
-     AMCLIB_CurrentLoopSetState_F16          FE5F30      1A      26       2   .text       
-     AMCLIB_CurrentLoop_F16                  FE5F4A     18C     396       2   .text       
-     AMCLIB_SpeedLoopInit_F16                FE60D6       C      12       2   .text       
-     AMCLIB_SpeedLoopSetState_F16            FE60E2      36      54       1   .text       
-     AMCLIB_SpeedLoop_F16                    FE6118      6E     110       1   .text       
-     AMCLIB_TrackObsrvInit_F16               FE6186       B      11       2   .text       
-     AMCLIB_TrackObsrv_F16                   FE6191      82     130       1   .text       
-     GDFLIB_FilterIIR1Init_F16               FE6213       5       5       1   .text       
-     GDFLIB_FilterIIR1_F16                   FE6218      2A      42       1   .text       
-     GDFLIB_FilterMAInit_F16                 FE6242       3       3       1   .text       
-     GDFLIB_FilterMA_F16                     FE6245      14      20       3   .text       
-     GFLIB_Atan_F16                          FE6259      42      66       1   .text       
-     GFLIB_ControllerPIpAW_F16               FE629B      92     146       1   .text       
-     GFLIB_ControllerPIrAW_F16               FE632D      51      81       2   .text       
-     GFLIB_Cos_F16                           FE637E      67     103       4   .text       
-     GFLIB_IntegratorTR_F16                  FE63E5      29      41       1   .text       
-     GFLIB_Limit_F16                         FE640E       D      13       2   .text       
-     GFLIB_SinCos_F16                        FE641B      85     133       1   .text       
-     GFLIB_Sin_F16                           FE64A0      61      97       4   .text       
-     GFLIB_Sqrt_F16                          FE6501      B2     178       2   .text       
-     GMCLIB_Clark_F16                        FE65B3      23      35       1   .text       
-     GMCLIB_DecouplingPMSM_F16               FE65D6      4C      76       1   .text       
-     GMCLIB_ElimDcBusRip_F16                 FE6622      35      53       1   .text       
-     GMCLIB_ParkInv_F16                      FE6657      2F      47       2   .text       
-     GMCLIB_Park_F16                         FE6686      37      55       2   .text       
-     GMCLIB_SvmStd_F16                       FE66BD      88     136       2   .text       
+     main                                    FE167C      7A     122       1   .text       
+     ADC0error_ISR                           FE16F6      57      87       1   .text       
+     ADC1error_ISR                           FE174D      57      87       1   .text       
+     ADC0done_ISR                            FE17A4       8       8       1   .text       
+     ADC1done_ISR                            FE17AC       8       8       1   .text       
+     PMFreloadA_ISR                          FE17B4     18E     398       1   .text       
+     TIM0chan3_ISR                           FE1942       A      10       1   .text       
+     TIM0overflow_ISR                        FE194C       E      14       1   .text       
+     stateReset                              FE195A     2BA     698       3   .text       
+     stateFault                              FE1C14      68     104      80   .text       
+     stateInit                               FE1C7C     113     275       6   .text       
+     stateReady                              FE1D8F      2F      47       3   .text       
+     stateCalib                              FE1DBE      40      64       2   .text       
+     stateAlign                              FE1DFE      BA     186       2   .text       
+     stateRun                                FE1EB8     1E0     480       2   .text       
+     focSlowLoop                             FE2098     14C     332       1   .text       
+     focFastLoop                             FE21E4     1AB     427       1   .text       
+     faultDetection                          FE238F      83     131       1   .text       
+     stateLedOFF                             FE2412       5       5       3   .text       
+     stateLedON                              FE2417       5       5       1   .text       
+     stateLedFLASHING_SLOW                   FE241C      27      39       1   .text       
+     stateLedFLASHING_FASTER                 FE2443      2B      43       1   .text       
+     stateLedFLASHING_FAST                   FE246E      27      39       1   .text       
+     EEPROM_Init                             FE2495      18      24       1   .text       
+     MotorDrive_Start                        FE24AD      10      16       2   .text       
+     MotorDrive_Stop                         FE24BD       F      15       2   .text       
+     MotorDrive_Regulation                   FE24CC      35      53       1   .text       
+     ld_read_by_id_callout                   FE2501      1D      29       2   .text       
+     PWMLIN_quickservice                     FE251E      11      17       1   .text       
+     SetFlag_1MS                             FE252F       5       5       1   .text       
+     SystemSchedule_Init                     FE2534      13      19       1   .text       
+     SystemSchedule_Main                     FE2547      C2     194       1   .text       
+     stopmotor                               FE2609       8       8       5   .text       
+     startmotor                              FE2611      10      16       1   .text       
+     speedregulation                         FE2621      18      24       1   .text       
+     checksleepmode                          FE2639      38      56       1   .text       
+     gotosleedmode                           FE2671      38      56       1   .text       
+     MotorOperation_Main                     FE26A9     139     313       1   .text       
+     calibrationudpate                       FE27E2      93     147       1   .text       
+     compensationupdate                      FE2875       4       4       1   .text       
+     Data_filter                             FE2879     16D     365       1   .text       
+     Measurement_Main                        FE29E6       4       4       1   .text       
+     pwmdiagnostic                           FE29EA      E2     226       1   .text       
+     lindiagnostic                           FE2ACC       5       5       1   .text       
+     Diagnostic_Main                         FE2AD1       F      15       1   .text       
+     LINDiagnostic_Platform                  FE2AE0     203     515       1   .text       
+     GetLowtimefromFailureMode               FE2CE3      79     121       1   .text       
+     ANALYSIS_TIMERSTART                     FE2D5C      26      38      10   .text       
+     ANALYSIS_TIMERSTOP                      FE2D82      27      39       3   .text       
+     TaskAnalysis_Overflow_INT               FE2DA9       7       7       1   .text       
+     TaskAnalysis_Main                       FE2DB0      9E     158       1   .text       
+     BSW_PWM_Init                            FE2E4E      19      25       2   .text       
+     BSW_LIN_Init                            FE2E67      10      16       2   .text       
+     BSW_LIN_service                         FE2E77       1       1       1   .text       
+     BSW_MotorStop                           FE2E78       5       5       2   .text       
+     BSW_MotorStart                          FE2E7D       5       5       1   .text       
+     BSW_MotorRegulation                     FE2E82       6       6       1   .text       
+     BSW_KL15Config                          FE2E88       1       1       1   .text       
+     BSW_setpinstatus_interface              FE2E89       7       7       2   .text       
+     EnterintoSleep                          FE2E90       5       5       1   .text       
+     getrawvoltage                           FE2E95       4       4       1   .text       
+     getrawcurrent                           FE2E99       4       4       1   .text       
+     getrawtemperature                       FE2E9D       7       7       1   .text       
+     getNTCDigitals                          FE2EA4       B      11       1   .text       
+     getactualspeed                          FE2EAF       4       4       1   .text       
+     ucgetPINInterfaceStatus                 FE2EB3       6       6       1   .text       
+     ucgetPINEnableStatus                    FE2EB9       7       7       1   .text       
+     uigetGDUerror                           FE2EC0       7       7       1   .text       
+     uigetSCerror                            FE2EC7       2       2       1   .text       
+     uigetPBerror                            FE2EC9       2       2       1   .text       
+     uigetOCerror                            FE2ECB       2       2       1   .text       
+     uigetPowererror                         FE2ECD       2       2       1   .text       
+     uigetCurOffsetVal                       FE2ECF       4       4       1   .text       
+     uigetlinsignal                          FE2ED3      4F      79       1   .text       
+     settrriger_rise                         FE2F22       9       9       2   .text       
+     settrriger_fall                         FE2F2B       9       9       1   .text       
+     gettimercntr                            FE2F34       4       4       5   .text       
+     gettimerclk                             FE2F38       6       6       1   .text       
+     NVM_ProgramPage                         FE2F3E       1       1       1   .text       
+     NVM_ReadData                            FE2F3F       4       4       1   .text       
+     ld_get_raw                              FE2F43       E      14       3   .text       
+     ld_receive_message                      FE2F51     12C     300       3   .text       
+     lin_tl_make_slaveres_pdu                FE307D     199     409       5   .text       
+     lin_tl_get_pdu                          FE3216      2A      42       1   .text       
+     lin_process_pdu                         FE3240     14B     331       1   .text       
+     lin_tl_handler                          FE338B      BB     187       1   .text       
+     lin_tl_attach_service                   FE3446      FE     254       1   .text       
+     tl_put_raw                              FE3544      94     148       3   .text       
+     tl_get_raw                              FE35D8      73     115       2   .text       
+     initLIN                                 FE364B       D      13       1   .text       
+     lin_lld_init                            FE3658      11      17       1   .text       
+     lin_lld_ignore_response                 FE3669       E      14       1   .text       
+     lin_lld_set_low_power_mode              FE3677       E      14       2   .text       
+     lin_lld_set_response                    FE3685      1A      26       1   .text       
+     lin_lld_rx_response                     FE369F      10      16       1   .text       
+     lin_process_parity                      FE36AF      6D     109       3   .text       
+     lin_checksum                            FE371C      2D      45       2   .text       
+     lin_lld_timer_init                      FE3749       5       5       1   .text       
+     lin_diagservice_assign_frame_id_range     FE374E      A4     164       1   .text       
+     lin_diagservice_read_by_identifier      FE37F2      CE     206       1   .text       
+     lin_condittional_change_nad             FE38C0      84     132       1   .text       
+     lin_diagsrv_functional_service          FE3944       F      15       1   .text       
+     l_sys_init                              FE3953       6       6       1   .text       
+     l_ifc_init                              FE3959       5       5       1   .text       
+     lin_pid_response_callback_handler       FE395E      36      54      10   .text       
+     lin_process_pid                         FE3994      A8     168       1   .text       
+     lin_update_rx                           FE3A3C      57      87       1   .text       
+     lin_update_tx                           FE3A93      69     105       1   .text       
+     lin_handle_error                        FE3AFC      64     100       1   .text       
+     lin_bus_activity_timeout                FE3B60       9       9       1   .text       
+     lin_update_tx_flags                     FE3B69      4D      77       1   .text       
+     lin_update_rx_diag_frame                FE3BB6      13      19       1   .text       
+     lin_make_res_diag_frame                 FE3BC9       5       5       1   .text       
+     lin_get_frame_index                     FE3BCE      25      37       4   .text       
+     lin_process_uncd_frame                  FE3BF3      74     116       3   .text       
+     lin_update_word_status_lin21            FE3C67      34      52       4   .text       
+     lin_update_err_signal                   FE3C9B      36      54       2   .text       
+     lin_make_res_evnt_frame                 FE3CD1      20      32       1   .text       
+     SCI0_INT                                FE3CF1       6       6       1   .text       
+     TIMchan2_ISR                            FE3CF7      16      22       1   .text       
+     lin_lld_sci_init                        FE3D0D      48      72       1   .text       
+     lin_lld_sci_ignore_response             FE3D55       5       5       1   .text       
+     lin_lld_sci_set_low_power_mode          FE3D5A       5       5       1   .text       
+     lin_lld_sci_rx_response                 FE3D5F      12      18       1   .text       
+     lin_lld_sci_tx_response                 FE3D71      25      37       1   .text       
+     lin_lld_sci_timeout                     FE3D96      BE     190       1   .text       
+     lin_goto_idle_state                     FE3E54      11      17       6   .text       
+     lin_lld_sci_isr                         FE3E65     22F     559       1   .text       
+     lin_lld_timer_S12_init                  FE4094      19      25       1   .text       
+     lin_lld_timer_isr                       FE40AD       5       5       1   .text       
+     __clear                                 FE40B2       6       6       1   .text       
+     checkhighlowsignal                      FE40B8      92     146       1   .text       
+     checkinvalidsignal                      FE414A      42      66       1   .text       
+     getcontrolspeedbycustomerinput          FE418C      CD     205       1   .text       
+     checkemergencymode                      FE4259      F3     243       1   .text       
+     ucPINStatusKL15_filter                  FE434C      34      52       1   .text       
+     CustomerInterface_Main                  FE4380      B3     179       1   .text       
+     InterfaceConfig                         FE4433      26      38       1   .text       
+     interfacestatusdetection                FE4459      D3     211       1   .text       
+     flashstartcheck                         FE452C      A4     164       1   .text       
+     updatepwmsignal                         FE45D0      D5     213       1   .text       
+     InputSignalDetection                    FE46A5      1B      27       1   .text       
+     PWMDetection_Init                       FE46C0      19      25       2   .text       
+     PWMDetection_Main                       FE46D9      63      99       1   .text       
+     PWMDetection_INT                        FE473C      90     144       1   .text       
+     PWM_overflow_INT                        FE47CC       8       8       1   .text       
+     GetSpeedByDigital                       FE47D4      41      65       1   .text       
+     starttimebaserecording                  FE4815     279     633       1   .text       
+     startinternalerrorrecording             FE4A8E      6F     111       1   .text       
+     startspeedstatusrecording               FE4AFD     1F9     505       1   .text       
+     get4bytesfromflash                      FE4CF6      44      68       1   .text       
+     getdatafromflash                        FE4D3A      80     128       3   .text       
+     get1pagedatafromflash                   FE4DBA      2F      47       1   .text       
+     flashoperation                          FE4DE9      65     101       6   .text       
+     MathRangeLimit16                        FE4E4E      1E      30       3   .text       
+     speedlimitbycurrent                     FE4E6C      B8     184       1   .text       
+     speedlimitbypower                       FE4F24      BA     186       1   .text       
+     speedlimitbytemperature                 FE4FDE      AF     175       1   .text       
+     speedlimitation2                        FE508D      A5     165       1   .text       
+     getlimitcurrentbyvoltage                FE5132      6F     111       1   .text       
+     getlimitcurrentbytemperature            FE51A1      6F     111       1   .text       
+     getlimitpower                           FE5210      6F     111       1   .text       
+     Protection_Main                         FE527F     31D     797       1   .text       
+     overload_protection                     FE559C      9A     154       1   .text       
+     blockage_protection                     FE5636      AF     175       1   .text       
+     overcurrent_protection                  FE56E5      72     114       1   .text       
+     limitcurrent_protection                 FE5757      72     114       1   .text       
+     el_GDU_protection                       FE57C9      89     137       1   .text       
+     el_shortcircuit_protection              FE5852      89     137       1   .text       
+     el_phasesbroken_protection              FE58DB      89     137       1   .text       
+     el_overcurrentHW_protection             FE5964      89     137       1   .text       
+     el_POWER_protection                     FE59ED      89     137       1   .text       
+     el_currentoffset_protection             FE5A76      35      53       1   .text       
+     limitpower_protection                   FE5AAB      7D     125       1   .text       
+     temperaturewarning_protection           FE5B28      72     114       1   .text       
+     temperatureerror_protection             FE5B9A      76     118       1   .text       
+     overvoltage_protection                  FE5C10      72     114       1   .text       
+     lowvoltage_protection                   FE5C82      72     114       1   .text       
+     undervoltage_protection                 FE5CF4      72     114       1   .text       
+     AMCLIB_BemfObsrvDQInit_F16              FE5D66      1D      29       3   .text       
+     AMCLIB_BemfObsrvDQ_F16                  FE5D83     1C0     448       1   .text       
+     AMCLIB_CurrentLoopInit_F16              FE5F43       B      11       3   .text       
+     AMCLIB_CurrentLoopSetState_F16          FE5F4E      1A      26       2   .text       
+     AMCLIB_CurrentLoop_F16                  FE5F68     18C     396       2   .text       
+     AMCLIB_SpeedLoopInit_F16                FE60F4       C      12       2   .text       
+     AMCLIB_SpeedLoopSetState_F16            FE6100      36      54       1   .text       
+     AMCLIB_SpeedLoop_F16                    FE6136      6E     110       1   .text       
+     AMCLIB_TrackObsrvInit_F16               FE61A4       B      11       2   .text       
+     AMCLIB_TrackObsrv_F16                   FE61AF      82     130       1   .text       
+     GDFLIB_FilterIIR1Init_F16               FE6231       5       5       1   .text       
+     GDFLIB_FilterIIR1_F16                   FE6236      2A      42       1   .text       
+     GDFLIB_FilterMAInit_F16                 FE6260       3       3       1   .text       
+     GDFLIB_FilterMA_F16                     FE6263      14      20       3   .text       
+     GFLIB_Atan_F16                          FE6277      42      66       1   .text       
+     GFLIB_ControllerPIpAW_F16               FE62B9      92     146       1   .text       
+     GFLIB_ControllerPIrAW_F16               FE634B      51      81       2   .text       
+     GFLIB_Cos_F16                           FE639C      67     103       4   .text       
+     GFLIB_IntegratorTR_F16                  FE6403      29      41       1   .text       
+     GFLIB_Limit_F16                         FE642C       D      13       2   .text       
+     GFLIB_SinCos_F16                        FE6439      85     133       1   .text       
+     GFLIB_Sin_F16                           FE64BE      61      97       4   .text       
+     GFLIB_Sqrt_F16                          FE651F      B2     178       2   .text       
+     GMCLIB_Clark_F16                        FE65D1      23      35       1   .text       
+     GMCLIB_DecouplingPMSM_F16               FE65F4      4C      76       1   .text       
+     GMCLIB_ElimDcBusRip_F16                 FE6640      35      53       1   .text       
+     GMCLIB_ParkInv_F16                      FE6675      2F      47       2   .text       
+     GMCLIB_Park_F16                         FE66A4      37      55       2   .text       
+     GMCLIB_SvmStd_F16                       FE66DB      88     136       2   .text       
      _vectab                                 FFFE10     1F0     496       0   vector      
 
 *********************************************************************************************
@@ -4016,6 +4023,9 @@ freemaster_rec_c.obj:
   FMSTR_SetUpRecBuff FMSTR_IsInRecBuffer 
 freemaster_HC12_c.obj:
   FMSTR_Isr FMSTR_FixHcs12xAddr 
+eeprom_S12Z_c.obj:
+  EEPROM_Erase_Verify_Section EEPROM_Program EEPROM_Erase_Sector 
+  EEPROM_Read_Byte EEPROM_Read_Word 
 BSW_c.obj:
   Emo_PWM_test BDRV_Set_Bridge Set_Bridge_DutyCycle 
 lin_commontl_api_c.obj:
@@ -4503,46 +4513,46 @@ MC9S12ZVML128_PMSM_c.obj:
   .dwarf.AdcErrorTRIG .dwarf.AdcErrorRSTAR .dwarf.AdcErrorLDOK 
   .dwarf.reload_PmfCnt .dwarf.pos_mode .dwarf.meas .dwarf.fmScale 
   .dwarf.permFaults .dwarf.tempfaults .dwarf.cntrState .dwarf.drvFOC 
-  .dwarf_type.@enum$102MC9S12ZVML128_PMSM_c .dwarf_type.long .dwarf_type.3719 
+  .dwarf_type.@enum$102MC9S12ZVML128_PMSM_c .dwarf_type.long .dwarf_type.3728 
   .dwarf_typedef.GDFLIB_FILTER_MA_T_F16 .dwarf_type.unsigned short 
   .dwarf_type.unsigned int .dwarf_type.unsigned char .dwarf_type.void 
-  .dwarf_type.char .dwarf_type.short .dwarf_type.3720 
-  .dwarf_typedef.SWLIBS_2Syst_F16 .dwarf_type.3721 .dwarf_typedef.pwmControl_t 
-  .dwarf_type.3722 .dwarf_typedef.pwmControlStatus_t .dwarf_type.3723 
+  .dwarf_type.char .dwarf_type.short .dwarf_type.3729 
+  .dwarf_typedef.SWLIBS_2Syst_F16 .dwarf_type.3730 .dwarf_typedef.pwmControl_t 
+  .dwarf_type.3731 .dwarf_typedef.pwmControlStatus_t .dwarf_type.3732 
   .dwarf_typedef.pwmControlConfig_t .dwarf_type.@enum$1908MC9S12ZVML128_PMSM_c 
-  .dwarf_type.3724 .dwarf_typedef.measModule_t .dwarf_type.3725 
-  .dwarf_typedef.measResult_t .dwarf_type.3726 .dwarf_typedef.meas_t 
-  .dwarf_type.3727 .dwarf_typedef.offset_t .dwarf_type.3728 
-  .dwarf_typedef.offsetBasic_t .dwarf_type.3729 .dwarf_typedef.calibParam_t 
-  .dwarf_type.3730 .dwarf_typedef.calibFlags_t .dwarf_type.3731 
-  .dwarf_type.3732 .dwarf_typedef.fm_scale_t .dwarf_type.unsigned long 
-  .dwarf_type.3733 .dwarf_typedef.appFaultStatus_t .dwarf_type.3734 
-  .dwarf_typedef.mcuFaultStatus_t .dwarf_type.3735 .dwarf_type.3736 
-  .dwarf_typedef.stMachineFaultStatus_t .dwarf_type.3737 .dwarf_type.3738 
-  .dwarf_typedef.motorFaultStatus_t .dwarf_type.3739 .dwarf_type.3740 
+  .dwarf_type.3733 .dwarf_typedef.measModule_t .dwarf_type.3734 
+  .dwarf_typedef.measResult_t .dwarf_type.3735 .dwarf_typedef.meas_t 
+  .dwarf_type.3736 .dwarf_typedef.offset_t .dwarf_type.3737 
+  .dwarf_typedef.offsetBasic_t .dwarf_type.3738 .dwarf_typedef.calibParam_t 
+  .dwarf_type.3739 .dwarf_typedef.calibFlags_t .dwarf_type.3740 
+  .dwarf_type.3741 .dwarf_typedef.fm_scale_t .dwarf_type.unsigned long 
+  .dwarf_type.3742 .dwarf_typedef.appFaultStatus_t .dwarf_type.3743 
+  .dwarf_typedef.mcuFaultStatus_t .dwarf_type.3744 .dwarf_type.3745 
+  .dwarf_typedef.stMachineFaultStatus_t .dwarf_type.3746 .dwarf_type.3747 
+  .dwarf_typedef.motorFaultStatus_t .dwarf_type.3748 .dwarf_type.3749 
   .dwarf_typedef.driveStates_t .dwarf_type.@enum$100MC9S12ZVML128_PMSM_c 
-  .dwarf_type.@enum$101MC9S12ZVML128_PMSM_c .dwarf_type.3741 
+  .dwarf_type.@enum$101MC9S12ZVML128_PMSM_c .dwarf_type.3750 
   .dwarf_typedef.userControl_t .dwarf_type.CONTORL_MODE_e 
-  .dwarf_type.@enum$1909MC9S12ZVML128_PMSM_c .dwarf_type.3742 
-  .dwarf_typedef.pmsmDrive_t .dwarf_type.3743 
-  .dwarf_typedef.AMCLIB_CURRENT_LOOP_T_F16 .dwarf_type.3744 
-  .dwarf_typedef.GFLIB_CONTROLLER_PIAW_R_T_F16 .dwarf_type.3745 
-  .dwarf_type.3746 .dwarf_type.3747 .dwarf_typedef.SWLIBS_3Syst_F16 
-  .dwarf_type.3748 .dwarf_typedef.GMCLIB_ELIMDCBUSRIP_T_F16 .dwarf_type.3749 
-  .dwarf_typedef.GMCLIB_DECOUPLINGPMSM_T_F16 .dwarf_type.3750 
-  .dwarf_typedef.AMCLIB_SPEED_LOOP_T_F16 .dwarf_type.3751 
-  .dwarf_typedef.GFLIB_CONTROLLER_PIAW_P_T_F16 .dwarf_type.3752 
-  .dwarf_typedef.GFLIB_RAMP_T_F32 .dwarf_type.3753 
-  .dwarf_typedef.GDFLIB_FILTER_IIR1_T_F16 .dwarf_type.3754 
-  .dwarf_typedef.GDFLIB_FILTER_IIR1_COEFF_T_F16 .dwarf_type.3755 
-  .dwarf_type.3756 .dwarf_type.3757 .dwarf_typedef.openLoopPospe_t 
-  .dwarf_type.3758 .dwarf_typedef.GFLIB_INTEGRATOR_TR_T_F16 .dwarf_type.3759 
-  .dwarf_typedef.sensorLessPospe_t .dwarf_type.3760 
-  .dwarf_typedef.AMCLIB_BEMF_OBSRV_DQ_T_F16 .dwarf_type.3761 
-  .dwarf_typedef.SWLIBS_2Syst_F32 .dwarf_type.3762 
-  .dwarf_typedef.AMCLIB_TRACK_OBSRV_T_F16 .dwarf_type.3763 
-  .dwarf_typedef.GFLIB_LIMIT_T_F16 .dwarf_type.3764 
-  .dwarf_typedef.pospeControl_t .dwarf_type.3765 .dwarf_typedef.scalarControl_t 
+  .dwarf_type.@enum$1909MC9S12ZVML128_PMSM_c .dwarf_type.3751 
+  .dwarf_typedef.pmsmDrive_t .dwarf_type.3752 
+  .dwarf_typedef.AMCLIB_CURRENT_LOOP_T_F16 .dwarf_type.3753 
+  .dwarf_typedef.GFLIB_CONTROLLER_PIAW_R_T_F16 .dwarf_type.3754 
+  .dwarf_type.3755 .dwarf_type.3756 .dwarf_typedef.SWLIBS_3Syst_F16 
+  .dwarf_type.3757 .dwarf_typedef.GMCLIB_ELIMDCBUSRIP_T_F16 .dwarf_type.3758 
+  .dwarf_typedef.GMCLIB_DECOUPLINGPMSM_T_F16 .dwarf_type.3759 
+  .dwarf_typedef.AMCLIB_SPEED_LOOP_T_F16 .dwarf_type.3760 
+  .dwarf_typedef.GFLIB_CONTROLLER_PIAW_P_T_F16 .dwarf_type.3761 
+  .dwarf_typedef.GFLIB_RAMP_T_F32 .dwarf_type.3762 
+  .dwarf_typedef.GDFLIB_FILTER_IIR1_T_F16 .dwarf_type.3763 
+  .dwarf_typedef.GDFLIB_FILTER_IIR1_COEFF_T_F16 .dwarf_type.3764 
+  .dwarf_type.3765 .dwarf_type.3766 .dwarf_typedef.openLoopPospe_t 
+  .dwarf_type.3767 .dwarf_typedef.GFLIB_INTEGRATOR_TR_T_F16 .dwarf_type.3768 
+  .dwarf_typedef.sensorLessPospe_t .dwarf_type.3769 
+  .dwarf_typedef.AMCLIB_BEMF_OBSRV_DQ_T_F16 .dwarf_type.3770 
+  .dwarf_typedef.SWLIBS_2Syst_F32 .dwarf_type.3771 
+  .dwarf_typedef.AMCLIB_TRACK_OBSRV_T_F16 .dwarf_type.3772 
+  .dwarf_typedef.GFLIB_LIMIT_T_F16 .dwarf_type.3773 
+  .dwarf_typedef.pospeControl_t .dwarf_type.3774 .dwarf_typedef.scalarControl_t 
   .dwarf.systick_1ms .dwarf.main .dwarf.ADC0error_ISR .dwarf.ADC1error_ISR 
   .dwarf.ADC0done_ISR .dwarf.ADC1done_ISR .dwarf.PMFreloadA_ISR 
   .dwarf.TIM0chan3_ISR .dwarf.TIM0overflow_ISR .dwarf.stateReset 
@@ -4620,6 +4630,26 @@ MC9S12ZVML128_PMSM_c.obj:
   .dwarf_aranges.stateLedON .dwarf_aranges.stateLedFLASHING_SLOW 
   .dwarf_aranges.stateLedFLASHING_FASTER .dwarf_aranges.stateLedFLASHING_FAST 
   dPI qPI Ref_speed TrigError1 TrigError0 reload_PmfCnt 
+eeprom_S12Z_c.obj:
+  .dwarf_type.unsigned char .dwarf_type.unsigned long .dwarf_type.unsigned int 
+  .dwarf_type.186 .dwarf_type.void .dwarf.EEPROM_Erase_Verify_Section 
+  .dwarf.EEPROM_Program .dwarf.EEPROM_Erase_Sector .dwarf.EEPROM_Read_Byte 
+  .dwarf.EEPROM_Read_Word .dwarf.EEPROM_Init 
+  .dwarf_loc.EEPROM_Erase_Verify_Section .dwarf_loc.EEPROM_Program 
+  .dwarf_loc.EEPROM_Erase_Sector .dwarf_loc.EEPROM_Read_Byte 
+  .dwarf_loc.EEPROM_Read_Word .dwarf_loc.EEPROM_Init 
+  .dwarf_line.EEPROM_Erase_Verify_Section .dwarf_line.EEPROM_Program 
+  .dwarf_line.EEPROM_Erase_Sector .dwarf_line.EEPROM_Read_Byte 
+  .dwarf_line.EEPROM_Read_Word .dwarf_line.EEPROM_Init 
+  .dwarf_frame.EEPROM_Erase_Verify_Section .dwarf_frame.EEPROM_Program 
+  .dwarf_frame.EEPROM_Erase_Sector .dwarf_frame.EEPROM_Read_Byte 
+  .dwarf_frame.EEPROM_Read_Word .dwarf_frame.EEPROM_Init 
+  .dwarf_pubnames.EEPROM_Erase_Verify_Section .dwarf_pubnames.EEPROM_Program 
+  .dwarf_pubnames.EEPROM_Erase_Sector .dwarf_pubnames.EEPROM_Read_Byte 
+  .dwarf_pubnames.EEPROM_Read_Word .dwarf_pubnames.EEPROM_Init 
+  .dwarf_aranges.EEPROM_Erase_Verify_Section .dwarf_aranges.EEPROM_Program 
+  .dwarf_aranges.EEPROM_Erase_Sector .dwarf_aranges.EEPROM_Read_Byte 
+  .dwarf_aranges.EEPROM_Read_Word .dwarf_aranges.EEPROM_Init 
 motorinter_c.obj:
   .dwarf.Runcommand .dwarf.directemp .dwarf.MotorDrive_MotorStatus 
   .dwarf.MotorDrive_uiActualSpeed .dwarf.MotorDrive_uiTargetSpeed 
@@ -7072,242 +7102,242 @@ GMCLIB_SvmStd_cUCSMALL.o (MC9S12ZVM_AMMCLIB.UC.a):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xFE6745 ---- SIZE       7 ---
+------- ROM-ADDRESS: 0xFE6763 ---- SIZE       7 ---
 Filling bytes inserted
  0000003500 1501
-------- ROM-ADDRESS: 0xFE674C ---- RAM-ADDRESS: 0x1501 ---- SIZE      17 ---
+------- ROM-ADDRESS: 0xFE676A ---- RAM-ADDRESS: 0x1501 ---- SIZE      17 ---
 Name of initialized Object : ptuTriggerList0:1
  7D00FA0177 01F4000000 C801900258
  0320
-------- ROM-ADDRESS: 0xFE675D ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xFE677B ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xFE6760 ---- RAM-ADDRESS: 0x1515 ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xFE677E ---- RAM-ADDRESS: 0x1515 ---- SIZE       3 ---
 Name of initialized Object : ptuTriggerList1:1
  9601F4
-------- ROM-ADDRESS: 0xFE6763 ---- SIZE       7 ---
-Filling bytes inserted
- 0000000000 0000
-------- ROM-ADDRESS: 0xFE676A ---- RAM-ADDRESS: 0x151F ---- SIZE       3 ---
-Name of initialized Object : ptuTriggerList1:11
- 9601F4
-------- ROM-ADDRESS: 0xFE676D ---- SIZE       6 ---
-Filling bytes inserted
- 0000000000 00
-------- ROM-ADDRESS: 0xFE6773 ---- RAM-ADDRESS: 0x1528 ---- SIZE      14 ---
-Name of initialized Object : ADC0CommandList
- 40D0000040 D0000040D0 0000C0D0
 ------- ROM-ADDRESS: 0xFE6781 ---- SIZE       7 ---
 Filling bytes inserted
+ 0000000000 0000
+------- ROM-ADDRESS: 0xFE6788 ---- RAM-ADDRESS: 0x151F ---- SIZE       3 ---
+Name of initialized Object : ptuTriggerList1:11
+ 9601F4
+------- ROM-ADDRESS: 0xFE678B ---- SIZE       6 ---
+Filling bytes inserted
+ 0000000000 00
+------- ROM-ADDRESS: 0xFE6791 ---- RAM-ADDRESS: 0x1528 ---- SIZE      14 ---
+Name of initialized Object : ADC0CommandList
+ 40D0000040 D0000040D0 0000C0D0
+------- ROM-ADDRESS: 0xFE679F ---- SIZE       7 ---
+Filling bytes inserted
  0000000A00 1548
-------- ROM-ADDRESS: 0xFE6788 ---- RAM-ADDRESS: 0x1548 ---- SIZE      10 ---
+------- ROM-ADDRESS: 0xFE67A6 ---- RAM-ADDRESS: 0x1548 ---- SIZE      10 ---
 Name of initialized Object : ADC1CommandList
  40CB0000C0 C90000C0D2
-------- ROM-ADDRESS: 0xFE6792 ---- SIZE       7 ---
+------- ROM-ADDRESS: 0xFE67B0 ---- SIZE       7 ---
 Filling bytes inserted
  0000002600 1568
-------- ROM-ADDRESS: 0xFE6799 ---- RAM-ADDRESS: 0x1568 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE67B7 ---- RAM-ADDRESS: 0x1568 ---- SIZE       8 ---
 Name of initialized Object : ADC0ResultList
  7FF67FF67F F67FF6
-------- ROM-ADDRESS: 0xFE67A1 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE67BF ---- SIZE       8 ---
 Filling bytes inserted
  0000000000 000000
-------- ROM-ADDRESS: 0xFE67A9 ---- RAM-ADDRESS: 0x1578 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE67C7 ---- RAM-ADDRESS: 0x1578 ---- SIZE       8 ---
 Name of initialized Object : ADC0ResultList:16
  7FF67FF67F F67FF6
-------- ROM-ADDRESS: 0xFE67B1 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE67CF ---- SIZE       8 ---
 Filling bytes inserted
  0000000000 000000
-------- ROM-ADDRESS: 0xFE67B9 ---- RAM-ADDRESS: 0x1588 ---- SIZE       6 ---
+------- ROM-ADDRESS: 0xFE67D7 ---- RAM-ADDRESS: 0x1588 ---- SIZE       6 ---
 Name of initialized Object : ADC1ResultList
  7FF67FF67F F6
-------- ROM-ADDRESS: 0xFE67BF ---- SIZE       7 ---
+------- ROM-ADDRESS: 0xFE67DD ---- SIZE       7 ---
 Filling bytes inserted
  000001C500 15A8
-------- ROM-ADDRESS: 0xFE67C6 ---- RAM-ADDRESS: 0x15A8 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67E4 ---- RAM-ADDRESS: 0x15A8 ---- SIZE       2 ---
 Name of initialized Object : minZeroPulse
  04DD
-------- ROM-ADDRESS: 0xFE67C8 ---- RAM-ADDRESS: 0x15AA ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67E6 ---- RAM-ADDRESS: 0x15AA ---- SIZE       2 ---
 Name of initialized Object : minSamplingPulse
  0666
-------- ROM-ADDRESS: 0xFE67CA ---- RAM-ADDRESS: 0x15AC ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67E8 ---- RAM-ADDRESS: 0x15AC ---- SIZE       2 ---
 Name of initialized Object : triggerOffset1
  FFE7
-------- ROM-ADDRESS: 0xFE67CC ---- RAM-ADDRESS: 0x15AE ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67EA ---- RAM-ADDRESS: 0x15AE ---- SIZE       2 ---
 Name of initialized Object : triggerOffset2
  FFE7
-------- ROM-ADDRESS: 0xFE67CE ---- RAM-ADDRESS: 0x15B0 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67EC ---- RAM-ADDRESS: 0x15B0 ---- SIZE       2 ---
 Name of initialized Object : triggerOffset3
  FFE7
-------- ROM-ADDRESS: 0xFE67D0 ---- RAM-ADDRESS: 0x15B2 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67EE ---- RAM-ADDRESS: 0x15B2 ---- SIZE       2 ---
 Name of initialized Object : triggerOffset4
  FFE7
-------- ROM-ADDRESS: 0xFE67D2 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE67F0 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE67D3 ---- RAM-ADDRESS: 0x15B5 ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xFE67F1 ---- RAM-ADDRESS: 0x15B5 ---- SIZE       3 ---
 Name of initialized Object : unitdev:1
  01C1D0
-------- ROM-ADDRESS: 0xFE67D6 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE67F4 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE67D7 ---- RAM-ADDRESS: 0x15B9 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE67F5 ---- RAM-ADDRESS: 0x15B9 ---- SIZE       1 ---
 Name of initialized Object : _ZZ18Meas_Get3PhCurrentP6structP6structtE9sectorK_1:1
  02
-------- ROM-ADDRESS: 0xFE67D8 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE67F6 ---- SIZE       2 ---
 Filling bytes inserted
  0000
-------- ROM-ADDRESS: 0xFE67DA ---- RAM-ADDRESS: 0x15BC ---- SIZE     294 ---
+------- ROM-ADDRESS: 0xFE67F8 ---- RAM-ADDRESS: 0x15BC ---- SIZE     294 ---
 Name of initialized Object : state_table
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C76FE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C76
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1D 89FE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1D89FE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1DB8FE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1DB8FE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1DF8FE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1DF8FE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1EB2FE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1EB2FE1C 0EFE1C0EFE 1C0EFE1D89
- FE1C76FE1C 76FE1C76FE 1C0EFE1954
- FE1C0EFE19 54FE1C0EFE 1C0EFE1C0E
- FE1954FE1C 0EFE1C0EFE 1C0EFE1C0E
- FE1C0EFE1C 0EFE1C76
-------- ROM-ADDRESS: 0xFE6900 ---- SIZE       2 ---
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1C14FE 1C7CFE1C14
+ FE1C14FE1C 14FE1C14FE 1C14FE1C7C
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1D 8FFE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1D8FFE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1DBEFE 1C14FE1C14
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1DBEFE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1DFEFE 1C14FE1C14
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1DFEFE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1EB8FE 1C14FE1C14
+ FE1C14FE1C 14FE1C14FE 1C14FE1C14
+ FE1EB8FE1C 14FE1C14FE 1C14FE1D8F
+ FE1C7CFE1C 7CFE1C7CFE 1C14FE195A
+ FE1C14FE19 5AFE1C14FE 1C14FE1C14
+ FE195AFE1C 14FE1C14FE 1C14FE1C14
+ FE1C14FE1C 14FE1C7C
+------- ROM-ADDRESS: 0xFE691E ---- SIZE       2 ---
 Filling bytes inserted
  0000
-------- ROM-ADDRESS: 0xFE6902 ---- RAM-ADDRESS: 0x16E4 ---- SIZE      21 ---
+------- ROM-ADDRESS: 0xFE6920 ---- RAM-ADDRESS: 0x16E4 ---- SIZE      21 ---
 Name of initialized Object : state_LED
- FE240CFE24 68FE240CFE 2416FE243D
- FE2411FE24 0C
-------- ROM-ADDRESS: 0xFE6917 ---- SIZE       3 ---
+ FE2412FE24 6EFE2412FE 241CFE2443
+ FE2417FE24 12
+------- ROM-ADDRESS: 0xFE6935 ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xFE691A ---- RAM-ADDRESS: 0x16FC ---- SIZE      21 ---
+------- ROM-ADDRESS: 0xFE6938 ---- RAM-ADDRESS: 0x16FC ---- SIZE      21 ---
 Name of initialized Object : @216
  4843285329 3132285829 2046726565
  4D41535445 52
-------- ROM-ADDRESS: 0xFE692F ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE694D ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE6930 ---- RAM-ADDRESS: 0x1712 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE694E ---- RAM-ADDRESS: 0x1712 ---- SIZE       1 ---
 Name of initialized Object : useRawDCBusForElim
  01
-------- ROM-ADDRESS: 0xFE6931 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE694F ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE6932 ---- RAM-ADDRESS: 0x1714 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE6950 ---- RAM-ADDRESS: 0x1714 ---- SIZE       8 ---
 Name of initialized Object : lin_pFrameBuf
  FF0000FFFF FFFFFF
-------- ROM-ADDRESS: 0xFE693A ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE6958 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xFE693E ---- RAM-ADDRESS: 0x1720 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE695C ---- RAM-ADDRESS: 0x1720 ---- SIZE       4 ---
 Name of initialized Object : lin_pFrameBuf:12
  80FFFFFF
-------- ROM-ADDRESS: 0xFE6942 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE6960 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xFE6946 ---- RAM-ADDRESS: 0x1728 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE6964 ---- RAM-ADDRESS: 0x1728 ---- SIZE       2 ---
 Name of initialized Object : lin_pFrameBuf:20
  FEFF
-------- ROM-ADDRESS: 0xFE6948 ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xFE6966 ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xFE694B ---- RAM-ADDRESS: 0x172D ---- SIZE       6 ---
+------- ROM-ADDRESS: 0xFE6969 ---- RAM-ADDRESS: 0x172D ---- SIZE       6 ---
 Name of initialized Object : lin_configuration_RAM:1
  1112133C3D FF
-------- ROM-ADDRESS: 0xFE6951 ---- RAM-ADDRESS: 0x1733 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE696F ---- RAM-ADDRESS: 0x1733 ---- SIZE       1 ---
 Name of initialized Object : lin_configured_NAD
  01
-------- ROM-ADDRESS: 0xFE6952 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE6970 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xFE6956 ---- RAM-ADDRESS: 0x1738 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE6974 ---- RAM-ADDRESS: 0x1738 ---- SIZE       8 ---
 Name of initialized Object : lin_tl_tx_queue:4
  0500000001 001F14
-------- ROM-ADDRESS: 0xFE695E ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE697C ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xFE6962 ---- RAM-ADDRESS: 0x1744 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xFE6980 ---- RAM-ADDRESS: 0x1744 ---- SIZE       8 ---
 Name of initialized Object : lin_tl_rx_queue:4
  0500000001 001F0C
-------- ROM-ADDRESS: 0xFE696A ---- RAM-ADDRESS: 0x174C ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6988 ---- RAM-ADDRESS: 0x174C ---- SIZE       1 ---
 Name of initialized Object : tl_service_status
  02
-------- ROM-ADDRESS: 0xFE696B ---- RAM-ADDRESS: 0x174D ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6989 ---- RAM-ADDRESS: 0x174D ---- SIZE       1 ---
 Name of initialized Object : gucswversion_internal
  FF
-------- ROM-ADDRESS: 0xFE696C ---- RAM-ADDRESS: 0x174E ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE698A ---- RAM-ADDRESS: 0x174E ---- SIZE       2 ---
 Name of initialized Object : _ZZ14uigetlinsignalvE13previousvalue
  FFFF
-------- ROM-ADDRESS: 0xFE696E ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE698C ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE696F ---- RAM-ADDRESS: 0x1751 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE698D ---- RAM-ADDRESS: 0x1751 ---- SIZE       1 ---
 Name of initialized Object : pSCI:1
  07
-------- ROM-ADDRESS: 0xFE6970 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE698E ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE6971 ---- RAM-ADDRESS: 0x1753 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE698F ---- RAM-ADDRESS: 0x1753 ---- SIZE       1 ---
 Name of initialized Object : ifc
  FF
-------- ROM-ADDRESS: 0xFE6972 ---- RAM-ADDRESS: 0x1754 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6990 ---- RAM-ADDRESS: 0x1754 ---- SIZE       1 ---
 Name of initialized Object : state
  FF
-------- ROM-ADDRESS: 0xFE6973 ---- RAM-ADDRESS: 0x1755 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6991 ---- RAM-ADDRESS: 0x1755 ---- SIZE       1 ---
 Name of initialized Object : pid
  80
-------- ROM-ADDRESS: 0xFE6974 ---- RAM-ADDRESS: 0x1756 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6992 ---- RAM-ADDRESS: 0x1756 ---- SIZE       1 ---
 Name of initialized Object : gucPWMInvalidStatus
  77
-------- ROM-ADDRESS: 0xFE6975 ---- RAM-ADDRESS: 0x1757 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6993 ---- RAM-ADDRESS: 0x1757 ---- SIZE       1 ---
 Name of initialized Object : _ZZ18checkhighlowsignalhE18savedhighlowstatus
  FF
-------- ROM-ADDRESS: 0xFE6976 ---- RAM-ADDRESS: 0x1758 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6994 ---- RAM-ADDRESS: 0x1758 ---- SIZE       1 ---
 Name of initialized Object : _ZZ18checkhighlowsignalhE17previous_pinlevel_0
  FF
-------- ROM-ADDRESS: 0xFE6977 ---- RAM-ADDRESS: 0x1759 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE6995 ---- RAM-ADDRESS: 0x1759 ---- SIZE       2 ---
 Name of initialized Object : guiLINSignal_Digital
  FFFF
-------- ROM-ADDRESS: 0xFE6979 ---- RAM-ADDRESS: 0x175B ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE6997 ---- RAM-ADDRESS: 0x175B ---- SIZE       1 ---
 Name of initialized Object : gucPINInterfacePullDownStatus
  01
-------- ROM-ADDRESS: 0xFE697A ---- RAM-ADDRESS: 0x175C ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE6998 ---- RAM-ADDRESS: 0x175C ---- SIZE       2 ---
 Name of initialized Object : suiLINOptionValidDelay
  7530
-------- ROM-ADDRESS: 0xFE697C ---- RAM-ADDRESS: 0x175E ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE699A ---- RAM-ADDRESS: 0x175E ---- SIZE       1 ---
 Name of initialized Object : suconepwmdetectedflag
  01
-------- ROM-ADDRESS: 0xFE697D ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE699B ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE697E ---- RAM-ADDRESS: 0x1760 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE699C ---- RAM-ADDRESS: 0x1760 ---- SIZE       1 ---
 Name of initialized Object : guiLibVersion_Datalog:1
  11
-------- ROM-ADDRESS: 0xFE697F ---- SIZE       3 ---
+------- ROM-ADDRESS: 0xFE699D ---- SIZE       3 ---
 Filling bytes inserted
  000000
-------- ROM-ADDRESS: 0xFE6982 ---- RAM-ADDRESS: 0x1764 ---- SIZE       5 ---
+------- ROM-ADDRESS: 0xFE69A0 ---- RAM-ADDRESS: 0x1764 ---- SIZE       5 ---
 Name of initialized Object : pagestartaddressar:3
  8001000180
-------- ROM-ADDRESS: 0xFE6987 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE69A5 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xFE6988 ---- RAM-ADDRESS: 0x176A ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xFE69A6 ---- RAM-ADDRESS: 0x176A ---- SIZE       1 ---
 Name of initialized Object : guiLibVersion_Protection:1
  17
-------- ROM-ADDRESS: 0xFE6989 ---- RAM-ADDRESS: 0x176B ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xFE69A7 ---- RAM-ADDRESS: 0x176B ---- SIZE       2 ---
 Name of initialized Object : suitempresumefilter_10ms
  0BB8
-------- ROM-ADDRESS: 0xFE698B ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xFE69A9 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
 
@@ -7417,8 +7447,8 @@ FMSTR_AddressToBuffer     USES pcm_bNextAddrIsEx
 FMSTR_AddressFromBuffer   USES pcm_bNextAddrIsEx 
 systick_1ms               USES uc1msflag SetFlag_1MS 
 main                      USES cpmu_init pim_init pmf_init ptu_init adc0_init 
-                                adc1_init sci1_init gdu_init initTIM initLIN l_sys_init 
-                                l_ifc_init FMSTR_Init cntrState state_table 
+                                adc1_init sci1_init gdu_init EEPROM_Init initTIM initLIN 
+                                l_sys_init l_ifc_init FMSTR_Init cntrState state_table 
                                 SystemSchedule_Init SystemSchedule_Main FMSTR_Poll 
 ADC0error_ISR             USES AdcError0 permFaults AdcErrorLDOK AdcErrorRSTAR 
                                 AdcErrorTRIG AdcErrorEOL AdcErrorCMD AdcErrorIA 
@@ -7817,6 +7847,8 @@ DEPENDENCY TREE
  |  +- sci1_init           
  |  |    
  |  +- gdu_init            
+ |  |    
+ |  +- EEPROM_Init         
  |  |    
  |  +- initTIM             
  |  |    
@@ -8531,5 +8563,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 5
-Total size of all blocks to be downloaded: 27516
+Total size of all blocks to be downloaded: 27546
 
