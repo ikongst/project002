@@ -243,12 +243,44 @@ unsigned int BSW_NVM_ReadData(unsigned char ucpageindex)
 }
 
 void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength)
-{
+{	
+	Write_buf[0] = arrpoints[0];
+	Write_buf[0] = arrpoints[1];
+	Write_buf[1] = arrpoints[2];
+	Write_buf[1] = arrpoints[3];
+	Write_buf[2] = arrpoints[4];
+	Write_buf[2] = arrpoints[5];
+	Write_buf[3] = arrpoints[6];
+	Write_buf[3] = arrpoints[7];
+	Write_buf[4] = arrpoints[8];
+	Write_buf[4] = arrpoints[9];
+	Write_buf[5] = arrpoints[10];
+	Write_buf[5] = arrpoints[11];
+	Write_buf[6] = arrpoints[12];
+	Write_buf[6] = arrpoints[13];
+	Write_buf[7] = arrpoints[14];
+	Write_buf[7] = arrpoints[15];		
 	BSW_NVM_ProgramPage(dataaddress,Write_buf);
 }
 void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength)
 {
 	BSW_NVM_ReadData(startaddress);
+	pvaluearr[0] = read_buf[0]>>8;
+	pvaluearr[1] = read_buf[0];
+	pvaluearr[2] = read_buf[1]>>8;
+	pvaluearr[3] = read_buf[1];
+	pvaluearr[4] = read_buf[2]>>8;
+	pvaluearr[5] = read_buf[2];
+	pvaluearr[6] = read_buf[3]>>8;
+	pvaluearr[7] = read_buf[3];
+	pvaluearr[8] = read_buf[4]>>8;
+	pvaluearr[9] = read_buf[4];
+	pvaluearr[10] = read_buf[5]>>8;
+	pvaluearr[11] = read_buf[5];
+	pvaluearr[12] = read_buf[6]>>8;
+	pvaluearr[13] = read_buf[6];
+	pvaluearr[14] = read_buf[7]>>8;
+	pvaluearr[15] = read_buf[7];		
 }
 
 

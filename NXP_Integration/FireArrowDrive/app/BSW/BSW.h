@@ -87,9 +87,6 @@ void settrriger_fall(void);
 unsigned int gettimercntr(void);
 long gettimerclk(void); 
 
-
-extern unsigned int Write_buf[8];
-extern unsigned int read_buf[8];
 void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
 void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
 
