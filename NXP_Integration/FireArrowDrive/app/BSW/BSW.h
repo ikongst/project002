@@ -82,6 +82,11 @@ unsigned int uigetOCerror(void);
 unsigned int uigetPowererror(void);
 unsigned int uigetCurOffsetVal(void);
 
+void settrriger_rise(void);
+void settrriger_fall(void);
+unsigned int gettimercntr(void);
+long gettimerclk(void); 
+
 // memory operation.
 #define FlashPageSize 128
 extern unsigned char TargetData[FlashPageSize];

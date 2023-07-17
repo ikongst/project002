@@ -1,13 +1,13 @@
 Units and locations in library 'LIB_CustomerInterface_v010_NXP_600W.lib'
 Unit name                                size     from       to
 Common_c.obj                             5312      102     5414
-CustomerInterface_InputSignal_c.obj     16080    25478    41558
-CustomerInterface_c.obj                 20064     5414    25478
-PWMDetection_c.obj                       9152    41558    50710
-SpeedCurve_GAC_c.obj                     1864    50710    52574
-SpeedCurve_Geely_c.obj                   1864    52574    54438
-SpeedCurve_Platform_c.obj                5064    54438    59502
-mylibrary_c.obj                          1896    59502    61398
+CustomerInterface_InputSignal_c.obj     16016    24854    40870
+CustomerInterface_c.obj                 19440     5414    24854
+PWMDetection_c.obj                       9248    40870    50118
+SpeedCurve_GAC_c.obj                     1864    50118    51982
+SpeedCurve_Geely_c.obj                   1864    51982    53846
+SpeedCurve_Platform_c.obj                5064    53846    58910
+mylibrary_c.obj                          1896    58910    60806
 
 EXPORTED OBJECTS
 BSW_LIN_Init                          I   (CustomerInterface_InputSignal_c.obj)
@@ -34,6 +34,7 @@ gettimerclk                           I   (PWMDetection_c.obj)
 gettimercntr                          I   (PWMDetection_c.obj)
 gucDebugEnable                        O   (Common_c.obj)
 gucDebug_PINEnableStatus              O   (Common_c.obj)
+gucEOLTFirstSkipFlag                  I   (CustomerInterface_InputSignal_c.obj)
 gucEmergencyType                      O   (CustomerInterface_c.obj)
 gucHighLowStatus                      O   (CustomerInterface_c.obj)
 gucInterfaceStatus                    O   (CustomerInterface_InputSignal_c.obj)
@@ -83,6 +84,7 @@ guiPWMSignal_Freq                     O   (CustomerInterface_InputSignal_c.obj)
 guiPWMSignal_Freq                     I   (CustomerInterface_c.obj)
 guiTargetSpeed                        O   (CustomerInterface_c.obj)
 interfacestatusdetection              F   (CustomerInterface_InputSignal_c.obj)
+settrriger_fall                       I   (PWMDetection_c.obj)
 settrriger_rise                       I   (PWMDetection_c.obj)
 sucflashmodeflag                      O   (CustomerInterface_InputSignal_c.obj)
 suiflashsignalexistcounter            O   (CustomerInterface_InputSignal_c.obj)

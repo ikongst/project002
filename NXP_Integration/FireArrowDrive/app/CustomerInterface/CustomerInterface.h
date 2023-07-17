@@ -19,7 +19,7 @@ v001, 2023-7-11, kongyun: initial version
 	#define LIB_PLATFORM_400W            1
 	#define LIB_PLATFORM_600W            2
 
-	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_600W
+	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_400W
 
 	#if   (LIB_PLATFORM_SELECTION == LIB_PLATFORM_GEN1)\
 			||(LIB_PLATFORM_SELECTION == LIB_PLATFORM_400W)
@@ -71,6 +71,8 @@ v001, 2023-7-11, kongyun: initial version
 	extern unsigned int guiMaxSpeedCalculated;
 	extern unsigned int guiMinSpeedCalculated;
 	
+	extern unsigned char gucEOLTFirstSkipFlag;
+	
 	
     void BSW_PWM_Init(void);
     void PWMDetection_Init(void);
@@ -84,13 +86,7 @@ v001, 2023-7-11, kongyun: initial version
     void settrriger_rise(void);
     void settrriger_fall(void);
     unsigned int gettimercntr(void);
-    long gettimerclk(void);
-    
-	#define PWMDETECTION_SET_EDGE_RISE()   settrriger_rise()//TIMER2->T2MOD.bit.EDGESEL = 1u
-	#define PWMDETECTION_SET_EDGE_FALL()   settrriger_fall//TIMER2->T2MOD.bit.EDGESEL = 0u
-	#define PWMDETECTION_GET_CAPTURE()     gettimercntr()//TIMER2_Get_Capture()
-	#define PWMDETECTION_GETTIMER_CLK()    gettimerclk()//PWM2_CLK
-    
+    long gettimerclk(void);   
 
 #else
     #include "Common_LIB.h"
