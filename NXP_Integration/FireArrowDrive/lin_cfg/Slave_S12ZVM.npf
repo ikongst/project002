@@ -31,12 +31,16 @@ network {
          READ_BY_IDENTIFIER      = 0xb2;
          SAVE_CONFIGURATION      = 0xb6;
          ASSIGN_FRAME_ID_RANGE   = 0xb7;
-         ASSIGN_FRAME_IDENTIFIER = 0xb1;
          READ_DATA_BY_IDENTIFIER = 0x22;
          SESSION_CONTROL         = 0x10;
          IO_CONTROL_BY_IDENTIFIER = 0x2f;
          FAULT_MEMORY_READ       = 0x19;
          FAULT_MEMORY_CLEAR      = 0x14;
+         WRITE_DATA_BY_IDENTIFIER = 0x2e;
+         DATA_DUMP               = 0xb4;
+         CONDITIONAL_CHANGE_NAD  = 0xb3;
+         ASSIGN_NAD              = 0xb0;
+         ASSIGN_FRAME_IDENTIFIER = 0xb1;
       }
    }
 }

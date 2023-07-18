@@ -114,6 +114,7 @@
 							<tool id="com.freescale.s12z.toolchain.compiler.136087518" name="S12Z Compiler" superClass="com.freescale.s12z.toolchain.compiler">
 								<option id="com.freescale.s12z.toolchain.compiler.input.include.797698144" name="Search User Paths (#include &quot;...&quot;)" superClass="com.freescale.s12z.toolchain.compiler.input.include" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/BSW&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/Common&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog&quot;"/>

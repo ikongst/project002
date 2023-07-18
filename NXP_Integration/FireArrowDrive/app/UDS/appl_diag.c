@@ -1197,6 +1197,20 @@ void lineolindication(void)
 	}
 }
 
+#include "lin_lin21tl_api.h"
+unsigned char diagServiceFlag_1[6] =
+{
+	 DIAGSRV_READ_DATA_BY_IDENTIFIER_ORDER,
+	 DIAGSRV_WRITE_DATA_BY_IDENTIFIER_ORDER,
+	 DIAGSRV_SESSION_CONTROL_ORDER,
+	 DIAGSRV_IO_CONTROL_BY_IDENTIFIER_ORDER,
+	 DIAGSRV_FAULT_MEMORY_READ_ORDER,   
+	 DIAGSRV_FAULT_MEMORY_CLEAR_ORDER          
+};
+
+
+unsigned char ucudsreceivedflag = FLAG_RESET;
+unsigned char receiveddata = 0;
 void vAPPLLinDiag(void)
 {
 	const uint8_t * ptSystemname;
@@ -1215,28 +1229,38 @@ void vAPPLLinDiag(void)
 		/* wait until all RAMBuffers are initialized */
 		//if(tEEMAreAllRAMBuffersInitialized() == EEMAllRAMBuffersInitialized)
 		{
-			/* wait for a diagnosis request */
-			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
-			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
+//			/* wait for a diagnosis request */
+//			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
+//			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
 			tDiagState = LD_WAIT_FOR_REQUEST;
 		}
 		break;
 
-	case LD_WAIT_FOR_REQUEST:
-	
-		if (LD_COMPLETED == ld_rx_status())
+	case LD_WAIT_FOR_REQUEST:	
+		
+		for (i = 0; i < 6; i++)
 		{
+			receiveddata = diag_get_flag(diagServiceFlag_1[i]);			
+			if (receiveddata!=0)
+			{
+				ucudsreceivedflag = FLAG_SET;
+				
+				break;
+			}	
+		}	  
+		
+		
+		if (ucudsreceivedflag==FLAG_SET)
+		{
+			ucudsreceivedflag = FLAG_RESET;
 			lineolindication();
 			
+			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
+			//u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
+
+			diag_clear_flag(diagServiceFlag_1[i]);
 			tAPPLDIAGEvaluateRequest();
 
-			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
-			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
-		}
-
-		else if(LD_IN_PROGRESS == ld_rx_status())
-		{
-			tDiagState = LD_WAIT_FOR_REQUEST;
 		}
 		else
 		{
@@ -1247,15 +1271,15 @@ void vAPPLLinDiag(void)
 	case LD_PROCESS_REQUEST:
 
 
-		if (LD_COMPLETED == ld_rx_status())
-		{		
-			lineolindication();
-			
-			tAPPLDIAGEvaluateRequest();
-			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
-			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
-			break;
-		}
+//		if (LD_COMPLETED == ld_rx_status())
+//		{		
+//			lineolindication();
+//			
+//			tAPPLDIAGEvaluateRequest();
+//			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
+//			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
+//			break;
+//		}
 
 		
 		/* process the request */

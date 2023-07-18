@@ -49,16 +49,16 @@ void MotorDrive_Stop(void)
   cntrState.usrControl.switchFaultClear = true;
 }
 
-
+#include "PMSM_appconfig.h"
 /*********input the required speed of motor**************/
 void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
+    long frac16speed = ((uispeedvalue<<15)/(unsigned int)N_MAX);
     if(!direct)
-      SpeedIN = uispeedvalue;
+      SpeedIN = frac16speed;
 	else
-	  SpeedIN = -uispeedvalue;
-
+	  SpeedIN = frac16speed+0x8000;
 	drvFOC.pospeControl.wRotElReq=SpeedIN;
 	
 	if(MLIB_Abs_F16(SpeedIN))
