@@ -40,7 +40,7 @@ network {
          DATA_DUMP               = 0xb4;
          CONDITIONAL_CHANGE_NAD  = 0xb3;
          ASSIGN_NAD              = 0xb0;
-         ASSIGN_FRAME_IDENTIFIER = 0xb1;
+         RoutineControl          = 0x31;
       }
    }
 }

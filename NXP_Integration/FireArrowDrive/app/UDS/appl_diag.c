@@ -652,7 +652,7 @@ void RunEOLService_TemperatureCalibration()
 		au8TXData[4] = (unsigned char)((guiTemperature_nocalibration>>8)&0x00ff);
 		au8TXData[5] = (unsigned char)(guiTemperature_nocalibration&0x00ff);
 		
-		ld_send_message(6,au8TXData);
+		ld_send_message_preparing(6,au8TXData);
 		tDiagState = LD_SEND_RESPONSE;		
 	}	
 	else
@@ -702,14 +702,14 @@ void RunEOLService_CurrentCalibration()
 			gEOLTRoutinues.Paramters.uiparameters = 0;
 			gEOLTRoutinues.uireturndata = 0;
 		
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;
 		case 0x02: // stop 
 			// current measurement
 			// closed low-3-phase mosfets
 		
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;		
 		case 0x03: // read data
@@ -718,7 +718,7 @@ void RunEOLService_CurrentCalibration()
 			au8TXData[4] = (unsigned char)((gEOLTRoutinues.uireturndata>>8)&0x00ff);
 			au8TXData[5] = (unsigned char)(gEOLTRoutinues.uireturndata&0x00ff);
 		
-			ld_send_message(6,au8TXData);
+			ld_send_message_preparing(6,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;		
 			break;
 		default: 
@@ -747,7 +747,7 @@ void RunEOLService_VoltageCalibration()
 		au8TXData[4] = (unsigned char)((guiVoltage_nocalibration>>8)&0x00ff);
 		au8TXData[5] = (unsigned char)(guiVoltage_nocalibration&0x00ff);
 		
-		ld_send_message(6,au8TXData);
+		ld_send_message_preparing(6,au8TXData);
 		tDiagState = LD_SEND_RESPONSE;		
 	}		
 	else
@@ -784,14 +784,14 @@ void RunEOLService4_PhasesCurrentTest(void)
 			gEOLTRoutinues.Paramters.ucparameters[0] = routineselect;
 			gEOLTRoutinues.Paramters.ucparameters[1] = routineduty;	
 		
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;
 		case 0x02: // stop 
 			// current measurement
 			// closed low-3-phase mosfets
 		
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;		
 		case 0x03: // read data
@@ -800,7 +800,7 @@ void RunEOLService4_PhasesCurrentTest(void)
 			au8TXData[4] = (unsigned char)((gEOLTRoutinues.uireturndata>>8)&0x00ff);
 			au8TXData[5] = (unsigned char)(gEOLTRoutinues.uireturndata&0x00ff);
 		
-			ld_send_message(6,au8TXData);
+			ld_send_message_preparing(6,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;		
 			break;
 		default: 
@@ -832,11 +832,11 @@ void RunEOLService5_KL15Check(void)
 			gEOLTRoutinues.Paramters.uiparameters = 0;
 			gEOLTRoutinues.uireturndata = 0;
 		
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;
 		case 0x02: // stop 
-			ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
+			ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH+1,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;
 			break;		
 		case 0x03: // read data
@@ -845,7 +845,7 @@ void RunEOLService5_KL15Check(void)
 			au8TXData[4] = (unsigned char)((gEOLTRoutinues.uireturndata>>8)&0x00ff);
 			au8TXData[5] = (unsigned char)(gEOLTRoutinues.uireturndata&0x00ff);
 		
-			ld_send_message(6,au8TXData);
+			ld_send_message_preparing(6,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;		
 			break;
 		default: 
@@ -902,7 +902,7 @@ void vAPPLDIAGAnpassung1Read(void)
 static void vAPPLDIAGSendNegativeResponse(uint8_t u8NRC)
 {
 	APPLDIAG_CONVERT_REQUEST_TO_NEG_RESPONSE_WITH_NRC(u8NRC);
-	ld_send_message(APPLDIAG_UDS_NEG_RESP_LENGTH,au8TXData);
+	ld_send_message_preparing(APPLDIAG_UDS_NEG_RESP_LENGTH,au8TXData);
 	tDiagState = LD_SEND_RESPONSE;
 }
 
@@ -1207,10 +1207,11 @@ unsigned char diagServiceFlag_1[6] =
 {
 	 DIAGSRV_READ_DATA_BY_IDENTIFIER_ORDER,
 	 DIAGSRV_WRITE_DATA_BY_IDENTIFIER_ORDER,
-	 DIAGSRV_SESSION_CONTROL_ORDER,
-	 DIAGSRV_IO_CONTROL_BY_IDENTIFIER_ORDER,
-	 DIAGSRV_FAULT_MEMORY_READ_ORDER,   
-	 DIAGSRV_FAULT_MEMORY_CLEAR_ORDER          
+	 DIAGSRV_ROUTINECONTROL_ORDER,
+	 //DIAGSRV_SESSION_CONTROL_ORDER,
+	 //DIAGSRV_IO_CONTROL_BY_IDENTIFIER_ORDER,
+	 //DIAGSRV_FAULT_MEMORY_READ_ORDER,   
+	 //DIAGSRV_FAULT_MEMORY_CLEAR_ORDER          
 };
 
 
@@ -1238,7 +1239,6 @@ void vAPPLLinDiag(void)
 //			/* wait for a diagnosis request */
 //			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
 //			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
-
 			diag_clear_flag(diagServiceFlag_1[diagnosticindex]);
 			tDiagState = LD_WAIT_FOR_REQUEST;
 		}

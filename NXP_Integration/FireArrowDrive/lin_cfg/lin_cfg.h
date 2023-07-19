@@ -13,7 +13,7 @@
 *  
 * @version   1.0 
 *  
-* @date      Tue Jul 18 09:08:52 CST 2023
+* @date      Wed Jul 19 15:46:57 CST 2023
 *  
 * @brief     Hardware configuration file
 * 
@@ -48,7 +48,7 @@
 #define MAX_QUEUE_SIZE 6
 
 
-#define _DIAG_NUMBER_OF_SERVICES_    13
+#define _DIAG_NUMBER_OF_SERVICES_    14
 
 #define DIAGSRV_READ_BY_IDENTIFIER_ORDER    0
 
@@ -74,7 +74,9 @@
 
 #define DIAGSRV_ASSIGN_NAD_ORDER    11
 
-#define DIAGSRV_ASSIGN_FRAME_IDENTIFIER_ORDER    12
+#define DIAGSRV_ROUTINECONTROL_ORDER    12
+
+#define DIAGSRV_ASSIGN_FRAME_IDENTIFIER_ORDER    13
 
 
 /**************** FRAME SUPPORT DEFINITION ******************/
