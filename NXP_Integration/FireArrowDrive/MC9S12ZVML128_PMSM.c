@@ -382,7 +382,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	getFcnStatus  = Meas_Get3PhCurrent(&meas, &drvFOC.iAbcFbck, drvFOC.svmSector);
 	getFcnStatus &= Meas_GetTemperature(&meas);
 	getFcnStatus &= Meas_GetTemp_NTC(&meas);
-	MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+	MotorDrive_uiTemperature =150-(1382-meas.measured.f16Temp.filt)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	
 	
 	//MotorDrive_uiTemperatureNTC_Digital=(long)((long)meas.measured.f16NTC.filt*645)>>12;

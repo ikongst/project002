@@ -3,6 +3,8 @@
 #include "mlib.h"
 #include "motor_structure.h"
 #include "state_machine.h"
+#include "PMSM_appconfig.h"
+
 
 extern pmsmDrive_t         drvFOC;         //handler of control 
 extern driveStates_t 		cntrState;     //handler of state
@@ -13,8 +15,8 @@ signed int  SpeedIN;                          //speed value input
 
 unsigned int MotorDrive_uiVoltage;            //bus voltage measure
 unsigned char MotorDrive_uiCurrent;         //bus current (raw)
-unsigned int MotorDrive_uiTemperature;        //MCU temperature
-unsigned int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
+signed int MotorDrive_uiTemperature;        //MCU temperature
+signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
 unsigned int MotorDrive_uiTargetSpeed;        //required speed output
 unsigned int MotorDrive_uiActualSpeed;        //actual speed output
@@ -54,12 +56,22 @@ void MotorDrive_Stop(void)
 void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
+	
+	long frac16speed = ((long)((long)uispeedvalue<<15)/(unsigned int)N_MAX);
+    if(!direct)
+      SpeedIN = frac16speed;
+    else
+     SpeedIN = frac16speed+0x8000;
+     drvFOC.pospeControl.wRotElReq=SpeedIN;
+	
+	/*
     if(!direct)
       SpeedIN = uispeedvalue;
 	else
 	  SpeedIN = -uispeedvalue;
 
 	drvFOC.pospeControl.wRotElReq=SpeedIN;
+	*/
 	
 	if(MLIB_Abs_F16(SpeedIN))
 	{
