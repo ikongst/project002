@@ -2,7 +2,6 @@
 #include "appl_diag.h"
 #include "EOLT.h"
 #include "Common.h"
-#include "diagnostic_service_slave.h"
 
 unsigned int guiLibVersion_UDS = 0x011;
 

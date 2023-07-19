@@ -156,27 +156,15 @@ void main(void)
     // eeprom write read test.
 	unsigned char tempreadarr[16] = {0};
 	unsigned char tempwritearr[16] = {0};
-	tempwritearr[0]= 0;
-	tempwritearr[1]= 0;
-	tempwritearr[2]= 0;
-	tempwritearr[3]= 0;
-	tempwritearr[4]= 0;
-	tempwritearr[5]= 0;
-	tempwritearr[6]= 0;
-	tempwritearr[7]= 0;
-	tempwritearr[8]= 0;
-	tempwritearr[9]= 0;
-	tempwritearr[10]= 0;
-	tempwritearr[11]= 0;
-	tempwritearr[12]= 0;
-	tempwritearr[13]= 0;
-	tempwritearr[14]= 0;
-	tempwritearr[15]= 0;		
-	flashoperation_1(tempwritearr, 0, 16);
-	flashoperation_1(tempwritearr, 3, 16);
-
-	getdatafromflash_1(tempreadarr, 0, 16);
-	getdatafromflash_1(tempreadarr, 3, 16);
+	unsigned char i = 0, j = 0;
+	for(i=0; i < 32;i++)
+	{
+		for(j=0;j<16;j++)
+		{
+			tempwritearr[j]=i;
+		}
+		flashoperation_1(tempwritearr, i, 16);		
+	}
 	//-------------------------------------------
 
 	

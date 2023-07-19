@@ -45,7 +45,7 @@
 
 #define MAX_LENGTH_SERVICE 6
 
-#define MAX_QUEUE_SIZE 1
+#define MAX_QUEUE_SIZE 6
 
 
 #define _DIAG_NUMBER_OF_SERVICES_    13

@@ -857,9 +857,8 @@ void RunEOLService5_KL15Check(void)
 static void vAPPLDIAGReadFromROM(unsigned int addressdefined, unsigned char datalength)
 {
 	uint8_t i;
-	
 	unsigned char datapointarr1[16]={0,0,0,0,0,0};	
-	getdatafromflash_1(datapointarr1, addressdefined, datalength);
+	getdatafromflash_1(datapointarr1, addressdefined/16, datalength);
 
 	au8TXData[APPLDIAG_UDS_RESPONSE_OFFSET] = APPLDIAG_UDS_RESP_ReadDataByIdentifier;
 	au8TXData[APPLDIAG_UDS_DATA_OFFSET+0]=(addressdefined>>8)&0x000000ff;
@@ -869,7 +868,7 @@ static void vAPPLDIAGReadFromROM(unsigned int addressdefined, unsigned char data
 	{
 		au8TXData[i+APPLDIAG_UDS_DATA_OFFSET+2] = datapointarr1[i];
 	}
-	ld_send_message(APPLDIAG_MAKE_UDS_DATA_LENGTH(SW_READ_ARR_LENGTH+2),au8TXData);
+	ld_send_message_preparing(APPLDIAG_MAKE_UDS_DATA_LENGTH(SW_READ_ARR_LENGTH+2),au8TXData);
 	tDiagState = LD_SEND_RESPONSE;
 }
 
@@ -877,16 +876,16 @@ static void vAPPLDIAGWriteToROM(unsigned int addressdefined, unsigned char datal
 {
 		unsigned char temparr[16]={0};
 		unsigned char i = 0;
-		
+				
 		for(i=0;i<16;i++)
 		{
 			temparr[i] = au8TXData[3+i];
 		}
 	
-		flashoperation_1(temparr, addressdefined, datalength);
+		flashoperation_1(temparr, addressdefined/16, datalength);
 		
 		au8TXData[APPLDIAG_UDS_RESPONSE_OFFSET] = APPLDIAG_UDS_RESP_WriteDataByIdentifier;
-		ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH,au8TXData);
+		ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH,au8TXData);
 		tDiagState = LD_SEND_RESPONSE;
 }
 
@@ -1217,6 +1216,7 @@ unsigned char diagServiceFlag_1[6] =
 
 unsigned char ucudsreceivedflag = FLAG_RESET;
 unsigned char receiveddata = 0;
+unsigned char diagnosticindex = 0;
 void vAPPLLinDiag(void)
 {
 	const uint8_t * ptSystemname;
@@ -1238,15 +1238,17 @@ void vAPPLLinDiag(void)
 //			/* wait for a diagnosis request */
 //			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
 //			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
+
+			diag_clear_flag(diagServiceFlag_1[diagnosticindex]);
 			tDiagState = LD_WAIT_FOR_REQUEST;
 		}
 		break;
 
 	case LD_WAIT_FOR_REQUEST:	
 		
-		for (i = 0; i < 6; i++)
+		for (diagnosticindex = 0; diagnosticindex < 6; diagnosticindex++)
 		{
-			receiveddata = diag_get_flag(diagServiceFlag_1[i]);			
+			receiveddata = diag_get_flag(diagServiceFlag_1[diagnosticindex]);			
 			if (receiveddata!=0)
 			{
 				ucudsreceivedflag = FLAG_SET;
@@ -1261,11 +1263,9 @@ void vAPPLLinDiag(void)
 			ucudsreceivedflag = FLAG_RESET;
 			lineolindication();
 			
+			u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
 			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
 			tAPPLDIAGEvaluateRequest();
-
-			diag_clear_flag(diagServiceFlag_1[i]);
-
 		}
 		else
 		{
@@ -1479,24 +1479,6 @@ void vAPPLLinDiag(void)
 			break;
 
 		case LD_WaitEEPROMSecondTime:
-//			u8EETimeout++;
-//			if(EEMDirtyStateDirty == tEEMIsHandleDirty(tAPPLDIAGCurrentHandle))
-//			{
-//				if(u8EETimeout > APPLDIAG_TTimeout_LIN)
-//				{
-//					au8TXData[APPLDIAG_UDS_NEG_RESP_NRC_OFFSET] = APPLDIAG_UDS_NRC_GeneralProgrammingFailure;
-//					ld_send_message(APPLDIAG_UDS_NEG_RESP_LENGTH,au8TXData);
-//					tDiagState = LD_SEND_RESPONSE;
-//				}
-//			}
-//			else
-//			{
-//				au8TXData[APPLDIAG_UDS_RESPONSE_OFFSET] = APPLDIAG_UDS_RESP_WriteDataByIdentifier;
-//				au8TXData[APPLDIAG_UDS_RDID_HIGHBYTE_OFFSET] = tCurrentRDID.bytes.highbyte;
-//				au8TXData[APPLDIAG_UDS_RDID_LOWBYTE_OFFSET] = tCurrentRDID.bytes.lowbyte;
-//				ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH,au8TXData);
-//				tDiagState = LD_SEND_RESPONSE;
-//			}
 			break;
 		
 		//-------------------
@@ -1556,9 +1538,7 @@ void vAPPLLinDiag(void)
 		}
 		break;
 
-		case LD_SEND_RESPONSE:
-			
-			
+		case LD_SEND_RESPONSE:			
 			ld_send_message(uipresendlength, au8TXData);
 			tDiagState = LD_INIT;
 
