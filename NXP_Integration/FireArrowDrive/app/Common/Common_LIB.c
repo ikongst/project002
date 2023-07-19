@@ -114,5 +114,5 @@ unsigned int guiKL15CheckCntr = INIT;
 
 unsigned char getnad(void)
 {
-	return 0x5A;
+	return lin_tl_rx_queue.tl_pdu[lin_tl_rx_queue.queue_header][0];//;
 }

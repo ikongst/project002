@@ -83,8 +83,8 @@ typedef union
 	uint16_t word;			/**< 16bit direct access */
 	struct
 	{
-		uint8_t lowbyte;	/**< lowbyte */
 		uint8_t highbyte;	/**< highbyte */
+		uint8_t lowbyte;	/**< lowbyte */
 	} bytes;				/**< byte access */
 	uint8_t byte[2];		/**< byte access */
 } word_t;

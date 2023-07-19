@@ -620,6 +620,12 @@ static volatile APPLDIAGMesswerte1Type * ptMesswerte1 = (APPLDIAGMesswerte1Type 
  * FUNCTIONS
  *****************************************************************************/
 
+unsigned int uipresendlength = INIT;
+void ld_send_message_preparing(l_u16 length, const l_u8* const data)
+{
+	uipresendlength = length;	
+}
+
 
 /**
  * @brief Resets diagnosis statemachine
@@ -946,7 +952,7 @@ static void vAPPLDIAGEvalOpenECU(void)
 			if(APPLDIAG_VICKPRODMODEACTIVE == u16VICKProdMode)
 			{
 				au8TXData[APPLDIAG_UDS_RESPONSE_OFFSET] = APPLDIAG_UDS_RESP_WriteDataByIdentifier;
-				ld_send_message(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH,au8TXData);
+				ld_send_message_preparing(APPLDIAG_UDS_POSITIVE_RESPONSE_DATALENGTH,au8TXData);
 				tDiagState = LD_SEND_RESPONSE;
 			}
 			else
@@ -1256,10 +1262,9 @@ void vAPPLLinDiag(void)
 			lineolindication();
 			
 			ld_receive_message  (&u16ReceivedDataLength, au8RXData);
-			//u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
+			tAPPLDIAGEvaluateRequest();
 
 			diag_clear_flag(diagServiceFlag_1[i]);
-			tAPPLDIAGEvaluateRequest();
 
 		}
 		else
@@ -1552,30 +1557,10 @@ void vAPPLLinDiag(void)
 		break;
 
 		case LD_SEND_RESPONSE:
-			if (LD_COMPLETED == ld_rx_status())
-			{
-				lineolindication();
-				
-				tAPPLDIAGEvaluateRequest();
-				u16ReceivedDataLength = APPLDIAG_MAX_REQ_LENGTH;
-				ld_receive_message  (&u16ReceivedDataLength, au8RXData);
-				break;
-			}
-
-			/* wait until the response is sent */
-			if(ld_tx_status() == LD_IN_PROGRESS)
-			{
-
-			}
-			else if(ld_tx_status() == LD_COMPLETED)
-			{
-				tDiagState = LD_INIT;
-			}
-			else
-			{
-				tDiagState = LD_INIT;
-			}
-			break;
+			
+			
+			ld_send_message(uipresendlength, au8TXData);
+			tDiagState = LD_INIT;
 
 		default:
 			//HARD_ASSERT(CLEAR, ASSERT_APPLDIAG_ApplLinDiagDefault, (uint8_t)tDiagState);
@@ -1587,416 +1572,6 @@ void vAPPLLinDiag(void)
 
 }
 
-/** @brief KSE datadump function
- * @details it offers some read/write access to data for analysis
- */
-//static void vVICKDataDump(void)
-//{
-//	uint8_t i,CS;
-//	static word_t tAdress, tData;
-//	static word_t tEEPROMAdress = {0xFFFF};		/*lint !e708 */
-//	static uint8_t u8LastData;
-
-//	static DDStateType tState = DDStateSetup;
-
-//	/* SID RD ID DD AH AL D0 D1 D2 D3 D4 D5 D6 D7 D8 D9 DA DB DC DD DE DF CS */
-//	/*  0   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 */
-
-
-//	switch(tState)
-//	{
-//	case DDStateSetup:
-//		CS = 0;
-//		for(i = 3; i < 22; i++)
-//		{
-//			CS += au8TXData[i];
-//		}
-//		if(CS != au8TXData[22])
-//		{
-//			au8TXData[4] = au8TXData[3];
-//			au8TXData[3] = (uint8_t)DDRespError;
-//			au8TXData[5] = (uint8_t)DDErrorCS;
-//			tState = DDStateResponse;
-//			break;
-//		}
-//		else
-//		{
-//			tState = DDStateExecute;
-//			tAdress.bytes.highbyte = au8TXData[4];
-//			tAdress.bytes.lowbyte = au8TXData[5];
-//			tData.bytes.highbyte = au8TXData[6];
-//			tData.bytes.lowbyte = au8TXData[7];
-//		}
-//		/*FALLTHROUGH*/
-//		/*no break*/
-//	case DDStateExecute:
-//		tState = DDStateResponse;
-
-
-//		switch((DDFunctionType)(au8TXData[3]))
-//		{
-
-//		case DDReqRAMWordRead:
-//			DISABLE_INTERRUPTS();
-//			FSR1L = tAdress.bytes.lowbyte;
-//			FSR1H = tAdress.bytes.highbyte;
-//			au8TXData[7] = INDF1;
-//			ENABLE_INTERRUPTS();
-//			tAdress.word++;
-//			DISABLE_INTERRUPTS();
-//			FSR1L = tAdress.bytes.lowbyte;
-//			FSR1H = tAdress.bytes.highbyte;
-//			au8TXData[6] = INDF1; 					/* Trick zum indirekten Lesen der Daten. Die Anweisung u8Data = *((uint8_t*)tAdress.word) funktioniert mit dem HITC nicht */
-//			ENABLE_INTERRUPTS();
-
-//			u8LastData = 7;
-//			break;
-//		case DDReqRAMByteRead:
-//			DISABLE_INTERRUPTS();
-//			FSR1L = tAdress.bytes.lowbyte;
-//			FSR1H = tAdress.bytes.highbyte;
-//			au8TXData[6] = INDF1; 					/* Trick zum indirekten Lesen der Daten. Die Anweisung u8Data = *((uint8_t*)tAdress.word) funktioniert mit dem HITC nicht */
-//			ENABLE_INTERRUPTS();
-//			u8LastData = 6;
-//			break;
-
-//		case DDReqEEPROMByteRead:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-//			if(tAdress.word >= _EEPROMSIZE)
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				break;
-//			}
-
-//			au8TXData[6] = tEEMReadByteDirect((uint8_t)tAdress.word);
-//			u8LastData = 6;
-//			break;
-
-
-//		case DDReqEEPROMWordRead:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-//			if(tAdress.word >= (_EEPROMSIZE-1))
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				break;
-//			}
-
-//			au8TXData[7] = tEEMReadByteDirect((uint8_t)tAdress.word++);
-//			au8TXData[6] = tEEMReadByteDirect((uint8_t)tAdress.word);
-//			u8LastData = 7;
-//			break;
-
-//		case DDReqFlashWordRead:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-//			if(tAdress.word >= (_ROMSIZE-1))
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				break;
-//			}
-
-//			tData.word = FLASH_READ(tAdress.word);	/*lint !e961 because of HITEC macro implementation - OK OTTTO */
-
-//			au8TXData[7] = tData.bytes.lowbyte;
-//			au8TXData[6] = tData.bytes.highbyte;
-//			u8LastData = 7;
-//			break;
-
-//#ifdef USESTACKCHECK
-//		case DDReqStackDepth:
-//			tData.bytes.highbyte = STKPTR;
-//			di();
-//			STKPTR = 16;
-//			do
-//			{
-//				STKPTR--;
-//				if(TOSH != 0x7F && TOSL != 0xFF)
-//					break;
-
-//			} while( STKPTR > 1);
-//			tData.bytes.lowbyte = STKPTR;
-//			STKPTR = tData.bytes.highbyte;
-//			ei();
-
-//			au8TXData[4] = tData.bytes.lowbyte;
-//			u8LastData = 4;
-
-//			break;
-//#endif
-//#ifdef USEWCETMEASUREMENT
-//		case DDReqTaskTime:
-//			if(au8TXData[4] >= WCETNOOFTASKS)
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorParameter;
-//				break;
-//			}
-//			au8TXData[5] = au8MinTaskTime[au8TXData[4]];
-//			au8TXData[6] = au8MaxTaskTime[au8TXData[4]];
-//			au8TXData[7] = au8MeanTaskTime[au8TXData[4]];
-//			tData.word = u16MinCPUTime;
-//			au8TXData[8] = tData.bytes.highbyte;
-//			au8TXData[9] = tData.bytes.lowbyte;
-//			tData.word = u16MaxCPUTime;
-//			au8TXData[10] = tData.bytes.highbyte;
-//			au8TXData[11] = tData.bytes.lowbyte;
-//			tData.word = u16MeanCPUTime;
-//			au8TXData[12] = tData.bytes.highbyte;
-//			au8TXData[13]	 = tData.bytes.lowbyte;
-//			au8TXData[14] = au8MaxTimePath[au8TXData[4]];
-//			au8TXData[15] = cau8TaskNames[au8TXData[4]][0];
-//			au8TXData[16] = cau8TaskNames[au8TXData[4]][1];
-//			au8TXData[17] = cau8TaskNames[au8TXData[4]][2];
-//			au8TXData[18] = cau8TaskNames[au8TXData[4]][3];
-//			au8TXData[19] = cau8TaskNames[au8TXData[4]][4];
-
-//			/* this state take longer than 200us. Itis needed only for development.
-//			 * Problem is, that this state is needed to output WCET times, and thus
-//			 * APPLDiag always takes to long. Therefor I just rule this state out by
-//			 * setting TMR0 to 40 (80us)
-//			 */
-//			TMR0 = 40;
-
-//			u8LastData = 19;
-//			break;
-//#endif
-
-//		case DDReqWETSWVersion:
-//			au8TXData[4] = cu8WETSWVersion[0];
-//			au8TXData[5] = cu8WETSWVersion[1];
-//			au8TXData[6] = cu8WETSWVersion[2];
-//			au8TXData[7] = cu8WETSWVersion[3];
-//			u8LastData = 7;
-//			break;
-
-//		case DDReqKSEBuildVersion:
-//			au8TXData[4] = cu8KSESWVersion[0];
-//			au8TXData[5] = cu8KSESWVersion[1];
-//			au8TXData[6] = cu8KSESWVersion[2];
-//			au8TXData[7] = cu8KSESWVersion[3];
-//			u8LastData = 7;
-//			break;
-
-//		case DDReqRAMByteWrite:
-//			DISABLE_INTERRUPTS();
-//			FSR1L = tAdress.bytes.lowbyte;
-//			FSR1H = tAdress.bytes.highbyte;
-//			INDF1 = tData.bytes.lowbyte;					/* Trick zum indirekten Schreiben der Daten. Die Anweisung u8Data = *((uint8_t*)tAdress.word) funktioniert mit dem HITC nicht */
-//			au8TXData[6] = INDF1;
-//			ENABLE_INTERRUPTS();
-//			u8LastData = 6;
-//			break;
-
-//		case DDReqRAMWordWrite:
-//			DISABLE_INTERRUPTS();
-//			FSR1L = tAdress.bytes.lowbyte;
-//			FSR1H = tAdress.bytes.highbyte;
-//			INDF1 = tData.bytes.lowbyte;					/* Trick zum indirekten Schreiben der Daten. Die Anweisung u8Data = *((uint8_t*)tAdress.word) funktioniert mit dem HITC nicht */
-//			au8TXData[7] = INDF1;
-//			FSR1++;
-//			INDF1 = tData.bytes.highbyte;					/* Trick zum indirekten Schreiben der Daten. Die Anweisung u8Data = *((uint8_t*)tAdress.word) funktioniert mit dem HITC nicht */
-//			au8TXData[6] = INDF1;
-//			ENABLE_INTERRUPTS();
-//			u8LastData = 7;
-//			break;
-
-//		case DDReqEEPROMByteWrite:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-//			if(tAdress.word >= _EEPROMSIZE)
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				break;
-//			}
-
-//			au8TXData[6] = tEEMReadByteDirect((uint8_t)tAdress.word);
-//			vEEMWriteByteDirect((uint8_t)tAdress.word,tData.bytes.lowbyte);
-//			u8LastData = 6;
-//			break;
-
-//		case DDReqEEPROMWordWrite:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-//			if(tAdress.word >= (_EEPROMSIZE-1))
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				break;
-//			}
-
-//			au8TXData[7] = tEEMReadByteDirect((uint8_t)tAdress.word);
-//			au8TXData[6] = tEEMReadByteDirect((uint8_t)tAdress.word+1);
-
-//			if(tEEPROMAdress.word == 0xFFFF)
-//			{
-//				tEEPROMAdress.word = tAdress.word;
-//				vEEMWriteByteDirect((uint8_t)tEEPROMAdress.word++,tData.bytes.lowbyte);
-//				tState = DDStateExecute;
-//			}
-//			else
-//			{
-//				vEEMWriteByteDirect((uint8_t)tEEPROMAdress.word,tData.bytes.highbyte);
-//				tEEPROMAdress.word = 0xFFFF;
-//			}
-//			u8LastData = 7;
-//			break;
-
-//		case DDReqEEPROMEraseAll:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				break;
-//			}
-
-//			if(tAdress.word != 0x55AA)
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorParameter;
-//				break;
-//			}
-
-//			if(tEEPROMAdress.word == 0xFFFF)
-//			{
-//				tEEPROMAdress.word = 0;
-//			}
-//			vEEMWriteByteDirect((uint8_t)tEEPROMAdress.word++, APPLDIAG_UNINITIALIZED_BYTE);
-
-//			if(tEEPROMAdress.word < _EEPROMSIZE)
-//			{
-//				tState = DDStateExecute;
-//			}
-//			else
-//			{
-//				tState = DDStateResponse;
-//				tEEPROMAdress.word = 0xFFFF;
-//			}
-
-//			u8LastData = 3;
-//			break;
-
-//		case DDReqEEPROMReadRow:
-//			if(EE_IS_BUSY())
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorEEPROMNotReady;
-//				tEEPROMAdress.word = 0xFFFF;
-//				break;
-//			}
-//			if(tAdress.word > (_EEPROMSIZE-16))
-//			{
-//				au8TXData[4] = au8TXData[3];
-//				au8TXData[3] = (uint8_t)DDRespError;
-//				au8TXData[5] = (uint8_t)DDErrorAdress;
-//				tEEPROMAdress.word = 0xFFFF;
-//				break;
-//			}
-
-//			if(tEEPROMAdress.word == 0xFFFF)
-//			{
-//				tEEPROMAdress.word = tAdress.word +8;
-//				tState = DDStateExecute;
-//				u8LastData = 6;
-//			}
-//			else
-//			{
-//				tAdress.word = tEEPROMAdress.word;
-//				tEEPROMAdress.word = 0xFFFF;
-//			}
-//			for(tData.word = tAdress.word;tData.word<(tAdress.word+8);tData.word++)
-//			{
-//				au8TXData[u8LastData++] = tEEMReadByteDirect((uint8_t)tData.word);
-//			}
-//			if(tEEPROMAdress.word == 0xFFFF)
-//			{
-//				u8LastData = 21;
-//			}
-//			break;
-//			/*lint -save -e788
-//			 * OK OTTTO */
-//			 /* to avoid lint info about enum constants not used in default case */
-//			 default:
-//				 au8TXData[4] = au8TXData[3];
-//				 au8TXData[3] = (uint8_t)DDRespError;
-//				 au8TXData[5] = (uint8_t)DDErrorUnknownService;
-//				 u8LastData = 6;
-//				 break;
-
-//		}
-//		/*lint -restore*/
-//		break;
-
-//		case DDStateResponse:
-//			au8TXData[3] |= 0x80;
-//			for(i = u8LastData+1;i<22;i++)
-//			{
-//				au8TXData[i] = 0xFF;
-//			}
-//			tState = DDStateSendResponse;
-//			break;
-
-//		case DDStateSendResponse:
-//			CS = 0;
-//			for(i = 3; i < 22; i++)
-//			{
-//				CS += au8TXData[i];
-//			}
-//			au8TXData[22] = CS;
-
-//			au8TXData[APPLDIAG_UDS_RESPONSE_OFFSET] = APPLDIAG_UDS_RESP_WriteDataByIdentifier;
-//			ld_send_message(APPLDIAG_MAKE_UDS_DATA_LENGTH(APPLDIAG_KSE_DATA_DUMP_LENGTH),au8TXData);
-//			tDiagState = LD_SEND_RESPONSE;
-//			tState = DDStateSetup;
-//			break;
-//		default:
-//			tState = DDStateSetup;
-//			break;
-//	}
-
-
-
-
-//}
 
 //#ifdef MODULETEST
 //#include "../../moduletests/mt_appl_diag.c"
