@@ -1174,7 +1174,7 @@ void stateRun( )
 	// Selecting 1 will enable the "USER mode"
 	// where user decide whether to switch to force mode, tracking mode, sensorless mode
     
-    MotorDrive_uiActualSpeed=(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
+    MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl);//(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
     //l_u16_wr_LIN_NXP_ActSpeed((MotorDrive_uiActualSpeed/11));                //refresh actspeed
     
 	if (cntrState.usrControl.controlMode == automatic)
