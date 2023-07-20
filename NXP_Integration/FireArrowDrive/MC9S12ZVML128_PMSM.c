@@ -106,6 +106,7 @@ void systick_1ms(void)
 	SetFlag_1MS();
 }
 
+
 /*****************************************************************************
 *
 * Function: void main(void)
@@ -148,6 +149,26 @@ void main(void)
 	
 	SystemSchedule_Init();
 	TIM0TSCR2_TOI	= 1;
+	
+	
+	
+	
+    // eeprom write read test.
+	unsigned char tempreadarr[16] = {0};
+	unsigned char tempwritearr[16] = {0};
+	unsigned char i = 0, j = 0;
+	for(i=0; i < 32;i++)
+	{
+		for(j=0;j<16;j++)
+		{
+			tempwritearr[j]=i;
+		}
+		flashoperation_1(tempwritearr, i, 16);		
+	}
+	//-------------------------------------------
+
+	
+	
 	// Loop
 	for(;;)
 	{
@@ -382,7 +403,10 @@ INTERRUPT void PMFreloadA_ISR(void)
 	getFcnStatus  = Meas_Get3PhCurrent(&meas, &drvFOC.iAbcFbck, drvFOC.svmSector);
 	getFcnStatus &= Meas_GetTemperature(&meas);
 	getFcnStatus &= Meas_GetTemp_NTC(&meas);
-	MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+	
+	MotorDrive_uiTemperature = 100;//150-(2400*100-((meas.measured.f16Temp.raw*5*1000*100)>>16))/525;
+	
+	//MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	
 	
 	//MotorDrive_uiTemperatureNTC_Digital=(long)((long)meas.measured.f16NTC.filt*645)>>12;
@@ -1150,7 +1174,7 @@ void stateRun( )
 	// Selecting 1 will enable the "USER mode"
 	// where user decide whether to switch to force mode, tracking mode, sensorless mode
     
-    MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl);  //add for El. speed output
+    MotorDrive_uiActualSpeed=(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
     //l_u16_wr_LIN_NXP_ActSpeed((MotorDrive_uiActualSpeed/11));                //refresh actspeed
     
 	if (cntrState.usrControl.controlMode == automatic)

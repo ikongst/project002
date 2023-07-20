@@ -37,7 +37,6 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface/LIB_CustomerInterface_v010_NXP_600W.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog/LIB_Datalog_v011_NXP.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/Protection/LIB_Protection_v017_NXP_600W.lib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/UDS/LIB_UDS_v011_NXP.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\MC9S12ZVM_AMMCLIB_v1.1.28\lib\cw10x\MC9S12ZVM_AMMCLIB.UC.a&quot;"/>
 								</option>
 								<option id="com.freescale.s12z.toolchain.linker.output.b.1280230282" name="Generate S-Record file" superClass="com.freescale.s12z.toolchain.linker.output.b" value="true" valueType="boolean"/>
@@ -115,6 +114,7 @@
 							<tool id="com.freescale.s12z.toolchain.compiler.136087518" name="S12Z Compiler" superClass="com.freescale.s12z.toolchain.compiler">
 								<option id="com.freescale.s12z.toolchain.compiler.input.include.797698144" name="Search User Paths (#include &quot;...&quot;)" superClass="com.freescale.s12z.toolchain.compiler.input.include" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/BSW&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/Common&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog&quot;"/>

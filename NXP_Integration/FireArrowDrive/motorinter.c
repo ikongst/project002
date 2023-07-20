@@ -54,7 +54,7 @@ void MotorDrive_Stop(void)
 void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
-    
+
     long frac16speed = (((long)uispeedvalue<<15)/(unsigned int)N_MAX);
     if(!direct)
       SpeedIN = frac16speed;
