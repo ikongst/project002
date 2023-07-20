@@ -48,7 +48,7 @@ void speedregulation()
 	}	
 	
 	// set new speed:
-	BSW_MotorRegulation(guiControlSpeed*11);
+	BSW_MotorRegulation(guiControlSpeed);
 	guiSpeedSet = guiControlSpeed;
 }
 

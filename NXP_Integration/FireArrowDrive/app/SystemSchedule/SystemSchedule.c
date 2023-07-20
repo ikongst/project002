@@ -100,7 +100,7 @@ void SystemSchedule_Main(void)
 			
 			case 6:
 					ANALYSIS_TIMERSTART(TASK_UDS);
-					UDS_Main();
+					//UDS_Main();
 					ANALYSIS_TIMERSTOP(TASK_UDS);
 			    break;
 			
