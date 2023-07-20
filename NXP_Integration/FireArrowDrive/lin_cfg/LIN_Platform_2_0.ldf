@@ -188,7 +188,7 @@ Signal_encoding_types {
       logical_value,3,"Reserved";
    }
    Temperature_Encoding {
-      physical_value,0,255,1.0,-50.0,"¡æ";
+      physical_value,0,255,1.0,-50.0,"deg-C";
    }
 }
 /* ----------SIGNAL REPRESENTATION DEFINITIONS---------- */

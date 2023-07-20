@@ -57,10 +57,11 @@ void BSW_MotorStart(void)
  MotorDrive_Start();
 }
 
+unsigned char gucmotordirection = 0;
 void BSW_MotorRegulation(unsigned int speedrpm)
 {
  
-  MotorDrive_Regulation(speedrpm,0);
+  MotorDrive_Regulation(speedrpm,gucmotordirection);
 	
 }
 
@@ -105,7 +106,7 @@ unsigned int getNTCDigitals(void)
 }
 unsigned int getactualspeed(void)
 {
-	return MotorDrive_uiActualSpeed;
+	return ((long)MotorDrive_uiActualSpeed*3000)>>15;
 }
 
 unsigned char ucgetPINInterfaceStatus(void)

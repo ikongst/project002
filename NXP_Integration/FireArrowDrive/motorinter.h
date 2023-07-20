@@ -17,8 +17,8 @@ extern unsigned char MotorDrive_uiCurrent;           //bus current (raw)
 extern unsigned int MotorDrive_uiTemperature;        //MCU temperature
 extern unsigned int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
-extern unsigned int MotorDrive_uiTargetSpeed;        //required speed output
-extern unsigned int MotorDrive_uiActualSpeed;        //actual speed output
+extern signed int MotorDrive_uiTargetSpeed;        //required speed output
+extern signed int MotorDrive_uiActualSpeed;        //actual speed output
 
 extern unsigned int MotorDrive_MotorStatus;          //running state of motor
 
