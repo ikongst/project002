@@ -336,6 +336,10 @@ INTERRUPT void ADC1done_ISR(void)
 * @return  none
 *
 ******************************************************************************/
+unsigned char ucstatenow = 0;
+unsigned char ucstateadd[500];
+unsigned int uistateindex = 0;
+appFaultStatus_t	permFaultssaved;
 INTERRUPT void PMFreloadA_ISR(void)
 {
 	static tBool getFcnStatus;
@@ -421,9 +425,24 @@ INTERRUPT void PMFreloadA_ISR(void)
 	   
 	// Fault detection routine, must be executed prior application state machine
 	getFcnStatus &= faultDetection();
-	if (getFcnStatus)    cntrState.event = e_fault;
-	
+	if (getFcnStatus)    
+	{
+		permFaultssaved = permFaults;
+		cntrState.event = e_fault;
+	}
 	// Execute State table with newly measured data
+	ucstatenow = cntrState.state<<4|cntrState.event;
+	if(ucstatenow!=ucstateadd[uistateindex])
+	{
+		uistateindex++;
+		if(uistateindex>499)
+		{
+			uistateindex = 0;	
+		}
+		ucstateadd[uistateindex] = ucstatenow;	
+	}
+	
+	
 	state_table[cntrState.event][cntrState.state]();
 	state_LED[cntrState.state]();
 

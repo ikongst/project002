@@ -145,6 +145,7 @@ tFrac16 			minSamplingPulse    = FRAC16(5.0/100.0);
 
 @return
 ******************************************************************************/
+#include "BSW.h"
 void SetDutycycle(SWLIBS_3Syst_F16 *f16pwm, tU16 sector)
 {
 	SWLIBS_3Syst_F16    pwmB;
@@ -158,6 +159,18 @@ void SetDutycycle(SWLIBS_3Syst_F16 *f16pwm, tU16 sector)
 	tFrac16 			minSamplingPulse_x2 = MLIB_ShLSat_F16(minSamplingPulse,1);
 	tFrac16 			minSamplingPulse_d2 = MLIB_ShR_F16(minSamplingPulse,1);
 	tFrac16				pulseSum            = MLIB_Add_F16(minSamplingPulse_x2, minZeroPulse);
+	
+	tFrac16 tempvalueforexchange = 0;
+	
+	if(gucmotordirection==1)
+	{
+		tempvalueforexchange = f16pwm->f16Arg2;
+		f16pwm->f16Arg2 = f16pwm->f16Arg1;
+		f16pwm->f16Arg1 = tempvalueforexchange;
+	}
+	
+	
+	
 	
 	switch (sector) {
 		case 1:
@@ -385,7 +398,6 @@ void SetPtuTriggers(PTU_TRIGGERS_T *pTrg)
 
 @details
 ******************************************************************************/
-#include "BSW.h"
 void CalcEdges(PMF_3PH_MODULATOR_T *pwm3PhEdges, SWLIBS_3Syst_F16 *duty, SWLIBS_3Syst_F16 *pwmB)
 {
 	SWLIBS_3Syst_F16    pwmAhalf,pwmBhalf;
@@ -403,48 +415,23 @@ void CalcEdges(PMF_3PH_MODULATOR_T *pwm3PhEdges, SWLIBS_3Syst_F16 *duty, SWLIBS_
     pwmBhalf.f16Arg2 = pwmB->f16Arg2>>1;
     pwmBhalf.f16Arg3 = pwmB->f16Arg3>>1;
 
+    /* ph A */
+    pwm3PhEdges->phA.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg1;
+    pwm3PhEdges->phA.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg1;
+    pwm3PhEdges->phA.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg1;
+    pwm3PhEdges->phA.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg1;
+        
+    /* ph B */
+    pwm3PhEdges->phB.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg2;
+	pwm3PhEdges->phB.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg2;
+	pwm3PhEdges->phB.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg2;
+	pwm3PhEdges->phB.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg2;
 
-    if(gucmotordirection==1)
-    {
-		/* ph A */
-		pwm3PhEdges->phA.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg2;
-		pwm3PhEdges->phA.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg2;
-		pwm3PhEdges->phA.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg2;
-		pwm3PhEdges->phA.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg2;
-			
-		/* ph B */
-		pwm3PhEdges->phB.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg1;
-		pwm3PhEdges->phB.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg1;
-		pwm3PhEdges->phB.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg1;
-		pwm3PhEdges->phB.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg1;
-	
-		/* ph C */
-		pwm3PhEdges->phC.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg3;
-		pwm3PhEdges->phC.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg3;
-		pwm3PhEdges->phC.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg3;
-		pwm3PhEdges->phC.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg3;
-    	
-    }
-    else
-    {
-		/* ph A */
-		pwm3PhEdges->phA.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg1;
-		pwm3PhEdges->phA.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg1;
-		pwm3PhEdges->phA.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg1;
-		pwm3PhEdges->phA.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg1;
-			
-		/* ph B */
-		pwm3PhEdges->phB.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg2;
-		pwm3PhEdges->phB.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg2;
-		pwm3PhEdges->phB.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg2;
-		pwm3PhEdges->phB.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg2;
-	
-		/* ph C */
-		pwm3PhEdges->phC.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg3;
-		pwm3PhEdges->phC.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg3;
-		pwm3PhEdges->phC.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg3;
-		pwm3PhEdges->phC.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg3;
-    }
+    /* ph C */
+	pwm3PhEdges->phC.modA.firstEdge		= 0x3FFF - pwmAhalf.f16Arg3;
+	pwm3PhEdges->phC.modA.secondEdge	= 0x3FFF + pwmAhalf.f16Arg3;
+	pwm3PhEdges->phC.modB.firstEdge		= 0x3FFF - pwmBhalf.f16Arg3;
+	pwm3PhEdges->phC.modB.secondEdge	= 0x3FFF + pwmBhalf.f16Arg3;
 }
 
 /***************************************************************************//*!
