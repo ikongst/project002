@@ -46,6 +46,7 @@ unsigned char ucgetPINEnableStatus(void);
 void BSW_MotorStop(void);
 void BSW_MotorStart(void);
 void BSW_MotorRegulation(unsigned int speedrpm);
+extern unsigned char gucmotordirection;
 
 // sleep mode
 void EnterintoSleep(void);

@@ -59,7 +59,7 @@ void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
     if(!direct)
       SpeedIN = frac16speed;
 	else
-	  SpeedIN = frac16speed+0x8000;
+	  SpeedIN = frac16speed;//+0x8000;
 
 	drvFOC.pospeControl.wRotElReq=SpeedIN;
 	

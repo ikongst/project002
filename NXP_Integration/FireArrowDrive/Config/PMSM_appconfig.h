@@ -132,7 +132,7 @@
 #define SCALAR_INTEG_GAIN               FRAC16(0.03)
 #define SCALAR_INTEG_SHIFT              (0)
 #define SCALAR_RAMP_UP                  FRAC16(0.0000100000)
-#define SCALAR_RAMP_DOWN                FRAC16(0.0)
+#define SCALAR_RAMP_DOWN                FRAC16(0.0000100000)
 
 //FreeMASTER Scale Variables            
 //----------------------------------------------------------------------
