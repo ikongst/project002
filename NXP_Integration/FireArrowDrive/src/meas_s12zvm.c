@@ -194,7 +194,7 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
 	SWLIBS_3Syst_F16		raw;
 	static tU16				sectorK_1 = 2, Iadd=0;
 	
-	tFrac16 tempvalueforswitch = 0;
+//	tFrac16 tempvalueforswitch = 0;
 	
 	GetAdcRawValues(ptr, &rawValues);
 	
@@ -278,12 +278,12 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
 			break;
 	}
 	
-	if(gucmotordirection==1)
-	{
-		tempvalueforswitch = i->f16Arg2;
-		i->f16Arg2 = i->f16Arg1;
-		i->f16Arg1 = tempvalueforswitch;
-	}
+//	if(gucmotordirection==1)
+//	{
+//		tempvalueforswitch = i->f16Arg2;
+//		i->f16Arg2 = i->f16Arg1;
+//		i->f16Arg1 = tempvalueforswitch;
+//	}
 
 	sectorK_1 = svmSector;
 

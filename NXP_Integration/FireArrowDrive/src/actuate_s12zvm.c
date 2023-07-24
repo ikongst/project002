@@ -134,8 +134,8 @@ void DisableOutput(void)
 // The variables minZeroPulse and minSampling pulse are defined for 20khz PWM
 // and both are defined in percentage of PWM period. For S12ZVM ADC the sampling pulse must be
 // 2.5us translating to 5% of 20KHz PWM period.
-tFrac16				minZeroPulse 		= FRAC16(3.8/100.0);
-tFrac16 			minSamplingPulse    = FRAC16(5.0/100.0);
+tFrac16				minZeroPulse 		= FRAC16(3.8/100.0);//FRAC16(3.8/100.0);
+tFrac16 			minSamplingPulse    = FRAC16(5.0/100.0);//FRAC16(5.0/100.0);
 
 /**************************************************************************//*!
 @brief Set PWM dytucyle, the dutycycle will by update on next reload event 
@@ -160,14 +160,14 @@ void SetDutycycle(SWLIBS_3Syst_F16 *f16pwm, tU16 sector)
 	tFrac16 			minSamplingPulse_d2 = MLIB_ShR_F16(minSamplingPulse,1);
 	tFrac16				pulseSum            = MLIB_Add_F16(minSamplingPulse_x2, minZeroPulse);
 	
-	tFrac16 tempvalueforexchange = 0;
-	
-	if(gucmotordirection==1)
-	{
-		tempvalueforexchange = f16pwm->f16Arg2;
-		f16pwm->f16Arg2 = f16pwm->f16Arg1;
-		f16pwm->f16Arg1 = tempvalueforexchange;
-	}
+//	tFrac16 tempvalueforexchange = 0;
+//	
+//	if(gucmotordirection==1)
+//	{
+//		tempvalueforexchange = f16pwm->f16Arg2;
+//		f16pwm->f16Arg2 = f16pwm->f16Arg1;
+//		f16pwm->f16Arg1 = tempvalueforexchange;
+//	}
 	
 	
 	
@@ -445,13 +445,26 @@ void CalcEdges(PMF_3PH_MODULATOR_T *pwm3PhEdges, SWLIBS_3Syst_F16 *duty, SWLIBS_
 ******************************************************************************/
 void SetPmfValReg(PMF_3PH_MODULATOR_T *pwm3PhEdges)
 {
-	/* ph A */
-	PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	
-	/* ph B */
-	PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+	if(gucmotordirection==1)
+	{
+		/* ph A */
+		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		
+		/* ph B */
+		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO		
+	}
+	else
+	{
+		/* ph A */
+		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		
+		/* ph B */
+		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+	}
 
 	/* ph C */
 	PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO

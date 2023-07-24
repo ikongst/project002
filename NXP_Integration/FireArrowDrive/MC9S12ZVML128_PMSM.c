@@ -425,12 +425,12 @@ INTERRUPT void PMFreloadA_ISR(void)
 	   
 	// Fault detection routine, must be executed prior application state machine
 	getFcnStatus &= faultDetection();
+	
 	if (getFcnStatus)    
 	{
 		permFaultssaved = permFaults;
 		cntrState.event = e_fault;
 	}
-	// Execute State table with newly measured data
 	ucstatenow = cntrState.state<<4|cntrState.event;
 	if(ucstatenow!=ucstateadd[uistateindex])
 	{
@@ -442,7 +442,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 		ucstateadd[uistateindex] = ucstatenow;	
 	}
 	
-	
+	// Execute State table with newly measured data	
 	state_table[cntrState.event][cntrState.state]();
 	state_LED[cntrState.state]();
 
