@@ -102,7 +102,7 @@ unsigned int getrawtemperature(void)
 }
 unsigned int getNTCDigitals(void)
 {	
-	return (MotorDrive_uiTemperatureNTC_Digital*5*1000)>>12;
+	return 100;//(MotorDrive_uiTemperatureNTC_Digital*5*1000)>>12;
 }
 unsigned int getactualspeed(void)
 {

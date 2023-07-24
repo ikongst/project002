@@ -3,6 +3,8 @@
 #include "mlib.h"
 #include "motor_structure.h"
 #include "state_machine.h"
+#include "PMSM_appconfig.h"
+
 
 extern pmsmDrive_t         drvFOC;         //handler of control 
 extern driveStates_t 		cntrState;     //handler of state
@@ -13,8 +15,8 @@ signed int  SpeedIN;                          //speed value input
 
 unsigned int MotorDrive_uiVoltage;            //bus voltage measure
 unsigned char MotorDrive_uiCurrent;         //bus current (raw)
-unsigned int MotorDrive_uiTemperature;        //MCU temperature
-unsigned int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
+signed int MotorDrive_uiTemperature;        //MCU temperature
+signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
 signed int MotorDrive_uiTargetSpeed;        //required speed output
 signed int MotorDrive_uiActualSpeed;        //actual speed output
