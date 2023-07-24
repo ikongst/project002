@@ -408,9 +408,6 @@ INTERRUPT void PMFreloadA_ISR(void)
 	getFcnStatus &= Meas_GetTemperature(&meas);
 	getFcnStatus &= Meas_GetTemp_NTC(&meas);
 	
-	MotorDrive_uiTemperature = 100;//150-(2400*100-((meas.measured.f16Temp.raw*5*1000*100)>>16))/525;
-	
-	//MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
 	//VHT(temp) = VHT(150) - (150 - temp) * dVHT
 	//(150 - temp) * dVHT = VHT(150)-VHT(temp);
 	// 150*dVHT -(VHT(150)-VHT(temp) )= temp *dVHT;
@@ -423,6 +420,8 @@ INTERRUPT void PMFreloadA_ISR(void)
 	MotorDrive_uiTemperature =150-(31456-meas.measured.f16Temp.raw)/69;//150-(2400*100-((long)meas.measured.f16Temp.raw*5*100>>16))/525;
 	
 	//MotorDrive_uiTemperature =150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+    //MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	
 	
 	//MotorDrive_uiTemperatureNTC_Digital=(long)((long)meas.measured.f16NTC.filt*645)>>12;
