@@ -201,13 +201,21 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
     
 	Ifirst=avgValue.f16Arg1;
 	Isecond=avgValue.f16Arg2;
-
+    /*
+       first:  T1 time digit;
+       second: T2 time digit;
+	   Ifirst: T1 current digit;
+	   Isecond: T2 current digit;
+	   unitdev=Ki*Kt;
+	   Ki=229.4;   //114.7=1147/10; in condition Rshunt=0.5m¦¸£¬Gamp=35£¬ (10A>5mV>175mV(5*35)>2294(175*4096*16/5000))  //143.4
+	   Kt=2500;
+	*/
 	rmsadd+=(Ifirst*first+Isecond*second)/unitdev;
 	
 	   if(++Iadd>=100)
 		{
 		 rms=rmsadd/100;
-		 MotorDrive_uiCurrent=rms/40;
+		 MotorDrive_uiCurrent=rms;  ///40;
 		 //l_u8_wr_LIN_NXP_ActCurrent(MotorDrive_uiCurrent);//refresh current
 		 Iadd=0;
 		 rmsadd=0;
