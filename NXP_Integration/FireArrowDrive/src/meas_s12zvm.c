@@ -376,7 +376,7 @@ tBool Meas_GetUdcVoltage(measModule_t *ptr, GDFLIB_FILTER_IIR1_T_F16 *uDcbFilter
 ******************************************************************************/
 #ifdef USE_ADC0_FOR_CURRENT
 tBool Meas_GetTemperature(measModule_t *ptr)
-{
+{	
 	ptr->measured.f16Temp.raw = (tFrac16)(ADC1ResultList[0][1]);
 	ptr->measured.f16Temp.filt = MLIB_Mul_F16(ptr->measured.f16Temp.raw,FRAC16(0.73801));
 	ptr->measured.f16Temp.filt = MLIB_Sub_F16(ptr->measured.f16Temp.filt, FRAC16(0.23801));
