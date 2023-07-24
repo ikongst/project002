@@ -13,7 +13,7 @@
 *
 * @version   1.0
 *
-* @date      Mon Jul 03 17:23:34 CST 2023
+* @date      Wed Jul 19 15:46:57 CST 2023
 *
 * @brief     Hardware configuration file
 *

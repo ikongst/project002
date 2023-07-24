@@ -18,8 +18,8 @@ unsigned char MotorDrive_uiCurrent;         //bus current (raw)
 signed int MotorDrive_uiTemperature;        //MCU temperature
 signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
-unsigned int MotorDrive_uiTargetSpeed;        //required speed output
-unsigned int MotorDrive_uiActualSpeed;        //actual speed output
+signed int MotorDrive_uiTargetSpeed;        //required speed output
+signed int MotorDrive_uiActualSpeed;        //actual speed output
 
 unsigned int MotorDrive_MotorStatus;          //running state of motor
 
@@ -51,27 +51,19 @@ void MotorDrive_Stop(void)
   cntrState.usrControl.switchFaultClear = true;
 }
 
-
+#include "PMSM_appconfig.h"
 /*********input the required speed of motor**************/
 void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
-	
-	long frac16speed = ((long)((long)uispeedvalue<<15)/(unsigned int)N_MAX);
+
+    long frac16speed = (((long)uispeedvalue<<15)/(unsigned int)N_MAX);
     if(!direct)
       SpeedIN = frac16speed;
-    else
-     SpeedIN = frac16speed+0x8000;
-     drvFOC.pospeControl.wRotElReq=SpeedIN;
-	
-	/*
-    if(!direct)
-      SpeedIN = uispeedvalue;
 	else
-	  SpeedIN = -uispeedvalue;
+	  SpeedIN = frac16speed;//+0x8000;
 
 	drvFOC.pospeControl.wRotElReq=SpeedIN;
-	*/
 	
 	if(MLIB_Abs_F16(SpeedIN))
 	{

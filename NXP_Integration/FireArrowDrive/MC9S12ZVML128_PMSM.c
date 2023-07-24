@@ -106,6 +106,7 @@ void systick_1ms(void)
 	SetFlag_1MS();
 }
 
+
 /*****************************************************************************
 *
 * Function: void main(void)
@@ -148,6 +149,26 @@ void main(void)
 	
 	SystemSchedule_Init();
 	TIM0TSCR2_TOI	= 1;
+	
+	
+	
+	
+    // eeprom write read test.
+	unsigned char tempreadarr[16] = {0};
+	unsigned char tempwritearr[16] = {0};
+	unsigned char i = 0, j = 0;
+	for(i=0; i < 32;i++)
+	{
+		for(j=0;j<16;j++)
+		{
+			tempwritearr[j]=i;
+		}
+		flashoperation_1(tempwritearr, i, 16);		
+	}
+	//-------------------------------------------
+
+	
+	
 	// Loop
 	for(;;)
 	{
@@ -315,6 +336,10 @@ INTERRUPT void ADC1done_ISR(void)
 * @return  none
 *
 ******************************************************************************/
+unsigned char ucstatenow = 0;
+unsigned char ucstateadd[500];
+unsigned int uistateindex = 0;
+appFaultStatus_t	permFaultssaved;
 INTERRUPT void PMFreloadA_ISR(void)
 {
 	static tBool getFcnStatus;
@@ -395,6 +420,8 @@ INTERRUPT void PMFreloadA_ISR(void)
 	MotorDrive_uiTemperature =150-(31456-meas.measured.f16Temp.raw)/69;//150-(2400*100-((long)meas.measured.f16Temp.raw*5*100>>16))/525;
 	
 	//MotorDrive_uiTemperature =150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+    //MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	
 	
 	//MotorDrive_uiTemperatureNTC_Digital=(long)((long)meas.measured.f16NTC.filt*645)>>12;
@@ -409,9 +436,24 @@ INTERRUPT void PMFreloadA_ISR(void)
 	   
 	// Fault detection routine, must be executed prior application state machine
 	getFcnStatus &= faultDetection();
-	if (getFcnStatus)    cntrState.event = e_fault;
 	
-	// Execute State table with newly measured data
+	if (getFcnStatus)    
+	{
+		permFaultssaved = permFaults;
+		cntrState.event = e_fault;
+	}
+	ucstatenow = cntrState.state<<4|cntrState.event;
+	if(ucstatenow!=ucstateadd[uistateindex])
+	{
+		uistateindex++;
+		if(uistateindex>499)
+		{
+			uistateindex = 0;	
+		}
+		ucstateadd[uistateindex] = ucstatenow;	
+	}
+	
+	// Execute State table with newly measured data	
 	state_table[cntrState.event][cntrState.state]();
 	state_LED[cntrState.state]();
 
@@ -1162,21 +1204,21 @@ void stateRun( )
 	// Selecting 1 will enable the "USER mode"
 	// where user decide whether to switch to force mode, tracking mode, sensorless mode
     
-    MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl);  //add for El. speed output
+    MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);//(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
     //l_u16_wr_LIN_NXP_ActSpeed((MotorDrive_uiActualSpeed/11));                //refresh actspeed
     
 	if (cntrState.usrControl.controlMode == automatic)
 	{
 		//Automatic Mode switch
-		if (MotorDrive_uiActualSpeed < drvFOC.pospeSensorless.wRotElMatch_1)	// Use open-loop for speeds below the Match1
+		if (MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl) < drvFOC.pospeSensorless.wRotElMatch_1)	// Use open-loop for speeds below the Match1
 		{
 			pos_mode = force;
 			trackingToSensorless = false;
 		}
 		else
 		{
-			if (MotorDrive_uiActualSpeed >= drvFOC.pospeSensorless.wRotElMatch_1 &&	// Switch to tracking between Match1 and Match2 
-				 MotorDrive_uiActualSpeed < drvFOC.pospeSensorless.wRotElMatch_2) 
+			if (MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl) >= drvFOC.pospeSensorless.wRotElMatch_1 &&	// Switch to tracking between Match1 and Match2 
+					MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl) < drvFOC.pospeSensorless.wRotElMatch_2) 
 			{
 				pos_mode = tracking;
 				

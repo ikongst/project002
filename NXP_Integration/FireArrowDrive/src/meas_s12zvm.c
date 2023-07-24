@@ -186,12 +186,15 @@ tBool Meas_CalibCurrentSense(measModule_t *ptr, tU16 svmSector)
 
 @warning
 ******************************************************************************/
+#include "BSW.h"
 tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector)
 {
 	volatile SWLIBS_2Syst_F16	avgValue;
 	ADC_RAW_DATA_T 			rawValues;
 	SWLIBS_3Syst_F16		raw;
 	static tU16				sectorK_1 = 2, Iadd=0;
+	
+//	tFrac16 tempvalueforswitch = 0;
 	
 	GetAdcRawValues(ptr, &rawValues);
 	
@@ -282,6 +285,13 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
 		default:
 			break;
 	}
+	
+//	if(gucmotordirection==1)
+//	{
+//		tempvalueforswitch = i->f16Arg2;
+//		i->f16Arg2 = i->f16Arg1;
+//		i->f16Arg1 = tempvalueforswitch;
+//	}
 
 	sectorK_1 = svmSector;
 

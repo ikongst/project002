@@ -13,7 +13,7 @@
 *  
 * @version   1.0 
 *  
-* @date      Mon Jul 03 17:23:34 CST 2023
+* @date      Wed Jul 19 15:46:57 CST 2023
 *  
 * @brief     Hardware configuration file
 * 
@@ -45,10 +45,10 @@
 
 #define MAX_LENGTH_SERVICE 6
 
-#define MAX_QUEUE_SIZE 1
+#define MAX_QUEUE_SIZE 6
 
 
-#define _DIAG_NUMBER_OF_SERVICES_    9
+#define _DIAG_NUMBER_OF_SERVICES_    14
 
 #define DIAGSRV_READ_BY_IDENTIFIER_ORDER    0
 
@@ -66,7 +66,17 @@
 
 #define DIAGSRV_FAULT_MEMORY_CLEAR_ORDER    7
 
-#define DIAGSRV_ASSIGN_FRAME_IDENTIFIER_ORDER    8
+#define DIAGSRV_WRITE_DATA_BY_IDENTIFIER_ORDER    8
+
+#define DIAGSRV_DATA_DUMP_ORDER    9
+
+#define DIAGSRV_CONDITIONAL_CHANGE_NAD_ORDER    10
+
+#define DIAGSRV_ASSIGN_NAD_ORDER    11
+
+#define DIAGSRV_ROUTINECONTROL_ORDER    12
+
+#define DIAGSRV_ASSIGN_FRAME_IDENTIFIER_ORDER    13
 
 
 /**************** FRAME SUPPORT DEFINITION ******************/

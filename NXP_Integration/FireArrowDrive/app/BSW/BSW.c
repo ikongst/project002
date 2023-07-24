@@ -12,9 +12,12 @@
 #include "meas_S12zvm.h"
 #include "motorinter.h"
 #include "pwm_control.h"
+#include "eeprom_S12Z.h"
+
 
 extern pwmControl_t pwmControlData;
 extern appFaultStatus_t	permFaults;	
+
 
 
 
@@ -54,10 +57,11 @@ void BSW_MotorStart(void)
  MotorDrive_Start();
 }
 
+unsigned char gucmotordirection = 0;
 void BSW_MotorRegulation(unsigned int speedrpm)
 {
  
-  MotorDrive_Regulation(speedrpm,0);
+  MotorDrive_Regulation(speedrpm,gucmotordirection);
 	
 }
 
@@ -102,7 +106,7 @@ unsigned int getNTCDigitals(void)
 }
 unsigned int getactualspeed(void)
 {
-	return MotorDrive_uiActualSpeed;
+	return ((long)MotorDrive_uiActualSpeed*3000)>>15;
 }
 
 unsigned char ucgetPINInterfaceStatus(void)
@@ -217,6 +221,61 @@ long gettimerclk(void)
 {
 	return (1000000);
 }
+
+
+unsigned int Write_buf[8]={0x0001,0x0002,0x0003,0x0004,0x0005,0x0006,0x0007,0x0008};
+unsigned int read_buf[8];
+void BSW_NVM_ProgramPage(unsigned char ucpageindex,unsigned int *ptr)
+{
+  unsigned char i;
+  unsigned long int addr=ucpageindex*16+0x100000;
+  for(i=0;i<4;i++)
+  EEPROM_Erase_Sector(addr+i*4);
+  for(i=0;i<2;i++)
+  read_buf[6+i]=EEPROM_Program(addr+i*8,ptr+i*4,4);  
+}
+unsigned int BSW_NVM_ReadData(unsigned char ucpageindex)
+{
+   unsigned char i;
+   unsigned long int addr=ucpageindex*16+0x100000;
+   for(i=0;i<8;i++)
+   read_buf[i]=EEPROM_Read_Word(addr+i*2);
+   return 0xffff;
+}
+
+void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength)
+{	
+	Write_buf[0] = arrpoints[0]<<8|arrpoints[1];
+	Write_buf[1] = arrpoints[2]<<8|arrpoints[3];
+	Write_buf[2] = arrpoints[4]<<8|arrpoints[5];
+	Write_buf[3] = arrpoints[6]<<8|arrpoints[7];
+	Write_buf[4] = arrpoints[8]<<8|arrpoints[9];
+	Write_buf[5] = arrpoints[10]<<8|arrpoints[11];
+	Write_buf[6] = arrpoints[12]<<8|arrpoints[13];
+	Write_buf[7] = arrpoints[14]<<8|arrpoints[15];
+	BSW_NVM_ProgramPage(dataaddress,Write_buf);
+}
+void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength)
+{
+	BSW_NVM_ReadData(startaddress);
+	pvaluearr[0] = read_buf[0]>>8;
+	pvaluearr[1] = read_buf[0];
+	pvaluearr[2] = read_buf[1]>>8;
+	pvaluearr[3] = read_buf[1];
+	pvaluearr[4] = read_buf[2]>>8;
+	pvaluearr[5] = read_buf[2];
+	pvaluearr[6] = read_buf[3]>>8;
+	pvaluearr[7] = read_buf[3];
+	pvaluearr[8] = read_buf[4]>>8;
+	pvaluearr[9] = read_buf[4];
+	pvaluearr[10] = read_buf[5]>>8;
+	pvaluearr[11] = read_buf[5];
+	pvaluearr[12] = read_buf[6]>>8;
+	pvaluearr[13] = read_buf[6];
+	pvaluearr[14] = read_buf[7]>>8;
+	pvaluearr[15] = read_buf[7];		
+}
+
 
 void NVM_ProgramPage(unsigned char ucpageindex)
 {

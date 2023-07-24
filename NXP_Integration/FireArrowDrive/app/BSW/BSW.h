@@ -46,6 +46,7 @@ unsigned char ucgetPINEnableStatus(void);
 void BSW_MotorStop(void);
 void BSW_MotorStart(void);
 void BSW_MotorRegulation(unsigned int speedrpm);
+extern unsigned char gucmotordirection;
 
 // sleep mode
 void EnterintoSleep(void);
@@ -87,10 +88,13 @@ void settrriger_fall(void);
 unsigned int gettimercntr(void);
 long gettimerclk(void); 
 
+void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
+void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
+
 // memory operation.
 #define FlashPageSize 128
 extern unsigned char TargetData[FlashPageSize];
-void NVM_ProgramPage(unsigned char ucpageindex);
-unsigned int NVM_ReadData(unsigned char ucpageindex);
+void BSW_NVM_ProgramPage(unsigned char ucpageindex,unsigned int *ptr);
+unsigned int BSW_NVM_ReadData(unsigned char ucpageindex);
 
 #endif /* BSW_H_ */
