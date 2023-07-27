@@ -57,7 +57,7 @@ void BSW_MotorStart(void)
  MotorDrive_Start();
 }
 
-unsigned char gucmotordirection = 0;
+unsigned char gucmotordirection = 1;   //0
 void BSW_MotorRegulation(unsigned int speedrpm)
 {
  

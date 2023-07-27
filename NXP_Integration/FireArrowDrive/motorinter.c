@@ -14,7 +14,7 @@ unsigned char Runcommand=0,directemp=0;         //Command state: 1=run  0=stop; 
 signed int  SpeedIN;                          //speed value input
 
 unsigned int MotorDrive_uiVoltage;            //bus voltage measure
-unsigned char MotorDrive_uiCurrent;         //bus current (raw)
+unsigned int MotorDrive_uiCurrent;         //bus current (raw)
 signed int MotorDrive_uiTemperature;        //MCU temperature
 signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
@@ -25,6 +25,7 @@ unsigned int MotorDrive_MotorStatus;          //running state of motor
 
 //driveStates_t *Addr_State;         //handler of state
 //pmsmDrive_t *Addr_Foc;             //handler of control
+
 
 
 
@@ -57,7 +58,7 @@ void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
 
-    long frac16speed = (((long)uispeedvalue<<15)/(unsigned int)N_MAX);
+    unsigned int frac16speed = ((long)((long)uispeedvalue<<15)/(unsigned int)N_MAX); //(((long)uispeedvalue<<15)/(unsigned int)N_MAX);
     if(!direct)
       SpeedIN = frac16speed;
 	else
@@ -69,10 +70,10 @@ void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 	{
 	  if(direct!=directemp)
 	  	{
-	     directemp = direct;                    //change the direct
-	     cntrState.state   = reset;                  //reset state
-	     cntrState.event = e_reset;
-	     Runcommand=1;                           //ready for run  again
+	       directemp = direct;                    //change the direct
+	       cntrState.state   = reset;             //reset state
+	       cntrState.event = e_reset;
+	     Runcommand=1;                          //ready for run  again
 	  	}
 	  else 
 	  	{

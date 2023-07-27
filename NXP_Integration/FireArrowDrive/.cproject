@@ -34,7 +34,7 @@
 							<tool id="com.freescale.s12z.toolchain.linker.1368527296" name="S12Z Linker" superClass="com.freescale.s12z.toolchain.linker">
 								<option id="com.freescale.s12z.toolchain.linker.input.libs.425765862" name="Libraries" superClass="com.freescale.s12z.toolchain.linker.input.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/S12lisa_Support/s12lisac/lib_small/ansii.lib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface/LIB_CustomerInterface_v010_NXP_600W.lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface/LIB_CustomerInterface_v011_NXP_600W.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog/LIB_Datalog_v011_NXP.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/Protection/LIB_Protection_v017_NXP_600W.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\MC9S12ZVM_AMMCLIB_v1.1.28\lib\cw10x\MC9S12ZVM_AMMCLIB.UC.a&quot;"/>
