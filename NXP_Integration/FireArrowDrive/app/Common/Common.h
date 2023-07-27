@@ -165,10 +165,10 @@ void TaskAnalysis_Main(void);
 extern unsigned char gucDebugEnable;
 extern unsigned char gucDebug_PINEnableStatus;
 extern unsigned int guiDebug_Temperature;
-extern unsigned int guiDebug_PowerLimit;
-extern unsigned int guiDebug_CurrentLimit;
-extern unsigned int guiDebug_CurrentLimitbyVoltage;
-extern unsigned int guiDebug_CurrentLimitbyTemperature;
+extern typeS32 guiDebug_PowerLimit;
+extern typeS32 guiDebug_CurrentLimit;
+extern typeS32 guiDebug_CurrentLimitbyVoltage;
+extern typeS32 guiDebug_CurrentLimitbyTemperature;
 
 extern unsigned  int guiDebug_ErrorVCP;
 extern unsigned  int guiDebug_ErrorOC;
