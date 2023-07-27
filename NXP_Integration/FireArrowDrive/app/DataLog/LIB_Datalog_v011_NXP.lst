@@ -1,12 +1,11 @@
 Units and locations in library 'LIB_Datalog_v011_NXP.lib'
-Unit name                 size     from       to
-Common_c.obj              5280       87     5367
-DTC_c.obj                 7632     5367    12999
-DataLog_c.obj            13408    12999    26407
-FlashOperation_c.obj     10224    26407    36631
-InternalError_c.obj       5408    36631    42039
-TimeBase_c.obj           11632    42039    53671
-mylibrary_c.obj           1848    53671    55519
+Unit name                size     from       to
+Common_c.obj             5312       87     5399
+DTC_c.obj                7696     5399    13095
+DataLog_c.obj           13472    13095    26567
+InternalError_c.obj      5472    26567    32039
+TimeBase_c.obj          11696    32039    43735
+mylibrary_c.obj          1880    43735    45615
 
 EXPORTED OBJECTS
 DTC_Main                              F   (DTC_c.obj)
@@ -14,15 +13,10 @@ DTC_Main                              I   (DataLog_c.obj)
 DataLog_Main                          F   (DataLog_c.obj)
 InternalError_Main                    I   (DataLog_c.obj)
 InternalError_Main                    F   (InternalError_c.obj)
-NVM_ProgramPage                       I   (FlashOperation_c.obj)
-NVM_ReadData                          I   (FlashOperation_c.obj)
-TargetData                            I   (FlashOperation_c.obj)
 TimeBase_Main                         I   (DataLog_c.obj)
 TimeBase_Main                         F   (TimeBase_c.obj)
 __clear                               I   (DataLog_c.obj)
-calculatechecksum                     F   (FlashOperation_c.obj)
-flashoperation                        I   (DataLog_c.obj)
-flashoperation                        F   (FlashOperation_c.obj)
+flashoperation_1                      I   (DataLog_c.obj)
 gDTCDataArr                           O   (DTC_c.obj)
 gDTCDataArr                           I   (DataLog_c.obj)
 gInternalDiagnosticFlags              I   (InternalError_c.obj)
@@ -30,11 +24,8 @@ gInternalDiagnosticRecordedFlags      O   (InternalError_c.obj)
 gMotorControl                         I   (DTC_c.obj)
 gMotorControl                         I   (DataLog_c.obj)
 gProtectionFlags                      I   (DTC_c.obj)
-get1pagedatafromflash                 F   (FlashOperation_c.obj)
-get4bytesfromflash                    F   (FlashOperation_c.obj)
-getdatafromflash                      I   (DataLog_c.obj)
-getdatafromflash                      F   (FlashOperation_c.obj)
-getdatafromflash                      I   (TimeBase_c.obj)
+getdatafromflash_1                    I   (DataLog_c.obj)
+getdatafromflash_1                    I   (TimeBase_c.obj)
 gucDTCRecordFlag                      O   (DTC_c.obj)
 gucDTCRecordFlag                      I   (DataLog_c.obj)
 gucDTCWriteIndex                      I   (DTC_c.obj)
@@ -79,7 +70,6 @@ gulTimeSpeedRangeArr                  O   (TimeBase_c.obj)
 gulTimebaseSecond                     I   (DTC_c.obj)
 gulTimebaseSecond                     I   (DataLog_c.obj)
 gulTimebaseSecond                     O   (TimeBase_c.obj)
-onetimerunningflag                    O   (FlashOperation_c.obj)
 startdtcrecording                     F   (DataLog_c.obj)
 startinternalerrorrecording           F   (DataLog_c.obj)
 startspeedstatusrecording             F   (DataLog_c.obj)

@@ -1,4 +1,4 @@
-Units and locations in library 'LIB_CustomerInterface_v010_NXP_600W.lib'
+Units and locations in library 'LIB_CustomerInterface_v011_NXP_400W.lib'
 Unit name                                size     from       to
 Common_c.obj                             5312      102     5414
 CustomerInterface_InputSignal_c.obj     16016    24854    40870

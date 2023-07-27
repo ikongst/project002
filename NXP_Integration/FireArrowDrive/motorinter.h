@@ -13,7 +13,7 @@ extern unsigned char Runcommand,directemp;           //Command state: 1=run  0=s
 extern signed int  SpeedIN;                        //speed value input
 
 extern unsigned int MotorDrive_uiVoltage;            //bus voltage measure
-extern unsigned char MotorDrive_uiCurrent;           //bus current (raw)
+extern unsigned int MotorDrive_uiCurrent;           //bus current (raw)
 extern signed int MotorDrive_uiTemperature;        //MCU temperature
 extern signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 

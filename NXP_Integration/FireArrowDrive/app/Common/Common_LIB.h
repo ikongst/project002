@@ -20,5 +20,6 @@
 #include "BSW.h"
 #include "UDS.h"
 #include "lin.h"
+#include "Diagnostic.h"
 
 #endif

@@ -14,7 +14,7 @@ unsigned char Runcommand=0,directemp=0;         //Command state: 1=run  0=stop; 
 signed int  SpeedIN;                          //speed value input
 
 unsigned int MotorDrive_uiVoltage;            //bus voltage measure
-unsigned char MotorDrive_uiCurrent;         //bus current (raw)
+unsigned int MotorDrive_uiCurrent;         //bus current (raw)
 signed int MotorDrive_uiTemperature;        //MCU temperature
 signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 

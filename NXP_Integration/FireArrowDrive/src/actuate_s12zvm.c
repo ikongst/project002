@@ -445,7 +445,8 @@ void CalcEdges(PMF_3PH_MODULATOR_T *pwm3PhEdges, SWLIBS_3Syst_F16 *duty, SWLIBS_
 ******************************************************************************/
 void SetPmfValReg(PMF_3PH_MODULATOR_T *pwm3PhEdges)
 {
-	if(gucmotordirection==1)
+	unsigned char ucdirection = 1;
+	if(ucdirection==1)
 	{
 		/* ph A */
 		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
