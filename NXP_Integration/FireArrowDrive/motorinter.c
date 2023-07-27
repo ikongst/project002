@@ -30,6 +30,7 @@ unsigned int MotorDrive_MotorStatus;          //running state of motor
 
 
 
+
 /*****start the motor's running******/
 void MotorDrive_Start(void)
 {    
@@ -57,7 +58,7 @@ void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 {	
     MotorDrive_uiTargetSpeed=uispeedvalue;
 
-    long frac16speed = (((long)uispeedvalue<<15)/(unsigned int)N_MAX);
+    unsigned int frac16speed = ((long)((long)uispeedvalue<<15)/(unsigned int)N_MAX); //(((long)uispeedvalue<<15)/(unsigned int)N_MAX);
     if(!direct)
       SpeedIN = frac16speed;
 	else
@@ -69,10 +70,10 @@ void MotorDrive_Regulation(unsigned int uispeedvalue,unsigned char direct)
 	{
 	  if(direct!=directemp)
 	  	{
-	     directemp = direct;                    //change the direct
-	     cntrState.state   = reset;                  //reset state
-	     cntrState.event = e_reset;
-	     Runcommand=1;                           //ready for run  again
+	       directemp = direct;                    //change the direct
+	       cntrState.state   = reset;             //reset state
+	       cntrState.event = e_reset;
+	     Runcommand=1;                          //ready for run  again
 	  	}
 	  else 
 	  	{
