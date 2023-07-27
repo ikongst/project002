@@ -26,7 +26,7 @@ v017, 2023-05-16, kongyun: temperature - current derating bug fixed.
 	#define LIB_PLATFORM_400W            1
 	#define LIB_PLATFORM_600W            2
 
-	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_400W
+	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_600W
 
 	#if   (LIB_PLATFORM_SELECTION == LIB_PLATFORM_GEN1)\
 			||(LIB_PLATFORM_SELECTION == LIB_PLATFORM_400W)
@@ -197,7 +197,7 @@ unsigned char el_currentoffset_protection(unsigned int offsetvalue, unsigned int
 #define ELECTRONICS_ERROR_NA       0
 #define ELECTRONICS_ERROR_GDU      1
 #define ELECTRONICS_ERROR_SC       2
-#define ELECTRONICS_ERROR_PB	   3
+#define ELECTRONICS_ERROR_PB			 3
 #define ELECTRONICS_ERROR_OC       4
 #define ELECTRONICS_ERROR_POWER    5
 extern unsigned int electronicserrorcounter;
@@ -207,9 +207,9 @@ extern unsigned int electronicserrorcounter4;
 extern unsigned int electronicserrorcounter5;
 extern unsigned char gucOneElectronicsError;
 
-extern signed long sslsumcurrentdelta;
-extern signed long sslsumpowerdelta;
-extern signed long sslsumtempdelta;
+extern typeS32 sslsumcurrentdelta;
+extern typeS32 sslsumpowerdelta;
+extern typeS32 sslsumtempdelta;
 
 extern unsigned char gucOneBlockedFlag;
 extern unsigned char gucBlockedCounter;
@@ -223,8 +223,8 @@ extern unsigned int guiLibVersion_Protection;
 
 void Protection_Main(void);
 
-extern unsigned int speedlimitcurrent;
-extern unsigned int speedlimitpower;
-extern unsigned int speedlimittemp;
+extern typeS32 speedlimitcurrent;
+extern typeS32 speedlimitpower;
+extern typeS32 speedlimittemp;
 	
 #endif

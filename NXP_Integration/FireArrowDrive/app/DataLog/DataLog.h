@@ -30,13 +30,14 @@ v011, 2023-01-13, kongyun: add power error detection and record.
 	extern unsigned int guiActualSpeed;
 	extern unsigned char gucLINEOLServiceReceivedFlag;
 	
-	extern unsigned char TargetData[FLASH_TARGETDATA_LENGTH];
-	int NVM_ProgramPage(unsigned char pageindex);
-	unsigned int NVM_ReadData(unsigned int p);
 	extern FailureFlagStructure gProtectionFlags;
 	extern unsigned int guiInformation_SWIdentifier;
 	extern STATEMACHINE gMotorControl;	
-  extern InternalDiagnosticStructure gInternalDiagnosticFlags;
+    extern InternalDiagnosticStructure gInternalDiagnosticFlags;
+  
+
+    void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
+    void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
 //------------------------------------------------------------------------
 
 	#include "DTC.h"
@@ -96,8 +97,6 @@ v011, 2023-01-13, kongyun: add power error detection and record.
 #define FLASH_ADDRESS_DCT_STARTADDRESS                 FLASH_ADDRESS_DTC1
 #define FLASH_ADDRESS_DTC_MAX_INDEX                    ((FLASH_ADDRESS_DCT12-FLASH_ADDRESS_DTC1)>>4)
 
-void getdatafromflash(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
-void flashoperation(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
 
 extern unsigned int guiLibVersion_Datalog;
 extern unsigned char gucDatalogOperationFlag;

@@ -35,7 +35,7 @@ void calibrationudpate()
 	{
 		onlyupdateonetimeflag = INITed;
 		
-		getdatafromflash(datapointarr, FLASH_ADDRESS_CALCULATION_START, SW_READ_ARR_LENGTH);
+		getdatafromflash_1(datapointarr, FLASH_ADDRESS_CALCULATION_START/16, SW_READ_ARR_LENGTH);
 		
 		if((datapointarr[10]==0x55)&&((datapointarr[0]<0x9F)&&(datapointarr[0]>0x5F)))
 		{

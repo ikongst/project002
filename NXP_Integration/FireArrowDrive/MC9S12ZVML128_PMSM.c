@@ -417,6 +417,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	// temp = 150- 2.4v/5.25mv + (meas.measured.f16Temp.raw)*5>>16)/5.25;
 	// temp = 150- 457 + (meas.measured.f16Temp.raw)*5*100>>16)/525;
 		
+
 	MotorDrive_uiTemperature =((long)meas.measured.f16Temp.filt*645)>>15; //150-(31456-meas.measured.f16Temp.raw)/69;//150-(2400*100-((long)meas.measured.f16Temp.raw*5*100>>16))/525;
 	
 	//MotorDrive_uiTemperature =150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample

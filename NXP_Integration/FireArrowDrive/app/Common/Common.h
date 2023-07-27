@@ -40,6 +40,17 @@
 #define KONGENABLE   1
 #define KONGDISABLE  0
 
+// variable length definition
+//------------------------------------------------------
+typedef unsigned char   typeU08;   /**< unsigned 8 bit definition */
+typedef unsigned short  typeU16;   /**< unsigned 16 bit definition */
+typedef unsigned long   typeU32;   /**< unsigned 32 bit definition */
+typedef signed char     typeS08;   /**< signed 8 bit definition */
+typedef signed short    typeS16;   /**< signed 16 bit definition */
+typedef signed long     typeS32;   /**< signed 32 bit definition */
+
+
+//------------------------------------------------------
 
 typedef union
 {
