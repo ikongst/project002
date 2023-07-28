@@ -75,6 +75,7 @@ INTERRUPT void PMFreloadA_ISR(void);
 
 
 
+
 // Debug variables
 static tFrac16			reload_PmfCnt;
 volatile unsigned int 	AdcErrorLDOK, AdcErrorRSTAR, AdcErrorTRIG, AdcErrorEOL, AdcErrorCMD, AdcErrorIA;
@@ -1700,5 +1701,8 @@ void stateLedFLASHING_FAST()
 		PTS_PTS4 ^= 1;
 		cntrState.usrControl.ledCounter = 0;
 	}
-	return;
+	return;	
 }
+
+
+

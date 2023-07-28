@@ -33,6 +33,8 @@
 //#define IRQ_OFF_19C_FCN         SCI0_ISR
 //#define IRQ_OFF_198_FCN         SCI1_ISR
 
+#define IRQ_OFF_100_FCN         API_ISR    //API WAKE ISR
+
 //#define IRQ_OFF_E4_FCN          PTUTrigger0Done_ISR		// not used
 //#define IRQ_OFF_E0_FCN          PTUTrigger1Done_ISR		// not used
 

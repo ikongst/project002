@@ -19,7 +19,7 @@
 		l_u16_wr_LIN_NXP_ActSpeed(guiActualSpeed);
 		
 		l_u8_wr_LIN_NXP_ActVoltage(guiVoltage/100);
-		l_u8_wr_LIN_NXP_ActCurrent(guiCurrent*5/2000);
+		l_u8_wr_LIN_NXP_ActCurrent((long)guiCurrent*5/2000);
 		l_bool_wr_LIN_NXP_OverTempErr((gProtectionFlags.bits.OT+gProtectionFlags.bits.LT)>FLAG_RESET?FLAG_SET:FLAG_RESET);
 
 		l_bool_wr_LIN_NXP_InnerErr((gProtectionFlags.bits.EL_GDU

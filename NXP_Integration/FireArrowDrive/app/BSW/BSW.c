@@ -18,8 +18,9 @@
 extern pwmControl_t pwmControlData;
 extern appFaultStatus_t	permFaults;	
 
+extern void 	DisableOutput(void);
 
-
+INTERRUPT void API_ISR(void);
 
 
 
@@ -73,9 +74,13 @@ void BSW_KL15Config(void)
 void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
 	//DIAgnostic out
+	//PTS_PTS1   = 0;	            //PS1 output low 
 	//MODRR0_S0L0RR = 0x02;	    //LIN routed to PS1
-	//PTS_PTS1   = 0;		        //PS1 output high
-	
+	//if(!ucPINstatus)
+	  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
+	//else
+	//  MODRR0_S0L0RR = 0x00;     //LIN routed to RX
+	//PTS_PTS1   = 1;		        //PS1 output High	
     //MODRR2_T0IC3RR = 0x01;	   //RX routed to TIM0C3
 	
 	LP0DR_LPDR1 = ucPINstatus;
@@ -84,7 +89,53 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-   CPMUCLKS_PSTP=1;
+   //CPMUCLKS_PSTP=1;
+	DisableOutput();
+	
+//	SCI0SR2_AMAP = 1;
+//	SCI0ACR1_RXEDGIE = 0x01; /* edge interrupt enabled for wake up*/
+//	SCI0ASR1_RXEDGIF = 0x01; /* clear flag*/
+//	SCI0SR2_AMAP = 0;
+//	SCI0CR2_RWU = 1;  /* SCI enters into standby state */
+	
+	
+	CPMUAPICTL_APICLK=0; //Use Autonomous Clock as source
+	CPMUACLKTR=0b01111100; //highest
+	CPMUAPICTL_APIE=1; //API interrupt will be requested whenever APIF is set.
+		
+	CPMUAPIRH=0x0A;//0x7F;  //Modify this register to change the wakeup freq.
+	CPMUAPIRL=0xFF;
+		
+	CPMUAPICTL_APIFE=1; //Autonomous periodical interrupt is enabled and timer starts running.
+//	
+	
+	
+	//EnableInterrupts;
+	
+	
+	asm(CLI);
+    asm(andcc #0x7f);
+    asm(stop);
+		
+}
+
+INTERRUPT void API_ISR(void)
+{
+ 
+	//clear timer flag
+	CPMUAPICTL_APIF=1; //Clear API flag
+	
+	if((PTP_PTP1==1)||(LP0DR_LPDR0==0))   //wake
+	CPMUAPICTL_APIFE=0; //Autonomous periodical interrupt is disabled.			
+//	else                                 //stop
+//	{
+//		asm(CLI);
+//	    asm(andcc #0x7f);
+//	    asm(stop);
+//	}
+	
+	//change LED state
+	//PTP_PTP5 ^= 1;
 }
 
 unsigned int getrawvoltage(void)
