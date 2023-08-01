@@ -182,6 +182,18 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 										 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 										 TBdrv_Ch_Cfg HS3_Cfg)
 {
+  /* ph A */
+		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		
+		/* ph B */
+		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+	
+
+	    /* ph C */
+	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
 	
 }
 
