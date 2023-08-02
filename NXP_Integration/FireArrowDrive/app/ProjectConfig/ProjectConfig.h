@@ -4,87 +4,87 @@
 //-------------------------------------------------------------------------------
 //-- software specific definition                                              --
 //-------------------------------------------------------------------------------
-#define PAR_BITS_START_SWMATURITY                      30
-#define PAR_BITS_START_CUSTOMERINDEX                   24
-#define PAR_BITS_START_MOTORTYPE                       20
-#define PAR_BITS_START_ELECTYPE                        16
-#define PAR_BITS_START_PROJECTID                        8
-#define PAR_BITS_START_INTERFACE                        7
-#define PAR_BITS_START_SWVERSION                        0
+#define PAR_BITS_START_SWMATURITY                      30U
+#define PAR_BITS_START_CUSTOMERINDEX                   24U
+#define PAR_BITS_START_MOTORTYPE                       20U
+#define PAR_BITS_START_ELECTYPE                        16U
+#define PAR_BITS_START_PROJECTID                        8U
+#define PAR_BITS_START_INTERFACE                        7U
+#define PAR_BITS_START_SWVERSION                        0U
 
 //- SW maturity - 2 bits, max 4
-#define SW_MATURITY_T_A                                 (0<<PAR_BITS_START_SWMATURITY)  // test or A sample.     
-#define SW_MATURITY_B                                   (1<<PAR_BITS_START_SWMATURITY)       
-#define SW_MATURITY_C                                   (2<<PAR_BITS_START_SWMATURITY)       
-#define SW_MATURITY_P                                   (3<<PAR_BITS_START_SWMATURITY)       
+#define SW_MATURITY_T_A                                 (0UL<<PAR_BITS_START_SWMATURITY)  // test or A sample.     
+#define SW_MATURITY_B                                   (1UL<<PAR_BITS_START_SWMATURITY)       
+#define SW_MATURITY_C                                   (2UL<<PAR_BITS_START_SWMATURITY)       
+#define SW_MATURITY_P                                   (3UL<<PAR_BITS_START_SWMATURITY)       
 
 //- customer index - 6 bits, maximum 64
-#define CUSTOMERINDEX_PLATFORM                          (0<<PAR_BITS_START_CUSTOMERINDEX)
-#define CUSTOMERINDEX_GWM                               (1<<PAR_BITS_START_CUSTOMERINDEX)
-#define CUSTOMERINDEX_GEELY                             (2<<PAR_BITS_START_CUSTOMERINDEX)
-#define CUSTOMERINDEX_GAC                               (3<<PAR_BITS_START_CUSTOMERINDEX)
-#define CUSTOMERINDEX_MAX                            (0x3F<<PAR_BITS_START_CUSTOMERINDEX) // maximum
+#define CUSTOMERINDEX_PLATFORM                          (0UL<<PAR_BITS_START_CUSTOMERINDEX)
+#define CUSTOMERINDEX_GWM                               (1UL<<PAR_BITS_START_CUSTOMERINDEX)
+#define CUSTOMERINDEX_GEELY                             (2UL<<PAR_BITS_START_CUSTOMERINDEX)
+#define CUSTOMERINDEX_GAC                               (3UL<<PAR_BITS_START_CUSTOMERINDEX)
+#define CUSTOMERINDEX_MAX                            (0x3FUL<<PAR_BITS_START_CUSTOMERINDEX) // maximum
 
 //- Motor index    - 4 bits, maximum 15
-#define MOTOR_PLATFORM_GEN1                             (1<<PAR_BITS_START_MOTORTYPE)
-#define MOTOR_PLATFORM_400W                             (2<<PAR_BITS_START_MOTORTYPE)
-#define MOTOR_PLATFORM_600W                             (3<<PAR_BITS_START_MOTORTYPE)
-#define MOTOR_PLATFORM_GENNMAX                       (0x0F<<PAR_BITS_START_MOTORTYPE) // maximum
+#define MOTOR_PLATFORM_GEN1                             (1UL<<PAR_BITS_START_MOTORTYPE)
+#define MOTOR_PLATFORM_400W                             (2UL<<PAR_BITS_START_MOTORTYPE)
+#define MOTOR_PLATFORM_600W                             (3UL<<PAR_BITS_START_MOTORTYPE)
+#define MOTOR_PLATFORM_GENNMAX                       (0x0FUL<<PAR_BITS_START_MOTORTYPE) // maximum
 
 //- electronic platform index - 4 bits,  maximum 15
-#define ELECTRONICS_PLATFORM_GEN1                       (1<<PAR_BITS_START_ELECTYPE)
-#define ELECTRONICS_PLATFORM_400W                       (2<<PAR_BITS_START_ELECTYPE)
-#define ELECTRONICS_PLATFORM_600W                       (3<<PAR_BITS_START_ELECTYPE)
-#define ELECTRONICS_NXP_600W                            (4<<PAR_BITS_START_ELECTYPE)
-#define ELECTRONICS_PLATFORM_GENNMAX                 (0x0F<<PAR_BITS_START_ELECTYPE) // maximum
+#define ELECTRONICS_PLATFORM_GEN1                       (1UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_PLATFORM_400W                       (2UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_PLATFORM_600W                       (3UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_NXP_600W                            (4UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_PLATFORM_GENNMAX                 (0x0FUL<<PAR_BITS_START_ELECTYPE) // maximum
 
 
 //-----------------------------------------------------------------------------------
 // below items should be added by user ----------------------------------------------
 //- project variants - 8 bits, maximum 255,
 // Platform 
-#define PLATFORM_ROCKET                                 (1<<PAR_BITS_START_PROJECTID)
-#define PLATFORM_PROJECT_MAX                         (0xFF<<PAR_BITS_START_PROJECTID)
+#define PLATFORM_ROCKET                                 (1UL<<PAR_BITS_START_PROJECTID)
+#define PLATFORM_PROJECT_MAX                         (0xFFUL<<PAR_BITS_START_PROJECTID)
 
 // GWM
-#define GWM_H6_400W                                     (1<<PAR_BITS_START_PROJECTID)
-#define GWM_H6_600W                                     (2<<PAR_BITS_START_PROJECTID)
-#define GWM_PROJECT_MAX                              (0xFF<<PAR_BITS_START_PROJECTID)
+#define GWM_H6_400W                                     (1UL<<PAR_BITS_START_PROJECTID)
+#define GWM_H6_600W                                     (2UL<<PAR_BITS_START_PROJECTID)
+#define GWM_PROJECT_MAX                              (0xFFUL<<PAR_BITS_START_PROJECTID)
 
 // Geely
-#define GEELY_SC02_600W                                 (1<<PAR_BITS_START_PROJECTID)
-#define GEELY_SS11_600W                                 (2<<PAR_BITS_START_PROJECTID)
-#define GEELY_PROJECT_MAX                            (0xFF<<PAR_BITS_START_PROJECTID)
+#define GEELY_SC02_600W                                 (1UL<<PAR_BITS_START_PROJECTID)
+#define GEELY_SS11_600W                                 (2UL<<PAR_BITS_START_PROJECTID)
+#define GEELY_PROJECT_MAX                            (0xFFUL<<PAR_BITS_START_PROJECTID)
 
 // GAC
-#define GAC_A20_400W                                    (1<<PAR_BITS_START_PROJECTID)
-#define GAC_A02_400W                                    (2<<PAR_BITS_START_PROJECTID)
-#define GAC_PROJECT_MAX                              (0xFF<<PAR_BITS_START_PROJECTID)
+#define GAC_A20_400W                                    (1UL<<PAR_BITS_START_PROJECTID)
+#define GAC_A02_400W                                    (2UL<<PAR_BITS_START_PROJECTID)
+#define GAC_PROJECT_MAX                              (0xFFUL<<PAR_BITS_START_PROJECTID)
 
 
 //- project sw version - 8 bits, maximum 127, bit-7 means LIN or PWM interface;
 //- interface matrix bit 7
-#define CUSTOMERINTERFACE_LIN                           (0<<PAR_BITS_START_INTERFACE)
-#define CUSTOMERINTERFACE_PWM                           (1<<PAR_BITS_START_INTERFACE)
+#define CUSTOMERINTERFACE_LIN                           (0UL<<PAR_BITS_START_INTERFACE)
+#define CUSTOMERINTERFACE_PWM                           (1UL<<PAR_BITS_START_INTERFACE)
 
 // sw version bits [6:0]
-//#define SWVERSION_000                                   (0<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_001                                   (1<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_002                                   (2<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_003                                   (3<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_004                                   (4<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_005                                   (5<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_006                                   (6<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_007                                   (7<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_008                                   (8<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_009                                   (9<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_010                                   (10<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_011                                   (11<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_012                                   (12<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_013                                   (13<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_014                                   (14<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_015                                   (15<<PAR_BITS_START_SWVERSION)
-#define SWVERSION_MAX                                (0x7F<<PAR_BITS_START_SWVERSION)
+//#define SWVERSION_000                                   (0UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_001                                   (1UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_002                                   (2UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_003                                   (3UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_004                                   (4UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_005                                   (5UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_006                                   (6UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_007                                   (7UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_008                                   (8UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_009                                   (9UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_010                                   (10UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_011                                   (11UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_012                                   (12UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_013                                   (13UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_014                                   (14UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_015                                   (15UL<<PAR_BITS_START_SWVERSION)
+#define SWVERSION_MAX                                (0x7FUL<<PAR_BITS_START_SWVERSION)
 
 
 // Project Coding Definition.
@@ -134,13 +134,13 @@
 //------------------------------------------------------------------------------------
 // below can not be modified.
 //------------------------------------------------------------------------------------
-#define getSWMaturity()                      (SW_VARIANT_PROJECT_SELECTION&0xC0000000)
-#define getCustomerIndex()                   (SW_VARIANT_PROJECT_SELECTION&0x3f000000)
-#define getMotorType()                       (SW_VARIANT_PROJECT_SELECTION&0x00f00000)
-#define getElecType()                        (SW_VARIANT_PROJECT_SELECTION&0x000f0000)
-#define getProjectID()                       (SW_VARIANT_PROJECT_SELECTION&0x0000ff00)
-#define getInterfaceType()                   (SW_VARIANT_PROJECT_SELECTION&0x00000080)
-#define getSWVersion()                       (SW_VARIANT_PROJECT_SELECTION&0x0000007f)
+#define getSWMaturity()                      (SW_VARIANT_PROJECT_SELECTION&0xC0000000UL)
+#define getCustomerIndex()                   (SW_VARIANT_PROJECT_SELECTION&0x3f000000UL)
+#define getMotorType()                       (SW_VARIANT_PROJECT_SELECTION&0x00f00000UL)
+#define getElecType()                        (SW_VARIANT_PROJECT_SELECTION&0x000f0000UL)
+#define getProjectID()                       (SW_VARIANT_PROJECT_SELECTION&0x0000ff00UL)
+#define getInterfaceType()                   (SW_VARIANT_PROJECT_SELECTION&0x00000080UL)
+#define getSWVersion()                       (SW_VARIANT_PROJECT_SELECTION&0x0000007fUL)
 
 ////- get project definition
 #define PAR_SWMATURITY_SELECTION             getSWMaturity()
@@ -165,7 +165,7 @@
 	#define LIN_PROTOCOL_SELECTION     CUSTOMERINDEX_PLATFORM
 #endif
 
-extern unsigned int guiInformation_SWIdentifier;
+extern typeU32 guiInformation_SWIdentifier;
 
 extern unsigned char gucswversion_internal;
 

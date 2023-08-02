@@ -31,7 +31,7 @@ v011, 2023-01-13, kongyun: add power error detection and record.
 	extern unsigned char gucLINEOLServiceReceivedFlag;
 	
 	extern FailureFlagStructure gProtectionFlags;
-	extern unsigned int guiInformation_SWIdentifier;
+	extern typeU32 guiInformation_SWIdentifier;
 	extern STATEMACHINE gMotorControl;	
     extern InternalDiagnosticStructure gInternalDiagnosticFlags;
   

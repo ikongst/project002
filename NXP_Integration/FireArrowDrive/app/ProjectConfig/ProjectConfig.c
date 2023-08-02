@@ -4,13 +4,13 @@
 #include "ElectronicParam.h"
 #include "PlatformParam.h"
 
-unsigned int guiInformation_SWIdentifier = SW_SWID_PROJECT;
-unsigned int guiInformation_Customer     = PAR_CUSTOMERINDEX_SELECTION;
-unsigned int guiInformation_Motor        = PAR_MOTOR_SELECTION;
-unsigned int guiInformation_Electronic   = PAR_ELECTRONICS_SELECTION;
-unsigned int guiInformation_Project      = PAR_PROJECTS_SELECTION;
-unsigned int guiInformation_Interface    = PAR_CUSTOMERINTERFACE_SELECTION;
-unsigned int guiInformation_version      = PAR_SW_VERSION;
+typeU32 guiInformation_SWIdentifier = SW_SWID_PROJECT;
+typeU32 guiInformation_Customer     = PAR_CUSTOMERINDEX_SELECTION;
+typeU32 guiInformation_Motor        = PAR_MOTOR_SELECTION;
+typeU32 guiInformation_Electronic   = PAR_ELECTRONICS_SELECTION;
+typeU32 guiInformation_Project      = PAR_PROJECTS_SELECTION;
+typeU32 guiInformation_Interface    = PAR_CUSTOMERINTERFACE_SELECTION;
+typeU32 guiInformation_version      = PAR_SW_VERSION;
 
 
 ////#include "tle_variants.h"

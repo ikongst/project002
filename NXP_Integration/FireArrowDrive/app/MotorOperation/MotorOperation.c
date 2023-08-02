@@ -92,6 +92,8 @@ void gotosleedmode(void)
 {
 	if(gucLINGotoSleepFlag==FLAG_SET)
 	{
+		gucLINGotoSleepFlag =FLAG_RESET;
+		
 		stopmotor();
 		gucPINInterfacePullDownStatus  = PULLDOWN_RELEASE;
 		BSW_setpinstatus_interface(PULLDOWN_RELEASE);	
@@ -106,13 +108,13 @@ void gotosleedmode(void)
 			startinternalerrorrecording();
 			
 			
-			gucLINGotoSleepFlag =FLAG_RESET;		
+					
 			
 			
 			// last check the KL15 status.
 			if(gucPINKL15EnableStatus==PINSTATUS_LOW)
 			{
-				EnterintoSleep();	
+				//EnterintoSleep();	
 				return;
 			}
 		}		

@@ -88,7 +88,7 @@ void SystemSchedule_Main(void)
 			
 			case 4:
 					ANALYSIS_TIMERSTART(TASK_DataLog);
-					//DataLog_Main();
+					DataLog_Main();
 					ANALYSIS_TIMERSTOP(TASK_DataLog);
 					break;
 			

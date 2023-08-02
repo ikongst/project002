@@ -89,34 +89,39 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-   //CPMUCLKS_PSTP=1;
 	DisableOutput();
 	
-//	SCI0SR2_AMAP = 1;
-//	SCI0ACR1_RXEDGIE = 0x01; /* edge interrupt enabled for wake up*/
-//	SCI0ASR1_RXEDGIF = 0x01; /* clear flag*/
-//	SCI0SR2_AMAP = 0;
-//	SCI0CR2_RWU = 1;  /* SCI enters into standby state */
-	
-	
-	CPMUAPICTL_APICLK=0; //Use Autonomous Clock as source
-	CPMUACLKTR=0b01111100; //highest
-	CPMUAPICTL_APIE=1; //API interrupt will be requested whenever APIF is set.
-		
-	CPMUAPIRH=0x0A;//0x7F;  //Modify this register to change the wakeup freq.
-	CPMUAPIRL=0xFF;
-		
-	CPMUAPICTL_APIFE=1; //Autonomous periodical interrupt is enabled and timer starts running.
-//	
-	
-	
-	//EnableInterrupts;
-	
-	
+	DisableInterrupts;
+	CPMUCLKS_PSTP=0;
 	asm(CLI);
     asm(andcc #0x7f);
+    LP0CR_LPWUE = 1;
+	SCI0SR2_AMAP = 1;
+	SCI0ACR1_RXEDGIE = 0x01; /* edge interrupt enabled for wake up*/
+	SCI0ASR1_RXEDGIF = 0x01; /* clear flag*/
+	SCI0SR2_AMAP = 0;	
+	EnableInterrupts;    
     asm(stop);
-		
+    
+    
+    CPMUCLKS_COPOSCSEL1 = 1;
+    CPMUCLKS_CSAD = 1;
+    CPMUCLKS_PCE  = 0;
+    CPMUCOP = (0b011 & CPMUCOP_CR_MASK)|(0&CPMUCOP_WRTMASK_MASK)|CPMUCOP_RSBCK_MASK|(0&CPMUCOP_WCOP_MASK);
+
+    
+//	CPMUAPICTL_APICLK=0; //Use Autonomous Clock as source
+//	CPMUACLKTR=0b01111100; //highest
+//	CPMUAPICTL_APIE=1; //API interrupt will be requested whenever APIF is set.
+//		
+//	CPMUAPIRH=0x0A;//0x7F;  //Modify this register to change the wakeup freq.
+//	CPMUAPIRL=0xFF;
+//		
+//	CPMUAPICTL_APIFE=1; //Autonomous periodical interrupt is enabled and timer starts running.
+//	
+//	asm(CLI);
+//  asm(andcc #0x7f);
+//  asm(stop);		
 }
 
 INTERRUPT void API_ISR(void)
@@ -126,13 +131,28 @@ INTERRUPT void API_ISR(void)
 	CPMUAPICTL_APIF=1; //Clear API flag
 	
 	if((PTP_PTP1==1)||(LP0DR_LPDR0==0))   //wake
-	CPMUAPICTL_APIFE=0; //Autonomous periodical interrupt is disabled.			
-//	else                                 //stop
-//	{
-//		asm(CLI);
-//	    asm(andcc #0x7f);
-//	    asm(stop);
-//	}
+	{
+		CPMUAPICTL_APIE = 0;
+		CPMUAPICTL_APIFE=0; //Autonomous periodical interrupt is disabled.
+	}
+	else                                 //stop
+	{
+		CPMUAPICTL_APICLK=0; //Use Autonomous Clock as source
+		CPMUACLKTR=0b01111100; //highest
+		CPMUAPICTL_APIE=1; //API interrupt will be requested whenever APIF is set.
+			
+		CPMUAPIRH=0x0A;//0x7F;  //Modify this register to change the wakeup freq.
+		CPMUAPIRL=0xFF;
+			
+		CPMUAPICTL_APIFE=1; //Autonomous periodical interrupt is enabled and timer starts running.
+		
+		//EnableInterrupts;
+		
+		
+		asm(CLI);
+	    asm(andcc #0x7f);
+	    asm(stop);
+	}
 	
 	//change LED state
 	//PTP_PTP5 ^= 1;
@@ -182,18 +202,18 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 										 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 										 TBdrv_Ch_Cfg HS3_Cfg)
 {
-  /* ph A */
-		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		
-		/* ph B */
-		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	
-
-	    /* ph C */
-	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//  /* ph A */
+//		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		
+//		/* ph B */
+//		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//	
+//
+//	    /* ph C */
+//	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
 	
 }
 
