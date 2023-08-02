@@ -151,22 +151,28 @@ void main(void)
 	SystemSchedule_Init();
 	TIM0TSCR2_TOI	= 1;
 	
+	DDRP_DDRP1 = 0;	
+	PPSP_PPSP1 = 0;           // 0/1 = pull up/down = falling/rising edge selected
+//	PERP_PERP1 = 1;
+	PIEP_PIEP1 = 1;           // interrupt is enabled
 	
 	
 	
-    // eeprom write read test.
-	unsigned char tempreadarr[16] = {0};
-	unsigned char tempwritearr[16] = {0};
-	unsigned char i = 0, j = 0;
-	for(i=0; i < 32;i++)
-	{
-		for(j=0;j<16;j++)
-		{
-			tempwritearr[j]=i;
-		}
-		flashoperation_1(tempwritearr, i, 16);		
-	}
-	//-------------------------------------------
+	
+//	// eeprom write read test.
+//	//-------------------------------------------
+//	unsigned char tempreadarr[16] = {0};
+//	unsigned char tempwritearr[16] = {0};
+//	unsigned char i = 0, j = 0;
+//	for(i=0; i < 32;i++)
+//	{
+//		for(j=0;j<16;j++)
+//		{
+//			tempwritearr[j]=i;
+//		}
+//		flashoperation_1(tempwritearr, i, 16);		
+//	}
+//	//-------------------------------------------
 
 	
 	

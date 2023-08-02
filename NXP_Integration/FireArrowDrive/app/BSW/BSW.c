@@ -91,7 +91,12 @@ void EnterintoSleep(void)
 {
 	DisableOutput();	
 	DisableInterrupts;
+	
+	// KL15 signal
+	PIEP_PIEP1 = 1;           // interrupt is enabled
+	PIFP_PIFP1 = 1;           // clear PP1         interrupt flag only	  
 
+	// LIN signal 
     CPMUCLKS_COPOSCSEL1 = 1;
     CPMUCLKS_CSAD = 1;
     CPMUCLKS_PCE = 0;
@@ -126,6 +131,18 @@ void EnterintoSleep(void)
 //	asm(CLI);
 //  asm(andcc #0x7f);
 //  asm(stop);		
+}
+
+INTERRUPT void PORTP_ISR(void)
+{
+	asm(NOP);
+	asm(NOP);
+	asm(NOP);
+		
+	guiKL15CheckCntr++;
+	
+	//PPSP_PPSP1 = !PPSP_PPSP1;
+	PIFP_PIFP1 = 1;
 }
 
 INTERRUPT void API_ISR(void)
