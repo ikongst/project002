@@ -165,6 +165,7 @@
 	#define LIN_PROTOCOL_SELECTION     CUSTOMERINDEX_PLATFORM
 #endif
 
+#include "Common.h"
 extern typeU32 guiInformation_SWIdentifier;
 
 extern unsigned char gucswversion_internal;

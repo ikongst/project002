@@ -89,11 +89,17 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-	DisableOutput();
-	
+	DisableOutput();	
 	DisableInterrupts;
+
+    CPMUCLKS_COPOSCSEL1 = 1;
+    CPMUCLKS_CSAD = 1;
+    CPMUCLKS_PCE = 0;
+    CPMUCOP = (0b011&CPMUCOP_CR_MASK)|(0&CPMUCOP_WRTMASK_MASK)|(CPMUCOP_RSBCK_MASK)|(0&CPMUCOP_WCOP_MASK);    
+    
 	CPMUCLKS_PSTP=0;
 	asm(CLI);
+	asm(NOP);
     asm(andcc #0x7f);
     LP0CR_LPWUE = 1;
 	SCI0SR2_AMAP = 1;
@@ -101,14 +107,12 @@ void EnterintoSleep(void)
 	SCI0ASR1_RXEDGIF = 0x01; /* clear flag*/
 	SCI0SR2_AMAP = 0;	
 	EnableInterrupts;    
-    asm(stop);
+    asm(stop);    
     
-    
-    CPMUCLKS_COPOSCSEL1 = 1;
-    CPMUCLKS_CSAD = 1;
-    CPMUCLKS_PCE  = 0;
-    CPMUCOP = (0b011 & CPMUCOP_CR_MASK)|(0&CPMUCOP_WRTMASK_MASK)|CPMUCOP_RSBCK_MASK|(0&CPMUCOP_WCOP_MASK);
-
+	while(1)
+	{
+	
+	}    
     
 //	CPMUAPICTL_APICLK=0; //Use Autonomous Clock as source
 //	CPMUACLKTR=0b01111100; //highest
