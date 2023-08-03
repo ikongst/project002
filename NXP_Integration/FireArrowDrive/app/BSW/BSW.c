@@ -74,16 +74,20 @@ void BSW_KL15Config(void)
 void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
 	//DIAgnostic out
-	//PTS_PTS1   = 0;	            //PS1 output low 
-	//MODRR0_S0L0RR = 0x02;	    //LIN routed to PS1
-	//if(!ucPINstatus)
-	  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
+	
+//	if(!ucPINstatus)
+//	{
+//	 DDRS_DDRS1 = 1;	        // PS1 defined as output
+//	 PTS_PTS1   = 0;	        //PS1 output low 
+//	 MODRR0_S0L0RR = 0x02;	    //LIN routed to PS1
+//	}
+	//  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
 	//else
 	//  MODRR0_S0L0RR = 0x00;     //LIN routed to RX
 	//PTS_PTS1   = 1;		        //PS1 output High	
     //MODRR2_T0IC3RR = 0x01;	   //RX routed to TIM0C3
 	
-	LP0DR_LPDR1 = ucPINstatus;
+	 // LP0DR_LPDR1 = ucPINstatus;
 	
 }
 
@@ -182,18 +186,18 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 										 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 										 TBdrv_Ch_Cfg HS3_Cfg)
 {
-  /* ph A */
-		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		
-		/* ph B */
-		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	
-
-	    /* ph C */
-	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//  /* ph A */
+//		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		
+//		/* ph B */
+//		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//	
+//
+//	    /* ph C */
+//	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+//	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
 	
 }
 
