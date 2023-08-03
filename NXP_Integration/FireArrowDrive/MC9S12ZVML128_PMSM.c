@@ -470,6 +470,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	PTT_PTT0 = 0;			// clear the PTT0 pin to track the code performance
 	
 	FMSTR_Recorder();
+	MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);
 
 	PMFFQCA_PWMRFA = 1; // Clear flag
 	return;
@@ -1212,7 +1213,7 @@ void stateRun( )
 	// Selecting 1 will enable the "USER mode"
 	// where user decide whether to switch to force mode, tracking mode, sensorless mode
     
-    MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);//(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
+    //(MLIB_Abs_F16(drvFOC.pospeOpenLoop.wRotEl)*3000)>>15;  //add for El. speed output
     //l_u16_wr_LIN_NXP_ActSpeed((MotorDrive_uiActualSpeed/11));                //refresh actspeed
     
 	if (cntrState.usrControl.controlMode == automatic)

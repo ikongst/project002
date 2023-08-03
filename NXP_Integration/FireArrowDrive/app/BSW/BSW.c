@@ -74,16 +74,20 @@ void BSW_KL15Config(void)
 void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
 	//DIAgnostic out
-	//PTS_PTS1   = 0;	            //PS1 output low 
-	//MODRR0_S0L0RR = 0x02;	    //LIN routed to PS1
-	//if(!ucPINstatus)
-	  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
+	
+//	if(!ucPINstatus)
+//	{
+//	 DDRS_DDRS1 = 1;	        // PS1 defined as output
+//	 PTS_PTS1   = 0;	        //PS1 output low 
+//	 MODRR0_S0L0RR = 0x02;	    //LIN routed to PS1
+//	}
+	//  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
 	//else
 	//  MODRR0_S0L0RR = 0x00;     //LIN routed to RX
 	//PTS_PTS1   = 1;		        //PS1 output High	
     //MODRR2_T0IC3RR = 0x01;	   //RX routed to TIM0C3
 	
-	LP0DR_LPDR1 = ucPINstatus;
+	 // LP0DR_LPDR1 = ucPINstatus;
 	
 }
 
