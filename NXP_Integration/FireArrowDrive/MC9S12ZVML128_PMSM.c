@@ -427,7 +427,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	
 	
 	//MotorDrive_uiTemperatureNTC_Digital=(long)((long)meas.measured.f16NTC.filt*645)>>12;
-	MotorDrive_uiTemperatureNTC_Digital=ADC1ResultList[0][2]>>4;// 10bit NTC digital needed.	
+	//MotorDrive_uiTemperatureNTC_Digital=ADC1ResultList[0][2]>>4;// 10bit NTC digital needed.	
 		
 	getFcnStatus &= Meas_GetUdcVoltage(&meas, &drvFOC.uDcbFilter);
 	//MotorDrive_uiVoltage= ((long)((long)(meas.measured.f16Udcb.filt>>3)*5*5*1000))>>12;   //add for voltage sample
