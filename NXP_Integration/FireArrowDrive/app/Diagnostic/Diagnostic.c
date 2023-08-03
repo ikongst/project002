@@ -112,7 +112,6 @@ void pwmdiagnostic(void)
 		}	
 	}
 
-	//pinleveltemp=0;
 	BSW_setpinstatus_interface(pinleveltemp);
 	gucPINInterfacePullDownStatus = ((pinleveltemp==PINSTATUS_HIGH)?PULLDOWN_RELEASE:PULLDOWN_ENABLE);
 	

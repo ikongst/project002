@@ -413,8 +413,6 @@ tBool Meas_GetTemperature(measModule_t *ptr)
 }
 #endif
 
-//unsigned int NTC_table[10][3]={{3413},{},{},{},{},{},{},{},{},{}};
-
 tBool Meas_GetTemp_NTC(measModule_t *ptr)
 {
     ptr->measured.f16NTC.raw = (tFrac16)(ADC1ResultList[0][2]);
