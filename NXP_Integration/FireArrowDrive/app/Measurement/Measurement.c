@@ -192,8 +192,7 @@ void Data_filter()
 	guiTemperature_nocalibration = tempvalue;
 		
 	tempvalue         = aveargetemperatureNTC>>FILTER_DEPTH_TEMPERATURE;
-  //guiTemperatureNTC = tempvalue;	
-	guiTemperatureNTC  = 50+50;//uicalcuTemp(tempvalue);
+    guiTemperatureNTC = tempvalue;	
 	
 	tempvalue			 = aveargespeedactual>>FILTER_DEPTH_SPEED; 
 	guiActualSpeed = tempvalue;

@@ -418,20 +418,20 @@ tBool Meas_GetTemp_NTC(measModule_t *ptr)
 {
   unsigned int Delt;
   //signed temp;
-//    ptr->measured.f16NTC.raw = (tFrac16)(ADC1ResultList[0][2]>>4);
-//	if(ptr->measured.f16NTC.raw>=NTC_table[0])
-//	{
-//		Delt=ptr->measured.f16NTC.raw-NTC_table[0];
-//		Delt=(long)Delt*Delt/NTC_table[2];
-//		ptr->measured.f16NTC.filt=NTC_table[1]-Delt;
-//	}
-//	else
-//	{
-//		Delt=NTC_table[0]-ptr->measured.f16NTC.raw;
-//		Delt=(long)Delt*Delt/NTC_table[2];
-//		ptr->measured.f16NTC.filt=NTC_table[1]+Delt;
-//	}
-//	MotorDrive_uiTemperatureNTC_Digital=ptr->measured.f16NTC.filt;
+    ptr->measured.f16NTC.raw = (tFrac16)(ADC1ResultList[0][2]>>4);
+	if(ptr->measured.f16NTC.raw>=NTC_table[0])
+	{
+		Delt=ptr->measured.f16NTC.raw-NTC_table[0];
+		Delt=(long)Delt*Delt/NTC_table[2];
+		ptr->measured.f16NTC.filt=NTC_table[1]-Delt;
+	}
+	else
+	{
+		Delt=NTC_table[0]-ptr->measured.f16NTC.raw;
+		Delt=(long)Delt*Delt/NTC_table[2];
+		ptr->measured.f16NTC.filt=NTC_table[1]+Delt;
+	}
+	MotorDrive_uiTemperatureNTC_Digital=ptr->measured.f16NTC.filt;
 //		
 	//ptr->measured.f16NTC.filt = MLIB_Mul_F16(ptr->measured.f16NTC.raw,FRAC16(0.73801));
 	//ptr->measured.f16NTC.filt = MLIB_Sub_F16(ptr->measured.f16NTC.filt, FRAC16(0.23801));
