@@ -99,8 +99,6 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-	return;
-	
 	DisableOutput();	
 	DisableInterrupts;
 	
@@ -147,6 +145,7 @@ void EnterintoSleep(void)
 
 INTERRUPT void PORTP_ISR(void)
 {
+	PIEP_PIEP1 = 0;
 	asm(NOP);
 	asm(NOP);
 	asm(NOP);
@@ -154,6 +153,7 @@ INTERRUPT void PORTP_ISR(void)
 	guiKL15CheckCntr++;
 	
 	//PPSP_PPSP1 = !PPSP_PPSP1;
+	PIEP_PIEP1 = 1;
 	PIFP_PIFP1 = 1;
 }
 
