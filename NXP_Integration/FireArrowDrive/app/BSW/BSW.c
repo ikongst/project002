@@ -27,6 +27,11 @@ INTERRUPT void API_ISR(void);
 
 void BSW_PWM_Init(void)
 {
+	LP0CR_LPE     = 0;       // disable LIN Phy
+	LP0SLRM       = 0x81;    // TxD-dominant feature disabled.
+	MODRR0_S0L0RR = 0x01;
+	LP0CR_LPE     = 1;       // Enable LIN Phy
+	
   //MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
   MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
   TIM0TCTL4_EDG3A = 1;	  //rising edge
@@ -73,6 +78,7 @@ void BSW_KL15Config(void)
 
 void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
+	//LP0DR_LPDR1 = valuetemp;
 	//DIAgnostic out
 	
 //	if(!ucPINstatus)
@@ -87,12 +93,14 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 	//PTS_PTS1   = 1;		        //PS1 output High	
     //MODRR2_T0IC3RR = 0x01;	   //RX routed to TIM0C3
 	
-	 // LP0DR_LPDR1 = ucPINstatus;
+	 LP0DR_LPDR1 = ucPINstatus;
 	
 }
 
 void EnterintoSleep(void)
 {
+	return;
+	
 	DisableOutput();	
 	DisableInterrupts;
 	
@@ -244,7 +252,23 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 
 void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int wduty)
 {
-	
+	   tFrac16 Unum,Vnum,Wnum;
+	   
+	   Unum=FRAC16(0.5);//FRAC16(uduty/100);
+	   Vnum=FRAC16(0.5);//FRAC16(vduty/100);
+	   Wnum=FRAC16(0.5);//FRAC16(wduty/100);
+	   
+	        /* ph A */
+	    PMFVAL0 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
+	    PMFVAL1 = MLIB_Mul(Unum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
+	    
+	    /* ph B */
+	    PMFVAL2 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
+	    PMFVAL3 = MLIB_Mul(Vnum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
+	  
+	      /* ph C */
+	      PMFVAL4 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
+	      PMFVAL5 = MLIB_Mul(Wnum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO  	
 }
 
 unsigned int uigetGDUerror(void)

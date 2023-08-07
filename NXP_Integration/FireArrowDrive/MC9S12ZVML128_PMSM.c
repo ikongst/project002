@@ -179,7 +179,6 @@ void main(void)
 	// Loop
 	for(;;)
 	{
-		
 		SystemSchedule_Main();
 		
 		// FreeMASTER poll function call

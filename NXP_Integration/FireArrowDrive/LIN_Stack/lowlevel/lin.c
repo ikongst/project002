@@ -33,11 +33,11 @@ void initLIN(void)
 	//LP0CR_RXONLY = 1;
 	//LP0CR_LPE = 1;
 
-	
+	LP0CR_LPE = 0;
+	LP0SLRM = 0x01;
 	LP0CR_LPE = 1;       // Enable LIN Phy
 	LP0CR_LPPUE = 1;     // Pull up to strong signal
     //LPSLRM = 0x01;
-	LP0SLRM = 0x01;
 }
 
 #if (_LIN_SCI_ == 1)
