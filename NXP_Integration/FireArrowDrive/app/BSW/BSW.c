@@ -230,8 +230,14 @@ unsigned char ucgetPINEnableStatus(void)
 	return PTP_PTP1;
 }
 
+void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int wduty);
 unsigned int Emo_PWM_test(unsigned int Bcounter,unsigned char Uduty,unsigned char Vduty,unsigned char Wduty,unsigned char pattern)
 {
+	// Bcounter, not use
+	
+	Set_Bridge_DutyCycle(Uduty,Vduty,Wduty);
+	
+	// pattern, not use
 	return 1;
 }
 
@@ -239,8 +245,8 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 										 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 										 TBdrv_Ch_Cfg HS3_Cfg)
 {
-
-	
+	// only used for all mosfet off.
+	DisableOutput();	
 }
 
 #include "mc9s12zvml128.h"
