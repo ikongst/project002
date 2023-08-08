@@ -13,6 +13,7 @@
 #include "motorinter.h"
 #include "pwm_control.h"
 #include "eeprom_S12Z.h"
+#include "actuate_s12zvm.h"
 
 
 extern pwmControl_t pwmControlData;
@@ -80,6 +81,9 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
 	//LP0DR_LPDR1 = valuetemp;
 	//DIAgnostic out
+	
+//	LP0CR_LPE = 0;       // Enable LIN Phy     disable ???
+//    LP0CR_LPPUE = 0;     // Pull up to strong signal
 	
 //	if(!ucPINstatus)
 //	{
@@ -235,40 +239,62 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 										 TBdrv_Ch_Cfg LS2_Cfg, TBdrv_Ch_Cfg HS2_Cfg, TBdrv_Ch_Cfg LS3_Cfg,
 										 TBdrv_Ch_Cfg HS3_Cfg)
 {
-//  /* ph A */
-//		PMFVAL0 = MLIB_Mul(pwm3PhEdges->phA.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-//		PMFVAL1 = MLIB_Mul(pwm3PhEdges->phA.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-//		
-//		/* ph B */
-//		PMFVAL2 = MLIB_Mul(pwm3PhEdges->phB.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-//		PMFVAL3 = MLIB_Mul(pwm3PhEdges->phB.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-//	
-//
-//	    /* ph C */
-//	    PMFVAL4 = MLIB_Mul(pwm3PhEdges->phC.modA.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
-//	    PMFVAL5 = MLIB_Mul(pwm3PhEdges->phC.modB.firstEdge, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+
 	
 }
 
+#include "mc9s12zvml128.h"
+//#include "mlib.h"
+//#include "gflib.h"
+//#include "gmclib.h"
+//#include "gdflib.h"
+//#include"SWLIBS_Defines.h"
+tFrac16 Unum,Vnum,Wnum;
 void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int wduty)
 {
-	   tFrac16 Unum,Vnum,Wnum;
-	   
-	   Unum=FRAC16(0.5);//FRAC16(uduty/100);
-	   Vnum=FRAC16(0.5);//FRAC16(vduty/100);
-	   Wnum=FRAC16(0.5);//FRAC16(wduty/100);
-	   
-	        /* ph A */
-	    PMFVAL0 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
-	    PMFVAL1 = MLIB_Mul(Unum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
-	    
-	    /* ph B */
-	    PMFVAL2 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
-	    PMFVAL3 = MLIB_Mul(Vnum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
-	  
-	      /* ph C */
-	      PMFVAL4 = MLIB_Mul(0, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO
-	      PMFVAL5 = MLIB_Mul(Wnum, PMFMODA<<1, F16);  // duty cycle 0-1 -> 0-PWM_MODULO  	
+   Unum=(long)((long)uduty*32768)/100/2;//FRAC16(uduty/100);
+   Vnum=(long)((long)vduty*32768)/100/2;//FRAC16(vduty/100);
+   Wnum=(long)((long)wduty*32768)/100/2;//FRAC16(wduty/100);
+
+   tFrac16     trg[8];
+   PTU_TRIGGERS_T		trigs;
+   if((Unum&&Vnum)||(Vnum&&Wnum)||(Unum&&Wnum))
+   	return;
+   else
+   	{
+      if(Unum||Vnum||Wnum)
+       trg[1] = (Unum|Vnum|Wnum);//2;
+	  else
+	   trg[1] = 0x3FFF/2;
+   	}
+    
+   trigs.ph1Trg1       = (tU16) MLIB_Mul_F16(trg[1],PMFMODA);
+   
+   trigs.ph2Trg1       = (tU16) PMFMODA*3/4;
+   trigs.dcOffsetTrg   = (tU16) PMFMODA;
+   trigs.ph2Trg2       = (tU16) PMFMODA*5/4;
+   trigs.ph1Trg2       = (tU16) PMFMODA*3/2;
+   
+   SetPtuTriggers(&trigs);
+   
+        /* ph A */
+		PMFVAL0 = MLIB_Mul(FRAC16(0), PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		//PMFVAL1 = MLIB_Mul(Unum, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO  //Unum*(PMFMODA<<1);//
+		PMFVAL1 = MLIB_Mul(Unum, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO  //Unum*(PMFMODA<<1);//
+				
+		/* ph B */
+		PMFVAL2 = MLIB_Mul(FRAC16(0), PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+		PMFVAL3 = MLIB_Mul(Vnum, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO  //Vnum*(PMFMODA<<1);//
+	
+	    /* ph C */
+	    PMFVAL4 = MLIB_Mul(FRAC16(0), PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO
+	    PMFVAL5 = MLIB_Mul(Wnum, PMFMODA<<1, F16);	// duty cycle 0-1 -> 0-PWM_MODULO	//Wnum*(PMFMODA<<1);
+
+//	    PMFFQCA_PWMRFA = 1; // Clear flag
+//	    PMFENCA_LDOKA = 1;
+//	    PMFENCA_GLDOKA = 1;
+//	    PMFFQCA_LDFQA = 1;
+	    PTUC_PTULDOK = 1;
 }
 
 unsigned int uigetGDUerror(void)
