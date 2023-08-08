@@ -58,14 +58,7 @@ typedef struct PMF_3PH_MODULATOR_T
 	PMF_TWO_MODULATORS_T	phC;
 }PMF_3PH_MODULATOR_T;
 
-typedef struct PTU_TRIGGERS_T
-{
-	tU16	ph1Trg1;
-    tU16	ph2Trg1;
-    tU16	dcOffsetTrg;
-    tU16	ph2Trg2;
-    tU16	ph1Trg2;
-}PTU_TRIGGERS_T;
+
 /******************************************************************************
 | Global variable definitions   (scope: module-exported)
 -----------------------------------------------------------------------------*/
@@ -182,8 +175,8 @@ void SetDutycycle(SWLIBS_3Syst_F16 *f16pwm, tU16 sector)
 			temp         = MLIB_AddSat_F16(pwmB.f16Arg2,minSamplingPulse_x2);
 			pwmB.f16Arg1 = ((diffUV)<MLIB_Sub_F16(temp,minZeroPulse))?MLIB_SubSat_F16(temp,diffUV):minZeroPulse;
 
-			first=diffUV;//pwmB.f16Arg1;
-			second=diffVW;//pwmB.f16Arg2;
+			first=diffUV;     //pwmB.f16Arg1;
+			second=diffVW;    //pwmB.f16Arg2;
 			
 			CalcEdges(&pwm3PhEdges, f16pwm, &pwmB);
 			

@@ -41,12 +41,24 @@
 /******************************************************************************
 | Exported function prototypes
 -----------------------------------------------------------------------------*/
+typedef struct PTU_TRIGGERS_T
+{
+	tU16	ph1Trg1;
+    tU16	ph2Trg1;
+    tU16	dcOffsetTrg;
+    tU16	ph2Trg2;
+    tU16	ph1Trg2;
+}PTU_TRIGGERS_T;
+
 extern void 	EnableOutput(void);
 extern void 	DisableOutput(void);
 extern void 	SetDutycycle(SWLIBS_3Syst_F16 *f16pwm, tU16 sector);
+extern void     SetPtuTriggers(PTU_TRIGGERS_T	*pTrg);
 
 /******************************************************************************
 | Inline functions
 -----------------------------------------------------------------------------*/
+
+
 
 #endif /* _ACTUATES_S12ZVM_H_ */

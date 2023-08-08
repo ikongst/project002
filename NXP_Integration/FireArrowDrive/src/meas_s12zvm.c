@@ -71,7 +71,7 @@ void GetAdcRawValues(measModule_t *ptr, ADC_RAW_DATA_T *rawData);
 
 tU32 rmsadd;
 tS16 first=0,second=0;
-tU32 Ifirst=0,Isecond=0;
+tU32 Ifirst=0,Isecond=0,Iinst=0;
 tU32 rms=0,unitdev=150337;//115152;
 
 
@@ -204,6 +204,8 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
     
 	Ifirst=avgValue.f16Arg1;
 	Isecond=avgValue.f16Arg2;
+	
+	Iinst= (long)(rawValues.ph1.f16Arg1)*625/14336;   //((((rawValues.ph1.f16Arg1>>4)/4096)*5000)/35/0.5)*10 ////accuracy to 0.1A
     /*
        first:  T1 time digit;
        second: T2 time digit;
@@ -413,7 +415,7 @@ tBool Meas_GetTemperature(measModule_t *ptr)
 }
 #endif
 
-unsigned int NTC_table[3]={2200,690,3345};   //mid ad , mid temp , B number
+unsigned int NTC_table[3]={2200,690,3455};   //mid ad , mid temp , B number-3455-3380?
 tBool Meas_GetTemp_NTC(measModule_t *ptr)
 {
   unsigned int Delt;
