@@ -114,7 +114,7 @@ void gotosleedmode(void)
 			// last check the KL15 status.
 			if(gucPINKL15EnableStatus==PINSTATUS_LOW)
 			{
-				//EnterintoSleep();	
+				EnterintoSleep();	
 				return;
 			}
 		}		
