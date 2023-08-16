@@ -1,15 +1,15 @@
 Units and locations in library 'LIB_Protection_v017_NXP_600W.lib'
 Unit name                        size     from       to
 Common_c.obj                     5360       95     5455
-Protection_c.obj                48112     5455    53567
-blockageprotection_c.obj        11344    53567    64911
-currentprotection_c.obj          6160    64911    71071
-electronicsprotection_c.obj     17072    71071    88143
-inputsignalprotection_c.obj      1848    88143    89991
-mylibrary_c.obj                  1880   109031   110911
-powerprotection_c.obj            4592    89991    94583
-temperatureprotection_c.obj      6448    94583   101031
-voltageprotection_c.obj          8000   101031   109031
+Protection_c.obj                48096     5455    53551
+blockageprotection_c.obj        11344    53551    64895
+currentprotection_c.obj          6160    64895    71055
+electronicsprotection_c.obj     17072    71055    88127
+inputsignalprotection_c.obj      1848    88127    89975
+mylibrary_c.obj                  1880   109015   110895
+powerprotection_c.obj            4592    89975    94567
+temperatureprotection_c.obj      6448    94567   101015
+voltageprotection_c.obj          8000   101015   109015
 
 EXPORTED OBJECTS
 MathRangeLimit16                      F   (Protection_c.obj)
