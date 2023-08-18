@@ -118,6 +118,13 @@ void systick_1ms(void)
 * Description: main function
 *
 *****************************************************************************/
+
+unsigned long ultimersum         = 0;
+unsigned long ulpreviouscntr    = 0;
+unsigned long ulcurrentcntr     = 0;
+unsigned long uldeltacntr     = 0;
+unsigned long uldefineddelaytime = 1000;// 1ms
+
 void main(void)
 {
 	cpmu_init();
@@ -195,9 +202,29 @@ void main(void)
 //			
 //	}
 	
+		
 	// Loop
 	for(;;)
-	{
+	{		
+		ulcurrentcntr  = gettimercntr();
+		if(ulcurrentcntr>ulpreviouscntr)
+		{
+			uldeltacntr    = ulcurrentcntr - ulpreviouscntr;
+		}
+		else
+		{
+			uldeltacntr = 65536-ulpreviouscntr+ulcurrentcntr;
+		}
+		ulpreviouscntr = ulcurrentcntr;
+		
+		ultimersum += uldeltacntr;
+		if(ultimersum>uldefineddelaytime)
+		{
+			// flag set
+			systick_1ms();
+			ultimersum -= uldefineddelaytime;
+		}		
+		
 		SystemSchedule_Main();
 		
 		// FreeMASTER poll function call
@@ -367,19 +394,18 @@ unsigned int uistateindex = 0;
 appFaultStatus_t	permFaultssaved;
 INTERRUPT void PMFreloadA_ISR(void)
 {
-	static tBool getFcnStatus;
+	static tBool getFcnStatus;	
 	
-	
-	//-------------------------------------------
-	// 1ms period for system schedule.
-	static unsigned char suc1mscntr = 0;
-	suc1mscntr++;
-	if(suc1mscntr>=10) // 10*100us = 1ms
-	{
-		suc1mscntr = 0;
-		systick_1ms();		
-	}
-	//--------------------------------------------
+//	//-------------------------------------------
+//	// 1ms period for system schedule.
+//	static unsigned char suc1mscntr = 0;
+//	suc1mscntr++;
+//	if(suc1mscntr>=10) // 10*100us = 1ms
+//	{
+//		suc1mscntr = 0;
+//		systick_1ms();		
+//	}
+//	//--------------------------------------------
 				
 	EnableInterrupts;
 	
@@ -1040,7 +1066,7 @@ void stateReady()
     cntrState.state   = ready;
     cntrState.event   = e_ready;
 
-	PMFCFG2_MSK  = 0x0;
+	//PMFCFG2_MSK  = 0x0;
 	//Set_Bridge_DutyCycle(2,0,0); 
     
     if(cntrState.usrControl.switchAppReset == true)
