@@ -1040,7 +1040,7 @@ void stateReady()
     cntrState.state   = ready;
     cntrState.event   = e_ready;
 
-	PMFCFG2_MSK  = 0x0;
+	//PMFCFG2_MSK  = 0x0;
 	//Set_Bridge_DutyCycle(2,0,0); 
     
     if(cntrState.usrControl.switchAppReset == true)
