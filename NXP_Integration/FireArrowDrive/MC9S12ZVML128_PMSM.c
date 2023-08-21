@@ -135,7 +135,7 @@ void main(void)
 	l_sys_init();
 	l_ifc_init(LIN_NXP);
 	
-	FMSTR_Init();
+	//FMSTR_Init();
 	
 	// Init state set and e_reset event is thrown to call the reset state
 	cntrState.state   	= init;
@@ -160,7 +160,12 @@ void main(void)
 	PIEP_PIEP1 = 1;           // interrupt is enabled
 	
 	 //tFrac16
-	
+//	BSW_PWM_Init();
+//	LP0CR_LPE     = 0; 
+//	  SCI0CR2_TE = 0;
+//	  SCI0CR2_RE = 0;
+//	  SCI1CR2_TE = 0;
+//	  SCI1CR2_RE = 0;
 	
 //	// eeprom write read test.
 //	//-------------------------------------------
@@ -199,9 +204,12 @@ void main(void)
 	for(;;)
 	{
 		SystemSchedule_Main();
-		
+//		if(App_count>40000)
+//		BSW_setpinstatus_interface(1);
+//		else
+//		BSW_setpinstatus_interface(0);	
 		// FreeMASTER poll function call
-		FMSTR_Poll();
+		//FMSTR_Poll();
 		__RESET_WATCHDOG();
 //       if(l_flg_tst_LIN_NXP_MotorCtrl_flag())   //
 //       {
@@ -1040,7 +1048,7 @@ void stateReady()
     cntrState.state   = ready;
     cntrState.event   = e_ready;
 
-	PMFCFG2_MSK  = 0x0;
+	//PMFCFG2_MSK  = 0x0;
 	//Set_Bridge_DutyCycle(2,0,0); 
     
     if(cntrState.usrControl.switchAppReset == true)

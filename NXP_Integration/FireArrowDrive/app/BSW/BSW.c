@@ -28,16 +28,23 @@ INTERRUPT void API_ISR(void);
 
 void BSW_PWM_Init(void)
 {
+	unsigned int i;
+	
 	LP0CR_LPE     = 0;       // disable LIN Phy
+//	for(i=0;i<1000;i++)
+//	{}
 	LP0SLRM       = 0x81;    // TxD-dominant feature disabled.
 	MODRR0_S0L0RR = 0x01;
+//	for(i=0;i<1000;i++)
+//	{}
 	LP0CR_LPE     = 1;       // Enable LIN Phy
-	
+//	for(i=0;i<1000;i++)
+//	{}
   //MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
   MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
   TIM0TCTL4_EDG3A = 1;	  //rising edge
   TIM0TCTL4_EDG3B = 0;    //
-  PWMControlInit(&pwmControlData);
+  //PWMControlInit(&pwmControlData);
 }
 
 void BSW_LIN_Init(void)
@@ -79,6 +86,7 @@ void BSW_KL15Config(void)
 
 void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 {
+	unsigned int i=1000;
 	//LP0DR_LPDR1 = valuetemp;
 	//DIAgnostic out
 	
@@ -94,15 +102,17 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 	//  MODRR0_S0L0RR = 0x01;	    //LIN routed to LPDR1
 	//else
 	//  MODRR0_S0L0RR = 0x00;     //LIN routed to RX
-	//PTS_PTS1   = 1;		        //PS1 output High	
+	//PTS_PTS1   = 1;		        //PS1 output High	dtc
     //MODRR2_T0IC3RR = 0x01;	   //RX routed to TIM0C3
-	
+//	while(i--);
+//	i=1000;
 	 LP0DR_LPDR1 = ucPINstatus;
-	
+//	 while(i--);
 }
 
 void EnterintoSleep(void)
 {
+	return;
 	DisableOutput();	
 	DisableInterrupts;
 	
