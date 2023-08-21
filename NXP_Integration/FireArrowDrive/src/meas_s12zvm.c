@@ -415,7 +415,7 @@ tBool Meas_GetTemperature(measModule_t *ptr)
 }
 #endif
 
-unsigned int NTC_table[3]={2200,690,3455};   //mid ad , mid temp , B number-3455-3380?
+unsigned int NTC_table[3]={2159,700,3333};   //mid ad , mid temp , B number-3455-3380?
 tBool Meas_GetTemp_NTC(measModule_t *ptr)
 {
   unsigned int Delt;

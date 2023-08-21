@@ -56,7 +56,7 @@ void pwmdiagnostic(void)
 	
 	if((guiVoltage>DIAGNOSTIC_OVERVOLTAGELIMIT_FEEDBACK_DISABLE)||(sucpoweronresetflag==FLAG_RESET)
 		||(guiVoltage<DIAGNOSTIC_UNDERVOLTAGELIMIT_FEEDBACK_DISABLE)
-		||(gucPINKL15EnableStatus==PINSTATUS_LOW)
+		//||(gucPINKL15EnableStatus==PINSTATUS_LOW)
 	  ||(guiTargetSpeed==INIT))
 	{
 		// no feedback directly.
