@@ -43,8 +43,8 @@
 *******************************************************************************/
 void pim_init(void)
 {
-  MODRR0_SCI1RR = 1; // SCI - FreeMASTER
-
+//  MODRR0_SCI1RR = 1; // SCI - FreeMASTER
+//
   DDRS_DDRS0 = 1;	// PS0 defined as output
   DDRS_DDRS1 = 1;	// PS1 defined as output
   DDRS_DDRS4 = 1;	// Debugg Signal
@@ -55,8 +55,8 @@ void pim_init(void)
   DDRP_DDRP0 = 1;		// EVDD(PP0) defined as Output
   PTP_PTP0   = 1;		//EVDD output high   
   
-  MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
-  MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
+//  MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
+//  MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
   
   
   //MODRR0 = (MODRR0_S0LRR_MASK && 0b000) | (MODRR0_SCI1RR_MASK);  //?????

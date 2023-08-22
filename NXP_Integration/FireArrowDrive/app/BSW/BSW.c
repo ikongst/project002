@@ -107,6 +107,11 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 //	while(i--);
 //	i=1000;
 	 LP0DR_LPDR1 = ucPINstatus;
+	 if (LP0IF_LPOCIF==1)
+	 {
+	 LP0IF_LPOCIF = 1;
+	 }
+	 PTT_PTT0 = ucPINstatus;
 //	 while(i--);
 }
 
