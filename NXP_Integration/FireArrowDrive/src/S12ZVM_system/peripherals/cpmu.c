@@ -59,8 +59,8 @@
 void cpmu_init(void)
 {
 	// Wait for stable supply after power up
-	while (GDUF_GLVLSF)
-		GDUF_GLVLSF = 1;
+	//while (GDUF_GLVLSF)
+	//	GDUF_GLVLSF = 1;
 
 	CPMUREFDIV_REFDIV = CPMU_REFDIV;
 	CPMUREFDIV_REFFRQ = CPMU_REFFRQ;

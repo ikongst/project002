@@ -36,7 +36,7 @@
 //Application Fault Triggers            
 //----------------------------------------------------------------------
 #define U_DCB_TRIP                      FRAC16(0.6400000000)
-#define U_DCB_UNDERVOLTAGE              FRAC16(0.3200000000)
+#define U_DCB_UNDERVOLTAGE              FRAC16(0.2800000000)    //0.32
 #define U_DCB_OVERVOLTAGE               FRAC16(0.6800000000)
 #define I_PH_OVER                       FRAC16(0.8333333333)
 #define TEMP_OVER                       FRAC16(0.1704897706)

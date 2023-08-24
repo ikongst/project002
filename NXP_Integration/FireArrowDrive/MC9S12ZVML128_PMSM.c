@@ -127,6 +127,7 @@ unsigned long uldefineddelaytime = 1000;// 1ms
 
 void main(void)
 {
+	//unsigned int appcntr222 = 0;
 	cpmu_init();
 	pim_init();
 	pmf_init();
@@ -142,7 +143,7 @@ void main(void)
 	l_sys_init();
 	l_ifc_init(LIN_NXP);
 	
-	//FMSTR_Init();
+	FMSTR_Init();
 	
 	// Init state set and e_reset event is thrown to call the reset state
 	cntrState.state   	= init;
@@ -231,12 +232,13 @@ void main(void)
 		}		
 		
 		SystemSchedule_Main();
-//		if(App_count>40000)
+//		appcntr222++;
+//		if(appcntr222>40000)
 //		BSW_setpinstatus_interface(1);
 //		else
 //		BSW_setpinstatus_interface(0);	
 		// FreeMASTER poll function call
-		//FMSTR_Poll();
+		FMSTR_Poll();
 		__RESET_WATCHDOG();
 //       if(l_flg_tst_LIN_NXP_MotorCtrl_flag())   //
 //       {
@@ -417,7 +419,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 				
 	EnableInterrupts;
 	
-	PTT_PTT0 = 1; 		// set the PTT0 pin to track the code performance
+	//PTT_PTT0 = 1; 		// set the PTT0 pin to track the code performance
 	
 	// PWM Control
 	// If no signal is detected, disable the PWM control
@@ -519,7 +521,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 
 	App_count++;
 	
-	PTT_PTT0 = 0;			// clear the PTT0 pin to track the code performance
+	//PTT_PTT0 = 0;			// clear the PTT0 pin to track the code performance
 	
 	FMSTR_Recorder();
 	MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);
