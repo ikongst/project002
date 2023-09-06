@@ -75,6 +75,7 @@ static void __static_init(void) {
 
 extern int __SEG_END_SSTACK[];
 
+#pragma CODE_SEG _PRESTART
 __EXTERN_C void _Startup(void) {
 	__asm {
 		LD S, #__SEG_END_SSTACK-1		/* initialize SP */
@@ -86,3 +87,4 @@ __EXTERN_C void _Startup(void) {
 #endif
 	main();
 }
+#pragma CODE_SEG DEFAULT

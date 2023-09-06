@@ -7,13 +7,14 @@ SEGMENTS  /* Here all RAM/ROM areas of the device are listed. Used in PLACEMENT 
 /*    IO_SEG        = PAGED         0x000000 TO   0x000FFF; intentionally not defined */
 
 /* RAM */
-      RAM           = READ_WRITE  0x001000 TO 0x002FFF;
+      RAM           = READ_WRITE  0x001700 TO 0x002FFF;
 
 /* EEPROM */
       EEPROM        = READ_ONLY   0x100000 TO 0x1001FF;
 
 /* non-paged FLASHs */
-      ROM           = READ_ONLY   0xFE0000 TO 0xFFFDFF;
+      //ROM           = READ_ONLY   0xFE0000 TO 0xFFFDFF;
+      ROM           = READ_ONLY   0xFE0000 TO 0xFF0000;
  /*   VECTORS       = READ_ONLY     0xFFFE00 TO   0xFFFFFF; intentionally not defined: used for VECTOR commands below */
       OSVECTORS     = READ_ONLY     0xFFFE10 TO   0xFFFFFF;   /* OSEK interrupt vectors (use your vector.o) */
 END
