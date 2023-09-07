@@ -45,11 +45,12 @@ void SystemSchedule_Init(void)
 	guiMinSpeedCalculated = SYSTEMPARAM_SPEED_MIN_rpm;
 }
 
-
+unsigned char datapointarr[16]={0,0,0,0,0,0};	
 void SystemSchedule_Main(void)
 {		
-	static unsigned char ticketcounter = INIT;		
-	
+	static unsigned char ticketcounter = INIT;	
+	static unsigned char sucBootloaderCntr = INIT;
+		
 	ANALYSIS_TIMERSTART(TASK_ASAP);
 	PWMLIN_quickservice();
 	ANALYSIS_TIMERSTOP(TASK_ASAP);
@@ -102,9 +103,32 @@ void SystemSchedule_Main(void)
 					ANALYSIS_TIMERSTART(TASK_UDS);
 					UDS_Main();
 					ANALYSIS_TIMERSTOP(TASK_UDS);
+					
+
+					if(gucBootloaderFlag==FLAG_SET)
+					{
+						sucBootloaderCntr++;
+						if(sucBootloaderCntr>9)
+						{
+							sucBootloaderCntr = INIT;
+						    gucBootloaderFlag = FLAG_RESET;
+
+							
+							getdatafromflash_1(datapointarr, FLASH_ADDRESS_SWID/16, SW_READ_ARR_LENGTH);						    
+							datapointarr[0]=0xAB;
+							flashoperation_1(datapointarr, FLASH_ADDRESS_SWID/16, SW_WRITE_ARR_LENGTH);
+						    
+							//BSW_EnterToBoot();
+						    
+						    CPMUCOP = 0x01;     //enable watchdog
+						    CPMUARMCOP = 0x00;
+						    //value written to ARMCOP register different from 0xAA or 0x55 will reset
+						    //the MCU immediately.
+						}
+					}
 			    break;
 			
-			case 7:		
+			case 7:							
 					ANALYSIS_TIMERSTART(TASK_MotorOperation);
 					MotorOperation_Main();
 					ANALYSIS_TIMERSTOP(TASK_MotorOperation);

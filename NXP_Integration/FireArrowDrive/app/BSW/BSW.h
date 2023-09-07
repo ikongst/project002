@@ -97,4 +97,7 @@ extern unsigned char TargetData[FlashPageSize];
 void BSW_NVM_ProgramPage(unsigned char ucpageindex,unsigned int *ptr);
 unsigned int BSW_NVM_ReadData(unsigned char ucpageindex);
 
+extern unsigned char gucBootloaderFlag;
+void BSW_EnterToBoot(void);
+
 #endif /* BSW_H_ */

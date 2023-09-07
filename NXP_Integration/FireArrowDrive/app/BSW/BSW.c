@@ -465,3 +465,38 @@ unsigned int NVM_ReadData(unsigned char ucpageindex)
 	return 0xffff;
 }
 
+// enter into bootloader mode.
+unsigned char gucBootloaderFlag = FLAG_RESET;
+void Comms_Reset_Reg()
+{
+	SCI0ACR2_BKDFE = 0; /* break detect circuit disabled */
+	SCI0SR2_AMAP = 0; /* alternative register are disable */
+	SCI0BDH = 0x00;	/* set to reset value all control registers */
+	SCI0BDL = 0x00;
+	SCI0CR1 = 0x00;
+	SCI0CR2 = 0x00;
+	LP0CR_LPE = 0;      /* disable LIN Phy  */
+}
+typedef void(*pt2Func)(void);	/* Pointer to Functions */
+#define BOOTLOADER_START_ADD  0xFFF200
+void BSW_EnterToBoot(void)
+{
+	pt2Func MainBootLoader = (void*)BOOTLOADER_START_ADD;		/* Create application pointer */	
+	#if ACTIVITY_LED_ENABLE
+		ACTIVITY_LED = LED_OFF;
+	#endif	
+	CPMUCLKS = 0x80;
+	CPMUREFDIV = 0x0F;
+	CPMUSYNR = 0x58;
+	CPMUPOSTDIV = 0x03;
+	CPMUOSC = 0x00;
+	CPMUINT = 0x00;
+	#if ACTIVITY_LED_ENABLE	
+		ACTIVITY_LED_DDR = 0;
+	#endif
+	FCLKDIV = 0x00;
+	Comms_Reset_Reg();					/* Reset communications driver registers to default values */
+	MainBootLoader();					/* Jump to user application */
+	
+}
+

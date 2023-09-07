@@ -854,6 +854,29 @@ void RunEOLService5_KL15Check(void)
 	}		
 }
 
+void RunEOLService6_EnterToBoot(void)
+{
+	unsigned char  routinetype = au8TXData[1];
+	unsigned int routineoption = au8TXData[4]<<8|au8TXData[5];
+	
+	if(routinetype==0x00)
+	{
+		gucBootloaderFlag = FLAG_SET;
+				
+		// save voltage to au8TXData;
+		au8TXData[4] = 0x11;
+		au8TXData[5] = 0x22;
+		
+		ld_send_message_preparing(6,au8TXData);
+		tDiagState = LD_SEND_RESPONSE;		
+	}		
+	else
+	{
+		vAPPLDIAGSendNegativeResponse(APPLDIAG_UDS_NRC_ConditionsNotCorrect);
+	}	
+		
+}
+
 static void vAPPLDIAGReadFromROM(unsigned int addressdefined, unsigned char datalength)
 {
 	uint8_t i;
@@ -1503,7 +1526,7 @@ void vAPPLLinDiag(void)
 			RunEOLService5_KL15Check();
 			break;
 		case LD_EOLService6:
-			//RunEOLService6();
+			RunEOLService6_EnterToBoot();
 			break;
 		case LD_EOLService7:
 			//RunEOLService7();

@@ -56,6 +56,8 @@ v011, 2023-01-13, kongyun: uds function optimized.
 	void flashoperation_1(unsigned char *arrpoints, unsigned int dataaddress, unsigned char datalength);
     void getdatafromflash_1(unsigned char *pvaluearr, unsigned int startaddress, unsigned int valuelength);
     
+    extern unsigned char gucBootloaderFlag;
+    
 	void PWMDetection_INT(void);
 	void KONGST_TIMER21_Start(void);
 	
