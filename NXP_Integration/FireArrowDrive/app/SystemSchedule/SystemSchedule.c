@@ -108,7 +108,7 @@ void SystemSchedule_Main(void)
 					if(gucBootloaderFlag==FLAG_SET)
 					{
 						sucBootloaderCntr++;
-						if(sucBootloaderCntr>9)
+						if(sucBootloaderCntr>100)
 						{
 							sucBootloaderCntr = INIT;
 						    gucBootloaderFlag = FLAG_RESET;
@@ -118,10 +118,10 @@ void SystemSchedule_Main(void)
 							datapointarr[0]=0xAB;
 							flashoperation_1(datapointarr, FLASH_ADDRESS_SWID/16, SW_WRITE_ARR_LENGTH);
 						    
-							//BSW_EnterToBoot();
+							BSW_EnterToBoot();
 						    
-						    CPMUCOP = 0x01;     //enable watchdog
-						    CPMUARMCOP = 0x00;
+						    //CPMUCOP = 0x01;     //enable watchdog
+						    //CPMUARMCOP = 0x00;
 						    //value written to ARMCOP register different from 0xAA or 0x55 will reset
 						    //the MCU immediately.
 						}
