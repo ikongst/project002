@@ -113,7 +113,7 @@ void SystemSchedule_Main(void)
 							sucBootloaderCntr = INIT;
 						    gucBootloaderFlag = FLAG_RESET;
 
-						    DisableInterrupts;
+						    //DisableInterrupts;
 						    
 							getdatafromflash_1(datapointarr, FLASH_ADDRESS_SWID/16, SW_READ_ARR_LENGTH);						    
 							datapointarr[0]=0xAB;
