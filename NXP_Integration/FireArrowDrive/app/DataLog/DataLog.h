@@ -4,6 +4,7 @@
 /*
 v010, 2022-12-01, kongyun: initial version
 v011, 2023-01-13, kongyun: add power error detection and record.
+v012, 2023-09-22, kongyun: bug fixed regarding timing (unsigned int change to unsigned long)
 */
 
 #include "Common.h"

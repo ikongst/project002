@@ -174,4 +174,7 @@ extern unsigned  int guiDebug_ErrorVCP;
 extern unsigned  int guiDebug_ErrorOC;
 extern unsigned  int guiDebug_SpeedDeviationCntr;
 
+
+extern unsigned char testcntr;
+
 #endif

@@ -1,11 +1,11 @@
-Units and locations in library 'LIB_Datalog_v011_NXP.lib'
+Units and locations in library 'LIB_Datalog_v012_NXP.lib'
 Unit name                size     from       to
 Common_c.obj             5360       87     5447
-DTC_c.obj                7696     5447    13143
-DataLog_c.obj           13472    13143    26615
-InternalError_c.obj      5472    26615    32087
-TimeBase_c.obj          11696    32087    43783
-mylibrary_c.obj          1880    43783    45663
+DTC_c.obj                7744     5447    13191
+DataLog_c.obj           13472    13191    26663
+InternalError_c.obj      5472    26663    32135
+TimeBase_c.obj          11696    32135    43831
+mylibrary_c.obj          1880    43831    45711
 
 EXPORTED OBJECTS
 DTC_Main                              F   (DTC_c.obj)

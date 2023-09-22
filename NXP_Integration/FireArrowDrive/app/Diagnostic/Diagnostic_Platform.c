@@ -86,7 +86,7 @@
 		l_bool_wr_LIN_NXP_SS_TempLimit(gProtectionFlags.bits.LT);
 		l_bool_wr_LIN_NXP_SS_TempOver(gProtectionFlags.bits.OT);
 
-		l_u8_wr_LIN_NXP_feedback7(guiKL15CheckCntr);
+		l_u8_wr_LIN_NXP_feedback7(testcntr);
 		l_u8_wr_LIN_NXP_feedback8(guiLibVersion_Protection);
 		
 	}

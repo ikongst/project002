@@ -188,6 +188,8 @@ void main(void)
 //		}
 //		flashoperation_1(tempwritearr, i, 16);		
 //	}
+//	
+//	flashoperation_1(tempwritearr, 10, 16);
 //	//-------------------------------------------
 
 //	//PMFCFG2_MSK  = 0x0;
