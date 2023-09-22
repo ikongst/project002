@@ -98,32 +98,32 @@ void SystemSchedule_Main(void)
 									
 					
 					swversionadd = 0x100000;
-//					ucswversionarr[0] = (*(UINT8 *)(swversionadd+0));
-//					ucswversionarr[1] = (*(UINT8 *)(swversionadd+1));
-//					ucswversionarr[2] = (*(UINT8 *)(swversionadd+2));
-//					ucswversionarr[3] = (*(UINT8 *)(swversionadd+3));
-//					ucswversionarr[4] = (*(UINT8 *)(swversionadd+4));
-//					ucswversionarr[5] = (*(UINT8 *)(swversionadd+5));
-//					ucswversionarr[6] = (*(UINT8 *)(swversionadd+6));
-//					ucswversionarr[7] = (*(UINT8 *)(swversionadd+7));
-//					ucswversionarr[8] = (*(UINT8 *)(swversionadd+8));
-//					ucswversionarr[9] = (*(UINT8 *)(swversionadd+9));
-//					ucswversionarr[10] = (*(UINT8 *)(swversionadd+10));
-//					ucswversionarr[11] = (*(UINT8 *)(swversionadd+11));					
-//					ucswversionarr[12] = (*(UINT8 *)(swversionadd+12));
-//					ucswversionarr[13] = (*(UINT8 *)(swversionadd+13));
-//					ucswversionarr[14] = (*(UINT8 *)(swversionadd+14));
-//					ucswversionarr[15] = (*(UINT8 *)(swversionadd+15));
+					ucswversionarr[0] = (*(UINT8 *)(swversionadd+0));
+					ucswversionarr[1] = (*(UINT8 *)(swversionadd+1));
+					ucswversionarr[2] = (*(UINT8 *)(swversionadd+2));
+					ucswversionarr[3] = (*(UINT8 *)(swversionadd+3));
+					ucswversionarr[4] = (*(UINT8 *)(swversionadd+4));
+					ucswversionarr[5] = (*(UINT8 *)(swversionadd+5));
+					ucswversionarr[6] = (*(UINT8 *)(swversionadd+6));
+					ucswversionarr[7] = (*(UINT8 *)(swversionadd+7));
+					ucswversionarr[8] = (*(UINT8 *)(swversionadd+8));
+					ucswversionarr[9] = (*(UINT8 *)(swversionadd+9));
+					ucswversionarr[10] = (*(UINT8 *)(swversionadd+10));
+					ucswversionarr[11] = (*(UINT8 *)(swversionadd+11));					
+					ucswversionarr[12] = (*(UINT8 *)(swversionadd+12));
+					ucswversionarr[13] = (*(UINT8 *)(swversionadd+13));
+					ucswversionarr[14] = (*(UINT8 *)(swversionadd+14));
+					ucswversionarr[15] = (*(UINT8 *)(swversionadd+15));
 		
-//					testcntr = 0;
-//					for(unsigned char i=0; i<16; i++)
-//					{
-//						if(ucswversionarr[i]==0xFF)
-//						{
-//							testcntr++;
-//						}
-//					}
-//					
+					testcntr = 0;
+					for(unsigned char i=0; i<16; i++)
+					{
+						if(ucswversionarr[i]==0xFF)
+						{
+							testcntr++;
+						}
+					}
+					
 					
 					
 					ANALYSIS_TIMERSTOP(TASK_DataLog);
