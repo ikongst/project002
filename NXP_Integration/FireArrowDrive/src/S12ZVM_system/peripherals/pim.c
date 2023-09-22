@@ -55,7 +55,7 @@ void pim_init(void)
   DDRP_DDRP0 = 1;		// EVDD(PP0) defined as Output
   PTP_PTP0   = 1;		//EVDD output high   
   
-//  MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
+  MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
 //  MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
   
   

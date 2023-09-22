@@ -33,9 +33,9 @@
 							<tool id="com.freescale.s12z.toolchain.burner.1193984458" name="S12Z Burner" superClass="com.freescale.s12z.toolchain.burner"/>
 							<tool id="com.freescale.s12z.toolchain.linker.1368527296" name="S12Z Linker" superClass="com.freescale.s12z.toolchain.linker">
 								<option id="com.freescale.s12z.toolchain.linker.input.libs.425765862" name="Libraries" superClass="com.freescale.s12z.toolchain.linker.input.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog/LIB_Datalog_v012_NXP.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/S12lisa_Support/s12lisac/lib_small/ansii.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/CustomerInterface/LIB_CustomerInterface_v011_NXP_600W.lib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/DataLog/LIB_Datalog_v012_NXP.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/app/Protection/LIB_Protection_v017_NXP_600W.lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\MC9S12ZVM_AMMCLIB_v1.1.28\lib\cw10x\MC9S12ZVM_AMMCLIB.UC.a&quot;"/>
 								</option>
@@ -101,10 +101,6 @@
 									<listOptionValue builtIn="false" value="motorinter.c"/>
 									<listOptionValue builtIn="false" value="src/S12ZVM_system/peripherals/tim.c"/>
 									<listOptionValue builtIn="false" value="src/pwm_control.c"/>
-									<listOptionValue builtIn="false" value="app/UDS/EOLT.c"/>
-									<listOptionValue builtIn="false" value="app/UDS/UDS.c"/>
-									<listOptionValue builtIn="false" value="app/UDS/appl_diag.c"/>
-									<listOptionValue builtIn="false" value="eeprom_S12Z.c"/>
 								</option>
 								<option id="com.freescale.s12z.toolchain.linker.msgs.WmsgSd.1706440109" name="Set Messages to Disable" superClass="com.freescale.s12z.toolchain.linker.msgs.WmsgSd" valueType="stringList">
 									<listOptionValue builtIn="false" value="1100"/>
