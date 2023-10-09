@@ -607,12 +607,12 @@ void stateReset()
 	/*------------------------------------
 	 * Freemaster variables
 	 * ----------------------------------*/
-	fmScale.current                                      = FM_I_SCALE;
-	fmScale.voltage                                      = FM_U_SCALE;
-	fmScale.dcb_voltage                                  = FM_U_DCB_SCALE;
-	fmScale.speed_w_e                                    = FM_SPEED_RAD_EL_SCALE;
-	fmScale.speed_n_m                                    = FM_SPEED_RPM_MEC_SCALE;
-	fmScale.position                                     = FM_POSITION_DEG_SCALE;
+	fmScale.current                                     = FM_I_SCALE;
+	fmScale.voltage                                     = FM_U_SCALE;
+	fmScale.dcb_voltage                                 = FM_U_DCB_SCALE;
+	fmScale.speed_w_e                                   = FM_SPEED_RAD_EL_SCALE;
+	fmScale.speed_n_m                                   = FM_SPEED_RPM_MEC_SCALE;
+	fmScale.position                                    = FM_POSITION_DEG_SCALE;
 	//fmScale.speed_ramp									 = FM_SPEED_RAMP_RPM_SCALE;
 	
 	drvFOC.alignCntrInit							   	= ALIGN_DURATION;
