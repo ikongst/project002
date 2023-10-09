@@ -35,6 +35,13 @@ unsigned char gucswversion_internal      = 0x01;
 
 unsigned char gucswversion_internal      = 0x01;
 
+#elif SW_SWID_PROJECT == 0x41350281
+// SWID: 0x41350281 
+// 0x01 -> initial version.
+
+unsigned char gucswversion_internal      = 0x01;
+
+
 #else
 
 unsigned char gucswversion_internal      = 0xFF;

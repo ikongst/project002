@@ -35,7 +35,8 @@
 #define ELECTRONICS_PLATFORM_GEN1                       (1UL<<PAR_BITS_START_ELECTYPE)
 #define ELECTRONICS_PLATFORM_400W                       (2UL<<PAR_BITS_START_ELECTYPE)
 #define ELECTRONICS_PLATFORM_600W                       (3UL<<PAR_BITS_START_ELECTYPE)
-#define ELECTRONICS_NXP_600W                            (4UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_NXP_400W                            (4UL<<PAR_BITS_START_ELECTYPE)
+#define ELECTRONICS_NXP_600W                            (5UL<<PAR_BITS_START_ELECTYPE)
 #define ELECTRONICS_PLATFORM_GENNMAX                 (0x0FUL<<PAR_BITS_START_ELECTYPE) // maximum
 
 
@@ -109,10 +110,20 @@
 // SWID: 0x03110201
 
 /********************************************************************
+// Project:     GWM B30 400W
+// Time:        2023-06-25
+// Description: PV sample, use the PV sample for this SW release.
+// SW ID:       0x41240181  
+*********************************************************************/
+#define PROJECTCODE_GWM_H6_400W_PWM_NXP           ((SW_MATURITY_B)+(CUSTOMERINDEX_GWM)+(MOTOR_PLATFORM_400W)+(ELECTRONICS_NXP_400W)+(GWM_H6_400W)+(CUSTOMERINTERFACE_PWM)+(SWVERSION_001)) // the highest bit of last byte means interface.
+/********************************************************************/
+
+
+/********************************************************************
 // Project:     GWM B30 600W
 // Time:        2023-06-25
 // Description: PV sample, use the PV sample for this SW release.
-// SW ID:       0x41340281  
+// SW ID:       0x41350281  
 *********************************************************************/
 #define PROJECTCODE_GWM_H6_600W_PWM_NXP           ((SW_MATURITY_B)+(CUSTOMERINDEX_GWM)+(MOTOR_PLATFORM_600W)+(ELECTRONICS_NXP_600W)+(GWM_H6_600W)+(CUSTOMERINTERFACE_PWM)+(SWVERSION_001)) // the highest bit of last byte means interface.
 /********************************************************************/

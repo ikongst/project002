@@ -117,7 +117,7 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-	return;
+	//return; // sleepmode cancel testing...
 	DisableOutput();	
 	DisableInterrupts;
 	
