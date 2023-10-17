@@ -85,6 +85,10 @@ void checksleepmode(void)
 		{
 			gucLINGotoSleepFlag = FLAG_SET; 
 		}		
+		else
+		{
+			gucLINGotoSleepFlag = FLAG_RESET;
+		}		
 	#endif
 }
 

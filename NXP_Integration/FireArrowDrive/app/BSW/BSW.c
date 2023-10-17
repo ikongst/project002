@@ -25,36 +25,32 @@ INTERRUPT void API_ISR(void);
 
 
 
-
 void BSW_PWM_Init(void)
-{
-	unsigned int i;
-	
+{		
 	LP0CR_LPE     = 0;       // disable LIN Phy
-//	for(i=0;i<1000;i++)
-//	{}
-	LP0SLRM       = 0x81;    // TxD-dominant feature disabled.
-	MODRR0_S0L0RR = 0x01;
-//	for(i=0;i<1000;i++)
-//	{}
+	LP0SLRM       = 0x80;    // TxD-dominant feature disabled.
 	LP0CR_LPE     = 1;       // Enable LIN Phy
-//	for(i=0;i<1000;i++)
-//	{}
-  //MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
-  MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
-  TIM0TCTL4_EDG3A = 1;	  //rising edge
-  TIM0TCTL4_EDG3B = 0;    //
-  //PWMControlInit(&pwmControlData);
+
+	MODRR0_S0L0RR = 0x01;	
+	MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
+	
+	TIM0TCTL4_EDG3A = 1;	  //rising edge
+	TIM0TCTL4_EDG3B = 0;    //
 }
 
 void BSW_LIN_Init(void)
 {
-  MODRR0_S0L0RR = 0x00;	    //LIN routed to RX
-  //MODRR2_T0IC3RR = 0x01;	//RX routed to TIM0C3
-  TIM0TCTL4_EDG3A = 0;	  //disable capture
-  TIM0TCTL4_EDG3B = 0;    //
-  // test
-  // test 2
+	LP0CR_LPE     = 0;       // disable LIN Phy
+	LP0SLRM       = 0x00;    // TxD-dominant feature enable.
+	LP0CR_LPE     = 1;       // Enable LIN Phy
+	
+	// due to default is 0x00 (LIN)
+	// and only can be 1 time operation.
+	//MODRR0_S0L0RR = 0x00;	    //LIN routed to RX		
+	//MODRR2_T0IC3RR = 0x00;	//RX routed to TIM0C3
+	
+	TIM0TCTL4_EDG3A = 0;	  //disable capture
+	TIM0TCTL4_EDG3B = 0;    //	
 }
 
 void BSW_LIN_service(void)
