@@ -134,12 +134,13 @@ void main(void)
 	ptu_init();
 	adc0_init();
 	adc1_init();
-	//sci0_init();
+	sci0_init();
 	sci1_init();
 	gdu_init();
 	EEPROM_Init(0x31);
 	initTIM();
 	initLIN();
+	
 	l_sys_init();
 	l_ifc_init(LIN_NXP);
 	
@@ -210,7 +211,8 @@ void main(void)
 //			
 //	}
 	
-		
+	//BSW_LIN_Init();
+						
 	// Loop
 	for(;;)
 	{		

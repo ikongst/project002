@@ -5,6 +5,7 @@
 /*
  * 
 v001, 2023-7-11, kongyun: initial version
+v012, 2023-10-16, kongyun: bug fixed regarding int to long.
  */
 
 #include "Common.h"
@@ -19,7 +20,7 @@ v001, 2023-7-11, kongyun: initial version
 	#define LIB_PLATFORM_400W            1
 	#define LIB_PLATFORM_600W            2
 
-	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_400W
+	#define LIB_PLATFORM_SELECTION       LIB_PLATFORM_600W
 
 	#if   (LIB_PLATFORM_SELECTION == LIB_PLATFORM_GEN1)\
 			||(LIB_PLATFORM_SELECTION == LIB_PLATFORM_400W)
