@@ -134,8 +134,8 @@ void main(void)
 	ptu_init();
 	adc0_init();
 	adc1_init();
-	sci0_init();
-	sci1_init();
+	//sci0_init();
+	//sci1_init();
 	gdu_init();
 	EEPROM_Init(0x31);
 	initTIM();
@@ -144,7 +144,7 @@ void main(void)
 	l_sys_init();
 	l_ifc_init(LIN_NXP);
 	
-	FMSTR_Init();
+	//FMSTR_Init();
 	
 	// Init state set and e_reset event is thrown to call the reset state
 	cntrState.state   	= init;
@@ -242,7 +242,7 @@ void main(void)
 //		else
 //		BSW_setpinstatus_interface(0);	
 		// FreeMASTER poll function call
-		FMSTR_Poll();
+		//FMSTR_Poll();
 		__RESET_WATCHDOG();
 //       if(l_flg_tst_LIN_NXP_MotorCtrl_flag())   //
 //       {
@@ -527,7 +527,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	
 	//PTT_PTT0 = 0;			// clear the PTT0 pin to track the code performance
 	
-	FMSTR_Recorder();
+	//FMSTR_Recorder();
 	MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);
 
 	PMFFQCA_PWMRFA = 1; // Clear flag

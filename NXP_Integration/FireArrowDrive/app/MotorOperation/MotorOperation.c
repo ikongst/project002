@@ -81,6 +81,7 @@ void checksleepmode(void)
 				)
 			&&(gucLINEOLServiceReceivedFlag!= FLAG_SET)
 			&&(gucLINGotoSleepFlag==FLAG_RESET)
+			&&(gucBootloaderFlag != FLAG_SET)
 			)
 		{
 			gucLINGotoSleepFlag = FLAG_SET; 
@@ -129,13 +130,15 @@ void MotorOperation_Main(void)
 {	
 	// sleep mode check and implement.
 	checksleepmode();	
-	gotosleedmode();	
+	gotosleedmode();
+	
 	
 	gucMotorDriveState       = 1;//ucgetEMOState();// this state show the motor running or stop;
 	gucMotorDriveStartupTime = 0;
 	
-	gucFOCError              = 0;//ucgetFOCerror();// indicate to FOC agloristhm.
-		
+	gucFOCError              = 0;//ucgetFOCerror();// indicate to FOC agloristhm.	
+	
+	
 	switch(gMotorControl)
 	{
 		case IDEA:

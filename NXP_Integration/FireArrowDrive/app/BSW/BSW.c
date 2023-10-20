@@ -36,6 +36,7 @@ void BSW_PWM_Init(void)
 	
 	TIM0TCTL4_EDG3A = 1;	  //rising edge
 	TIM0TCTL4_EDG3B = 0;    //
+	TIM0TSCR2_TOI	= 1;
 }
 
 void BSW_LIN_Init(void)
@@ -49,8 +50,9 @@ void BSW_LIN_Init(void)
 	//MODRR0_S0L0RR = 0x00;	    //LIN routed to RX		
 	//MODRR2_T0IC3RR = 0x00;	//RX routed to TIM0C3
 	
-	TIM0TCTL4_EDG3A = 0;	  //disable capture
+	TIM0TCTL4_EDG3A = 0;	//disable.
 	TIM0TCTL4_EDG3B = 0;    //	
+	//TIM0TSCR2_TOI	= 0;
 }
 
 void BSW_LIN_service(void)
