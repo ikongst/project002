@@ -45,6 +45,7 @@ void pim_init(void)
 {
 //  MODRR0_SCI1RR = 1; // SCI - FreeMASTER
 //
+	
   DDRS_DDRS0 = 1;	// PS0 defined as output
   DDRS_DDRS1 = 1;	// PS1 defined as output
   DDRS_DDRS4 = 1;	// Debugg Signal

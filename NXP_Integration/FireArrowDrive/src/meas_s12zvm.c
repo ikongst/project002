@@ -72,7 +72,7 @@ void GetAdcRawValues(measModule_t *ptr, ADC_RAW_DATA_T *rawData);
 tU32 rmsadd;
 tS16 first=0,second=0;
 tU32 Ifirst=0,Isecond=0,Iinst=0;
-tU32 rms=0,unitdev=150337;//115152;
+tU32 rms=0,unitdev=150075;//150337;//115152;
 
 
 
@@ -212,9 +212,9 @@ tBool Meas_Get3PhCurrent(measModule_t *ptr, SWLIBS_3Syst_F16 *i,  tU16 svmSector
 	   Ifirst: T1 current digit;
 	   Isecond: T2 current digit;
 	   unitdev=Ki*Kt/100;  //accuracy to 0.01A
-	   Ki=229.4;   //114.7=1147/10; in condition Rshunt=0.5m¦¸£¬Gamp=35£¬ (10A>5mV>175mV(5*35)>2294(175*4096*16/5000))  //143.4
+	   Ki=229.4~229;   //114.7=1147/10; in condition Rshunt=0.5m¦¸£¬Gamp=35£¬ (10A>5mV>175mV(5*35)>2294(175*4096*16/5000))  //143.4
 	   Kt=65535;
-	   unitdev=150337;
+	   unitdev=150075;   //150337
 	*/
 	rmsadd+=(Ifirst*first+Isecond*second)/unitdev;
 	
