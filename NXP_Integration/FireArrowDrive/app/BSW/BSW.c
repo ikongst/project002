@@ -323,45 +323,71 @@ void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int w
 
 unsigned int uigetGDUerror(void)
 {
-	return permFaults.mcu.B.GDU_Error;
+	if(permFaults.mcu.B.GDU_Error==1)
+	{
+		permFaults.mcu.B.GDU_Error = 0;
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 
 unsigned int uigetSCerror(void)  //short
 {
-	if((drvFOC.iAbcFbck.f16Arg1>(I_PH_OVER+3000))||(drvFOC.iAbcFbck.f16Arg2 >(I_PH_OVER+3000))||(drvFOC.iAbcFbck.f16Arg3>(I_PH_OVER+3000)))//(meas.offset.f16Idcb.f16Offset>6554)||
-	return 1;
-  else
+	// no short circuit detection.
   	return 0;
 }
 unsigned int uigetPBerror(void)  //phase break
 {
-	if(permFaults.motor.R)
-	return 1;
-  else 
+	// no phase break detection at NXP platform.
   	return 0;
 }
 unsigned int uigetOCerror(void)  //over current
 {
-	 if((drvFOC.iAbcFbck.f16Arg1 > I_PH_OVER)||(drvFOC.iAbcFbck.f16Arg2 > I_PH_OVER)||(drvFOC.iAbcFbck.f16Arg3 > I_PH_OVER))
-	return 1;
-  else
-  	return 0;
+	if(
+		(permFaults.motor.B.OverPhaseACurrent==true)
+		||(permFaults.motor.B.OverPhaseBCurrent==true)
+		||(permFaults.motor.B.OverPhaseCCurrent==true)
+		)
+	{		
+		permFaults.motor.B.OverPhaseACurrent = 0;
+		permFaults.motor.B.OverPhaseBCurrent = 0;
+		permFaults.motor.B.OverPhaseCCurrent = 0;
+		return 1;
+		
+	}
+	else
+	{
+		return 0;
+	}
 }
 unsigned int uigetPowererror(void) //DCBUS 
 {
-	if(CPMURFLG  > 0x60)
-	return 1;
-   else
-   	return 0;
+	// no power error detection.
+	return 0;
 }
 
 unsigned int uigetCurOffsetVal(void)  //Offset
 {
-  // if(meas.flag.B.calibDone==1)//((meas.offset.f16Idcb.f16Offset<-19660)||(meas.offset.f16Idcb.f16Offset>6554)||)
-	return 1600;//meas.offset.f16Idcb.f16Offset;
- // else
- // 	return 0;
+	if(meas.flag.B.calibDone==0)
+	{
+		return 1600; // offset no issue when no calibrated.
+	}
+	else
+	{
+		if((meas.flag.B.calibDone==1)
+			&&((meas.offset.f16Idcb.f16Offset>-19660)&&(meas.offset.f16Idcb.f16Offset<6554)))
+		{
+			return 1600; // offset no issue if already calibrated and in the defined range.
+		}
+		else
+		{
+			return 0;  // offset value have issue. in the lib the valid range from 1500~1700.
+		}
+	}
 }
 
 unsigned char TargetData[FlashPageSize]={0};

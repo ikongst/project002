@@ -54,6 +54,8 @@ pmsmDrive_t         drvFOC;         // Field Oriented Control Variables
 driveStates_t 		cntrState;	    // Responsible for stateMachine state propagation
 appFaultStatus_t	tempfaults;		// Temporary faults to be indicated inhere
 appFaultStatus_t	permFaults;		// Permanent faults to be indicated inhere
+appFaultStatus_t	permFaultssaved;
+
 fm_scale_t			fmScale;		// Scales for freemaster interface
 measModule_t		meas;
 tPos_mode			pos_mode;
@@ -405,7 +407,6 @@ INTERRUPT void ADC1done_ISR(void)
 unsigned char ucstatenow = 0;
 unsigned char ucstateadd[500];
 unsigned int uistateindex = 0;
-appFaultStatus_t	permFaultssaved;
 INTERRUPT void PMFreloadA_ISR(void)
 {
 	static tBool getFcnStatus;	
@@ -1599,6 +1600,8 @@ static tBool focFastLoop()
 }
 
 
+#define DEF_FAULTSCLEAR_DELAY    20 // 100us*20 = 2sec.
+static unsigned int suiFaultclearcntr = DEF_FAULTSCLEAR_DELAY;
 /***************************************************************************//*!
 *
 * @brief   Fault Detection function
@@ -1640,14 +1643,14 @@ static tBool faultDetection()
 
 	if (cntrState.state != fault)
 	{
-//		// Fault:   Phase A over-current detected
-//		permFaults.motor.B.OverPhaseACurrent   = (drvFOC.iAbcFbck.f16Arg1 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseACurrent;
-//
-//		// Fault:   Phase B over-current detected
-//		permFaults.motor.B.OverPhaseBCurrent   = (drvFOC.iAbcFbck.f16Arg2 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseBCurrent;
-//
-//		// Fault:   Phase C over-current detected
-//		permFaults.motor.B.OverPhaseCCurrent   = (drvFOC.iAbcFbck.f16Arg3 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseCCurrent;
+		// Fault:   Phase A over-current detected
+		permFaults.motor.B.OverPhaseACurrent   = (drvFOC.iAbcFbck.f16Arg1 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseACurrent;
+
+		// Fault:   Phase B over-current detected
+		permFaults.motor.B.OverPhaseBCurrent   = (drvFOC.iAbcFbck.f16Arg2 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseBCurrent;
+
+		// Fault:   Phase C over-current detected
+		permFaults.motor.B.OverPhaseCCurrent   = (drvFOC.iAbcFbck.f16Arg3 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseCCurrent;
 
 //		// Fault:   DC-bus over-voltage
 //		permFaults.motor.B.OverDCBusVoltage    = (meas.measured.f16Udcb.raw > U_DCB_OVERVOLTAGE) ? true : permFaults.motor.B.OverDCBusVoltage;
@@ -1658,8 +1661,8 @@ static tBool faultDetection()
 //		else
 //			permFaults.motor.B.UnderDCBusVoltage   = false;			
 
-		// Fault:   Over temperature
-		permFaults.motor.B.OverHeating  = (meas.measured.f16Temp.filt > TEMP_OVER) ? true : permFaults.motor.B.OverHeating;
+//		// Fault:   Over temperature
+//		permFaults.motor.B.OverHeating  = (meas.measured.f16Temp.filt > TEMP_OVER) ? true : permFaults.motor.B.OverHeating;
 		
 		// Fault:	Sensorless error - estimated speed is of opposite polarity than required speed - e.g. estimation is not aligned with the real speed after Match speed 2
 		if(MLIB_Abs_F16(drvFOC.pospeControl.wRotElReqRamp) > drvFOC.pospeSensorless.wRotElMatch_2)
@@ -1673,7 +1676,29 @@ static tBool faultDetection()
 		permFaults.mcu.B.PTU_Error = GetPTU_Errors();
 	}
 
-
+	if((permFaults.motor.R == 0x0)
+		&&(permFaults.mcu.R == 0x0)
+		&&(permFaults.stateMachine.R == 0x0)
+			)
+	{
+		if(suiFaultclearcntr)
+		{
+			suiFaultclearcntr--;
+		}
+		else
+		{
+			permFaults.motor.R        = 0;
+			permFaults.mcu.R          = 0;
+			permFaults.stateMachine.R = 0;
+			suiFaultclearcntr = DEF_FAULTSCLEAR_DELAY;
+		}		
+	}
+	else
+	{
+		suiFaultclearcntr = DEF_FAULTSCLEAR_DELAY;
+	}	
+	
+	
     if ((permFaults.motor.R != 0x0))
     	faultDetectiontEvent = true;
     if ((permFaults.mcu.R != 0x0))
