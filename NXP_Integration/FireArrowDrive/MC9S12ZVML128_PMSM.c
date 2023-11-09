@@ -483,9 +483,9 @@ INTERRUPT void PMFreloadA_ISR(void)
 	// temp = 150- 457 + (meas.measured.f16Temp.raw)*5*100>>16)/525;
 		
 
-	MotorDrive_uiTemperature =((long)meas.measured.f16Temp.filt*645)>>15; //150-(31456-meas.measured.f16Temp.raw)/69;//150-(2400*100-((long)meas.measured.f16Temp.raw*5*100>>16))/525;
+	MotorDrive_uiTemperature =190-(31458-meas.measured.f16Temp.raw)/69;//meas.measured.f16Temp.filt;//((long)meas.measured.f16Temp.filt*645)>>15; //150-(35788-meas.measured.f16Temp.raw)/69;//190-(2400*100-((long)meas.measured.f16Temp.raw*5000*100>>16))/525;
 	
-	//MotorDrive_uiTemperature =150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
+	//MotorDrive_uiTemperature =((long)meas.measured.f16Temp.filt*100)/6452;//150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
     //MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
 
 	//l_u8_wr_LIN_NXP_Temperature((l_u8)(MotorDrive_uiTemperature>>4)); //refresh Temperature	

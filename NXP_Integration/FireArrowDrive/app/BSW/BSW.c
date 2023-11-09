@@ -15,6 +15,11 @@
 #include "eeprom_S12Z.h"
 #include "actuate_s12zvm.h"
 
+#include "PMSM_appconfig.h"
+
+extern pmsmDrive_t      drvFOC;
+extern measModule_t		meas;
+
 
 extern pwmControl_t pwmControlData;
 extern appFaultStatus_t	permFaults;	
@@ -115,7 +120,7 @@ void BSW_setpinstatus_interface(unsigned char ucPINstatus)
 
 void EnterintoSleep(void)
 {
-	//return; // sleepmode cancel testing...
+	return; // sleepmode cancel testing...
 	DisableOutput();	
 	DisableInterrupts;
 	
@@ -324,24 +329,39 @@ unsigned int uigetGDUerror(void)
 
 unsigned int uigetSCerror(void)  //short
 {
-	return 0;
+	if((drvFOC.iAbcFbck.f16Arg1>(I_PH_OVER+3000))||(drvFOC.iAbcFbck.f16Arg2 >(I_PH_OVER+3000))||(drvFOC.iAbcFbck.f16Arg3>(I_PH_OVER+3000)))//(meas.offset.f16Idcb.f16Offset>6554)||
+	return 1;
+  else
+  	return 0;
 }
 unsigned int uigetPBerror(void)  //phase break
 {
-	return 0;
+	if(permFaults.motor.R)
+	return 1;
+  else 
+  	return 0;
 }
 unsigned int uigetOCerror(void)  //over current
 {
-	return 0;
+	 if((drvFOC.iAbcFbck.f16Arg1 > I_PH_OVER)||(drvFOC.iAbcFbck.f16Arg2 > I_PH_OVER)||(drvFOC.iAbcFbck.f16Arg3 > I_PH_OVER))
+	return 1;
+  else
+  	return 0;
 }
 unsigned int uigetPowererror(void) //DCBUS 
 {
-	return 0;
+	if(CPMURFLG  > 0x60)
+	return 1;
+   else
+   	return 0;
 }
 
 unsigned int uigetCurOffsetVal(void)  //Offset
 {
-	return 1600;
+  // if(meas.flag.B.calibDone==1)//((meas.offset.f16Idcb.f16Offset<-19660)||(meas.offset.f16Idcb.f16Offset>6554)||)
+	return 1600;//meas.offset.f16Idcb.f16Offset;
+ // else
+ // 	return 0;
 }
 
 unsigned char TargetData[FlashPageSize]={0};
