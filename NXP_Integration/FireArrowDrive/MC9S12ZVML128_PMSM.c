@@ -125,6 +125,15 @@ unsigned long ulcurrentcntr     = 0;
 unsigned long uldeltacntr     = 0;
 unsigned long uldefineddelaytime = 1000;// 1ms
 
+
+
+
+
+
+unsigned int JY_State,JY_Event,JY_StateArr[20],JY_EventArr[20],JY_CNT;
+
+
+
 void main(void)
 {
 	//unsigned int appcntr222 = 0;
@@ -216,6 +225,35 @@ void main(void)
 	// Loop
 	for(;;)
 	{		
+		if(cntrState.event!=JY_Event||cntrState.state!=JY_State)
+		{
+			JY_Event = cntrState.event;
+			JY_State = cntrState.state;
+			JY_StateArr[JY_CNT] = JY_State;
+			JY_EventArr[JY_CNT] = JY_Event;  
+			JY_CNT++;
+			if(JY_CNT>=20)
+			{
+				JY_CNT = 0;
+				
+			}
+			
+			
+		}
+		
+		    
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		ulcurrentcntr  = gettimercntr();
 		if(ulcurrentcntr>ulpreviouscntr)
 		{
@@ -402,10 +440,12 @@ INTERRUPT void ADC1done_ISR(void)
 * @return  none
 *
 ******************************************************************************/
+extern void speedregulation();
 unsigned char ucstatenow = 0;
 unsigned char ucstateadd[500];
 unsigned int uistateindex = 0;
 appFaultStatus_t	permFaultssaved;
+unsigned int jycnt;
 INTERRUPT void PMFreloadA_ISR(void)
 {
 	static tBool getFcnStatus;	
@@ -522,7 +562,8 @@ INTERRUPT void PMFreloadA_ISR(void)
 	// Execute State table with newly measured data	
 	state_table[cntrState.event][cntrState.state]();
 	state_LED[cntrState.state]();
-
+	jycnt++;
+	//speedregulation();
 	App_count++;
 	
 	//PTT_PTT0 = 0;			// clear the PTT0 pin to track the code performance
@@ -1566,7 +1607,10 @@ static tBool focFastLoop()
 		}
 
 		GMCLIB_Park(&drvFOC.iDQFbck,&drvFOC.thTransform,&drvFOC.iAlBeFbck);
-		
+		if(drvFOC.currentLoop.pIDQReq->f16Arg2 < 0)
+		{
+			drvFOC.currentLoop.pIDQReq->f16Arg2 = 0;
+		}
 		AMCLIB_CurrentLoop_F16(drvFOC.iCLoop_Limit, &drvFOC.uDQReq, &drvFOC.currentLoop);
 	}
 	//////////////////////////////////////
