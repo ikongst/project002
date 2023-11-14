@@ -79,7 +79,6 @@ INTERRUPT void PMFreloadA_ISR(void);
 
 
 
-
 // Debug variables
 static tFrac16			reload_PmfCnt;
 volatile unsigned int 	AdcErrorLDOK, AdcErrorRSTAR, AdcErrorTRIG, AdcErrorEOL, AdcErrorCMD, AdcErrorIA;
@@ -1601,7 +1600,9 @@ static tBool focFastLoop()
 
 
 #define DEF_FAULTSCLEAR_DELAY    20 // 100us*20 = 2sec.
-static unsigned int suiFaultclearcntr = DEF_FAULTSCLEAR_DELAY;
+unsigned int suiFaultclearcntr = DEF_FAULTSCLEAR_DELAY;
+
+unsigned int guiCntr = 0;
 /***************************************************************************//*!
 *
 * @brief   Fault Detection function
@@ -1646,12 +1647,30 @@ static tBool faultDetection()
 		// Fault:   Phase A over-current detected
 		permFaults.motor.B.OverPhaseACurrent   = (drvFOC.iAbcFbck.f16Arg1 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseACurrent;
 
+		if(permFaults.motor.B.OverPhaseACurrent==true)
+		{
+			permFaults.motor.B.OverPhaseACurrent = false;
+			guiCntr++;
+		}
+		
 		// Fault:   Phase B over-current detected
 		permFaults.motor.B.OverPhaseBCurrent   = (drvFOC.iAbcFbck.f16Arg2 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseBCurrent;
 
+		if(permFaults.motor.B.OverPhaseBCurrent==true)
+		{
+			permFaults.motor.B.OverPhaseBCurrent = false;
+			guiCntr++;
+		}
+		
 		// Fault:   Phase C over-current detected
 		permFaults.motor.B.OverPhaseCCurrent   = (drvFOC.iAbcFbck.f16Arg3 > I_PH_OVER) ? true : permFaults.motor.B.OverPhaseCCurrent;
 
+		if(permFaults.motor.B.OverPhaseCCurrent==true)
+		{
+			permFaults.motor.B.OverPhaseCCurrent = false;
+			guiCntr++;
+		}
+		
 //		// Fault:   DC-bus over-voltage
 //		permFaults.motor.B.OverDCBusVoltage    = (meas.measured.f16Udcb.raw > U_DCB_OVERVOLTAGE) ? true : permFaults.motor.B.OverDCBusVoltage;
 //
