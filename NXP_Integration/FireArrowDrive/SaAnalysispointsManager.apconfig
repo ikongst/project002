@@ -1,6 +1,6 @@
 <Analysispoints>
 	<Name>AnalysispointsManager</Name>
-	<ProjectPath>D:/serverSW/nxp_integration/NXP_Integration/FireArrowDrive/SaAnalysispointsManager.apconfig</ProjectPath>
+	<ProjectPath>D:/jy/NXP/nxp_server/NXP_Integration/FireArrowDrive/SaAnalysispointsManager.apconfig</ProjectPath>
 	<MaxNumberOfCores>1</MaxNumberOfCores>
 	<Comments>Analysispoints Manager</Comments>
 	<IgnoreAll>false</IgnoreAll>

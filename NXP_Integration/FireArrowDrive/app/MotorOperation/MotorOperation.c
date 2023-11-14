@@ -92,12 +92,12 @@ void checksleepmode(void)
 		}		
 	#endif
 }
-
+int jystop;
 void gotosleedmode(void)
 {
 	if(gucLINGotoSleepFlag==FLAG_SET)
 	{
-		
+		jystop = 1;
 		stopmotor();
 		gucPINInterfacePullDownStatus  = PULLDOWN_RELEASE;
 		BSW_setpinstatus_interface(PULLDOWN_RELEASE);	
@@ -167,6 +167,7 @@ void MotorOperation_Main(void)
 				{
 					if(guiActualSpeed!=INIT)
 					{
+						jystop = 2;
 						stopmotor();
 					}
 				}
@@ -174,6 +175,7 @@ void MotorOperation_Main(void)
 			break;
 			
 		case STARTUP:
+			jystop = 3;
 			stopmotor();// stop to reset any registers.
 			// directly enter into normal mode running.
 			gMotorControl = NORMAL;		
@@ -205,7 +207,7 @@ void MotorOperation_Main(void)
 					//||(gProtectionFlags.bits.deratingerror==ERROR)
 					||(gucLINEOLServiceReceivedFlag==FLAG_SET)
 					||(gucLINGotoSleepFlag == FLAG_SET)
-					||(INIT==guiControlSpeed)
+					//||(INIT==guiControlSpeed)
 					//||(ERROR == gucFOCError)
 					//||(gucPWMSignalFlashStartFlag == FLAG_SET)
 					//||(gucDatalogOperationFlag == FLAG_SET) // datalog operation check			
@@ -258,7 +260,7 @@ void MotorOperation_Main(void)
 				gMotorControl      = STOP;			
 				// stop motor;
 				stopmotor();	
-
+				jystop = 4;
 				gucFOCError            = NOERROR;
 				gucOneElectronicsError = NOERROR;
 				gucOneBlockedFlag      = NOERROR;
@@ -273,7 +275,7 @@ void MotorOperation_Main(void)
 			break;
 			
 		case STOP:
-		
+			//jystop = 5;
 			stopmotor();			
 			// delay
 			if(suidelaycounter_Stop)
