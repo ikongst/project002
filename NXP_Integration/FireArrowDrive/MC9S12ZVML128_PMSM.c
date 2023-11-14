@@ -1497,7 +1497,8 @@ static tBool focSlowLoop()
 		case force:
 			current = drvFOC.pospeOpenLoop.iQUpperLimit;
 			weight = 0;
-			drvFOC.currentLoop.pIDQReq->f16Arg1 = current;
+			//drvFOC.currentLoop.pIDQReq->f16Arg1 = current;
+			drvFOC.currentLoop.pIDQReq->f16Arg1 = 10000;
 			drvFOC.currentLoop.pIDQReq->f16Arg2 = 0;
 			drvFOC.speedLoop.pPIpAWQ.f16UpperLimit = drvFOC.pospeOpenLoop.iQUpperLimit;
 			drvFOC.speedLoop.pPIpAWQ.f16LowerLimit = MLIB_Neg_F16(drvFOC.speedLoop.pPIpAWQ.f16UpperLimit);
@@ -1610,6 +1611,11 @@ static tBool focFastLoop()
 		if(drvFOC.currentLoop.pIDQReq->f16Arg2 < 0)
 		{
 			drvFOC.currentLoop.pIDQReq->f16Arg2 = 0;
+		}
+		if(drvFOC.currentLoop.pIDQReq->f16Arg2 > 26500)
+		{
+			drvFOC.currentLoop.pIDQReq->f16Arg2 = 26500;
+			
 		}
 		AMCLIB_CurrentLoop_F16(drvFOC.iCLoop_Limit, &drvFOC.uDQReq, &drvFOC.currentLoop);
 	}
