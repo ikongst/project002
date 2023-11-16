@@ -21,7 +21,7 @@ typeU32 guiInformation_version      = PAR_SW_VERSION;
 //#endif
 //const unsigned int p_SWVersionID __attribute__((section(SWIDStart), used)) = (unsigned int)SW_SWID_PROJECT;
 const unsigned long sversionid_str @0xFEFF00 = SW_SWID_PROJECT;
-const unsigned long sversionid_str2 @0x10000C = SW_SWID_PROJECT;
+//const unsigned long sversionid_str2 @0x10000C = SW_SWID_PROJECT;
 
 // LIN feeddback3
 #if SW_SWID_PROJECT == 0x81220184
