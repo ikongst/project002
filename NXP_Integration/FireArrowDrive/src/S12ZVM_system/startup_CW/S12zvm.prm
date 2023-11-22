@@ -15,9 +15,10 @@ SEGMENTS  /* Here all RAM/ROM areas of the device are listed. Used in PLACEMENT 
 
 /* non-paged FLASHs */
       //ROM           = READ_ONLY   0xFE0000 TO 0xFFFDFF;
-      ROM           = READ_ONLY   0xFE0000 TO 0xFF0000;
+      ROM           = READ_ONLY   0xFE0400 TO 0xFF0000;
  /*   VECTORS       = READ_ONLY     0xFFFE00 TO   0xFFFFFF; intentionally not defined: used for VECTOR commands below */
-      OSVECTORS     = READ_ONLY     0xFFFE10 TO   0xFFFFFF;   /* OSEK interrupt vectors (use your vector.o) */
+      //ok,//OSVECTORS     = READ_ONLY     0xFFFE10 TO   0xFFFFFF;   /* OSEK interrupt vectors (use your vector.o) */
+      OSVECTORS     = READ_ONLY     0xFE0210 TO   0xFE03FF;   /* OSEK interrupt vectors (use your vector.o) */
 END
 
 PLACEMENT /* here all predefined and user segments are placed into the SEGMENTS defined above. */
@@ -49,7 +50,7 @@ END
 
 STACKSIZE 0x500
 //VECTOR ADDRESS 0xFFF1FD _Startup
-//VECTOR 0 _Startup /* reset vector: this is the default entry point for a C/C++ application. */
+VECTOR 0 _Startup /* reset vector: this is the default entry point for a C/C++ application. */
 //VECTOR 0 Entry  /* reset vector: this is the default entry point for an Assembly application. */
 //INIT Entry      /* for assembly applications: that this is as well the initialization entry point */
 //VECTOR 12 TIMchan0_ISR

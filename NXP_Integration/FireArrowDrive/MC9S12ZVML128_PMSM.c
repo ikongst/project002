@@ -137,6 +137,7 @@ unsigned int JY_State,JY_Event,JY_StateArr[20],JY_EventArr[20],JY_CNT;
 
 void main(void)
 {
+	IVBR = 0xFE02;
 	//unsigned int appcntr222 = 0;
 	cpmu_init();
 	pim_init();
