@@ -22,7 +22,7 @@ extern measModule_t		meas;
 
 
 extern pwmControl_t pwmControlData;
-extern appFaultStatus_t	permFaults;	
+extern appFaultStatus_t	permFaultssaved;	
 
 extern void 	DisableOutput(void);
 
@@ -323,9 +323,9 @@ void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int w
 
 unsigned int uigetGDUerror(void)
 {
-	if(permFaults.mcu.B.GDU_Error==1)
+	if(permFaultssaved.mcu.B.GDU_Error==1)
 	{
-		permFaults.mcu.B.GDU_Error = 0;
+		permFaultssaved.mcu.B.GDU_Error = 0;
 		return 1;
 	}
 	else
@@ -348,14 +348,14 @@ unsigned int uigetPBerror(void)  //phase break
 unsigned int uigetOCerror(void)  //over current
 {
 	if(
-		(permFaults.motor.B.OverPhaseACurrent==true)
-		||(permFaults.motor.B.OverPhaseBCurrent==true)
-		||(permFaults.motor.B.OverPhaseCCurrent==true)
+		(permFaultssaved.motor.B.OverPhaseACurrent==true)
+		||(permFaultssaved.motor.B.OverPhaseBCurrent==true)
+		||(permFaultssaved.motor.B.OverPhaseCCurrent==true)
 		)
 	{		
-		permFaults.motor.B.OverPhaseACurrent = 0;
-		permFaults.motor.B.OverPhaseBCurrent = 0;
-		permFaults.motor.B.OverPhaseCCurrent = 0;
+		permFaultssaved.motor.B.OverPhaseACurrent = 0;
+		permFaultssaved.motor.B.OverPhaseBCurrent = 0;
+		permFaultssaved.motor.B.OverPhaseCCurrent = 0;
 		return 1;
 		
 	}

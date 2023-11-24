@@ -134,6 +134,7 @@ unsigned long uldefineddelaytime = 1000;// 1ms
 unsigned int JY_State,JY_Event,JY_StateArr[20],JY_EventArr[20],JY_CNT;
 
 
+unsigned char ucerrorcntr = 0;
 
 void main(void)
 {
@@ -547,6 +548,7 @@ INTERRUPT void PMFreloadA_ISR(void)
 	
 	if (getFcnStatus)    
 	{
+		ucerrorcntr++;
 		permFaultssaved = permFaults;
 		cntrState.event = e_fault;
 	}
@@ -1400,7 +1402,7 @@ void stateRun( )
 			drvFOC.pospeOpenLoop.integ.f32State = MLIB_Convert_F32F16(drvFOC.pospeSensorless.thRotEl, FRAC16(1.0));
 		break;
 	}
-	
+	//ucerrorcntr++;
 
 	/*-----------------------------------------------------
 	    Calculate Field Oriented Control FOC
@@ -1414,6 +1416,7 @@ void stateRun( )
         if (!stateRunStatus)
         {
         	tempfaults.stateMachine.B.RunError = 1;
+        	//ucerrorcntr++;
         }
     }
 
@@ -1423,6 +1426,7 @@ void stateRun( )
     if (!stateRunStatus)
     {
     	tempfaults.stateMachine.B.RunError = 1;
+    	//ucerrorcntr++;
     }
 
     SetDutycycle(&drvFOC.pwm16, drvFOC.svmSector);
