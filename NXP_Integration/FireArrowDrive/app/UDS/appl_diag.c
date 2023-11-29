@@ -756,6 +756,7 @@ void RunEOLService_VoltageCalibration()
 	}	
 }
 
+unsigned char ucarrs[2]= {0,0};
 void RunEOLService4_PhasesCurrentTest(void)
 {
 	unsigned char routinetype   = au8TXData[1];
@@ -799,6 +800,10 @@ void RunEOLService4_PhasesCurrentTest(void)
 			gEOLTRoutinues.uireturndata = guiEOLTCurrentFilteredValue;
 			au8TXData[4] = (unsigned char)((gEOLTRoutinues.uireturndata>>8)&0x00ff);
 			au8TXData[5] = (unsigned char)(gEOLTRoutinues.uireturndata&0x00ff);
+			
+			// au8TXData must read before sending.
+			ucarrs[0] = au8TXData[4];
+			ucarrs[1] = au8TXData[5];						
 		
 			ld_send_message_preparing(6,au8TXData);
 			tDiagState = LD_SEND_RESPONSE;		

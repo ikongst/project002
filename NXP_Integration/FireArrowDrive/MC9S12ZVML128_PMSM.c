@@ -1668,6 +1668,9 @@ unsigned int guiCntr = 0;
 * @return  none
 *
 ******************************************************************************/
+unsigned char ucregister_gduf = 0;
+unsigned char ucregister1_gdudse = 0;
+
 static tBool faultDetection()
 {
     tBool faultDetectiontEvent;
@@ -1747,6 +1750,11 @@ static tBool faultDetection()
 		}
 		
 		permFaults.mcu.B.GDU_Error = GetDriverError();
+		if(permFaults.mcu.B.GDU_Error==1)
+		{
+			ucregister_gduf = GDUF;
+			ucregister1_gdudse = GDUDSE;
+		}
 		permFaults.mcu.B.PWM_Error = GetPMF_Faults();
 		permFaults.mcu.B.PTU_Error = GetPTU_Errors();
 	}
