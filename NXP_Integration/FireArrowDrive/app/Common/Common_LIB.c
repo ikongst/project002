@@ -8,11 +8,27 @@ unsigned long ulaverageeolcurrent = INIT;
 
 // EOLT
 #define FOC_R_SHUNT    0.00050
-#define FOC_CSA_HIGH   10
+#define FOC_CSA_HIGH   35
 #define DEF_NEWGAIN (5*2/(FOC_R_SHUNT*FOC_CSA_HIGH))
 #define DEF_CURRENTCALIBRATION_FACTOR    (4*100*DEF_NEWGAIN)
 
-	unsigned int uitempvalue = INIT;
+// I = uitempvalue*5*1000/65536   mv / 0.5 mOhm*35
+// I = uitempvalue*1*1000/65536   mv / 0.1 mOhm*35
+// I = uitempvalue*1*10000/65536   mv / 1 mOhm*35
+// I = uitempvalue*10000/(65536*35)  A
+// I = uitempvalue*1000000/(65536*35)  100mA
+
+
+
+//unsigned int adcvaluearrvalid[256]={0};
+//unsigned long tempcalculationvalue = 0;
+//unsigned long tempcalculationvalue1 = 0;
+//unsigned long tempcalculationvalue2 = 0;
+
+
+	unsigned long uitempvalue = INIT;
+	
+	unsigned int executecntr = 0;
 void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 {
 	static unsigned long sulaveargedeolcurrent = INIT;
@@ -32,7 +48,9 @@ void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 	suifitercounter++;		
 	if((suifitercounter>1500)&&(suifitercounter<=1756))
 	{		
+		//adcvaluearrvalid[suifitercounter-1501] = uicurrentcalculated;
 		sulaveargedeolcurrent += uicurrentcalculated;
+		executecntr++;
 	}
 	else
 	{	
@@ -41,8 +59,11 @@ void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 			ulaverageeolcurrent         = sulaveargedeolcurrent;
 			uitempvalue  = (sulaveargedeolcurrent>>8);	
 			
-			guiEOLTCurrentFilteredValue = (long)(uitempvalue*(long)DEF_CURRENTCALIBRATION_FACTOR)/32767;
+//			tempcalculationvalue1 = uitempvalue*1000000;
+//			tempcalculationvalue2 = 65536*35;			
+//			tempcalculationvalue = tempcalculationvalue1/tempcalculationvalue2;
 			
+			guiEOLTCurrentFilteredValue = (unsigned long)(uitempvalue*100000)/((unsigned long)(65536*35));			
 			
 			sulaveargedeolcurrent = INIT;
 			suifitercounter       = INIT;

@@ -449,6 +449,8 @@ unsigned char ucstateadd[500];
 unsigned int uistateindex = 0;
 appFaultStatus_t	permFaultssaved;
 unsigned int jycnt;
+
+unsigned int adcvaluearr[4]={0};
 INTERRUPT void PMFreloadA_ISR(void)
 {
 	static tBool getFcnStatus;	
@@ -578,7 +580,14 @@ INTERRUPT void PMFreloadA_ISR(void)
 	
 	if(gucEOLCurrentMeasurementNeedFlag==FLAG_SET)
 	{
-		long adcdetectedvalue = (ADC0ResultList[0][0]+ADC0ResultList[0][1]+ADC0ResultList[0][2]+ADC0ResultList[0][3])/4;
+		long adcdetectedvalue = (tFrac16)(ADC0ResultList[0][0]);//+ADC0ResultList[0][1]+ADC0ResultList[0][2]+ADC0ResultList[0][3])/4;
+		
+		adcvaluearr[0]=ADC0ResultList[0][0];
+		adcvaluearr[1]=ADC0ResultList[0][1];
+		adcvaluearr[2]=ADC0ResultList[0][2];
+		adcvaluearr[3]=ADC0ResultList[0][3];
+				
+		
 		eolcurrentfilter(adcdetectedvalue, gssOffsetValueSaved);
 	}
 	

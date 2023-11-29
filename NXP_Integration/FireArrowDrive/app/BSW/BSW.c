@@ -25,6 +25,7 @@ extern pwmControl_t pwmControlData;
 extern appFaultStatus_t	permFaultssaved;	
 
 extern void 	DisableOutput(void);
+extern void EnableOutput(void);
 
 INTERRUPT void API_ISR(void);
 
@@ -276,6 +277,15 @@ void BDRV_Set_Bridge(TBdrv_Ch_Cfg LS1_Cfg, TBdrv_Ch_Cfg HS1_Cfg,
 tFrac16 Unum,Vnum,Wnum;
 void Set_Bridge_DutyCycle(unsigned int uduty, unsigned int vduty, unsigned int wduty)
 {
+	if((uduty+vduty+wduty)==0)
+	{
+		DisableOutput();
+	}
+	else
+	{
+		EnableOutput();
+	}
+	
    Unum=(long)((long)uduty*32768)/100/2;//FRAC16(uduty/100);
    Vnum=(long)((long)vduty*32768)/100/2;//FRAC16(vduty/100);
    Wnum=(long)((long)wduty*32768)/100/2;//FRAC16(wduty/100);
