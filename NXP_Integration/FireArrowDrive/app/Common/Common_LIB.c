@@ -51,6 +51,9 @@ void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 }
 
 unsigned int guicurrenttest = INIT;
+
+unsigned int tempvaluearr[6] = {0};
+
 void b6bridgeoperation(B6PERATIONID operationid, unsigned int uiparamters1)
 {	
 	static unsigned int suitesttimer       = INIT;
@@ -66,8 +69,15 @@ void b6bridgeoperation(B6PERATIONID operationid, unsigned int uiparamters1)
 			// down   0       1      1
 		  //  CCU62OUT   CCU62  CCU61OUT   CCU61   CCU60OUT   CCU60
 			//     1         0       1         0         0         1
-			Emo_PWM_test(30,uiparamters1,0,0,0x29); //001
+			Emo_PWM_test(30,uiparamters1,0,0,0x29); //001						
 			suifitercounter = INIT;
+
+			tempvaluearr[0]=PMFVAL0;
+			tempvaluearr[1]=PMFVAL1;
+			tempvaluearr[2]=PMFVAL2;
+			tempvaluearr[3]=PMFVAL3;
+			tempvaluearr[4]=PMFVAL4;
+			tempvaluearr[5]=PMFVAL5;
 			break;
 		
 		case B6_PHASE_V:
@@ -78,6 +88,13 @@ void b6bridgeoperation(B6PERATIONID operationid, unsigned int uiparamters1)
 			//     1         0       0         1         1         0
 			Emo_PWM_test(30,0,uiparamters1,0,0x26); //010
 			suifitercounter = INIT;
+
+			tempvaluearr[0]=PMFVAL0;
+			tempvaluearr[1]=PMFVAL1;
+			tempvaluearr[2]=PMFVAL2;
+			tempvaluearr[3]=PMFVAL3;
+			tempvaluearr[4]=PMFVAL4;
+			tempvaluearr[5]=PMFVAL5;
 			break;
 		
 		case B6_PHASE_W:
@@ -88,6 +105,13 @@ void b6bridgeoperation(B6PERATIONID operationid, unsigned int uiparamters1)
 			//     0         1       1         0         1         0
 			Emo_PWM_test(30,0,0,uiparamters1,0x1A); //100
 			suifitercounter = INIT;
+
+			tempvaluearr[0]=PMFVAL0;
+			tempvaluearr[1]=PMFVAL1;
+			tempvaluearr[2]=PMFVAL2;
+			tempvaluearr[3]=PMFVAL3;
+			tempvaluearr[4]=PMFVAL4;
+			tempvaluearr[5]=PMFVAL5;
 			break;
 		
 		case B6_CALIBRATION:
