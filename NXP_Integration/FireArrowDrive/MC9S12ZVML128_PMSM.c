@@ -136,6 +136,7 @@ unsigned int JY_State,JY_Event,JY_StateArr[20],JY_EventArr[20],JY_CNT;
 
 unsigned char ucerrorcntr = 0;
 
+unsigned char ucFirstCalibratedFlag = 0;
 void main(void)
 {
 	IVBR = 0xFE02;
@@ -225,6 +226,13 @@ void main(void)
 	
 	//BSW_LIN_Init();
 						
+					
+	// to do the EOLT, calibrated firstly.
+	// periodly running at PMF interrupt.
+	cntrState.state   	= calib;
+	cntrState.event 	= e_calib;
+	ucFirstCalibratedFlag = 0;
+	
 	// Loop
 	for(;;)
 	{		
@@ -1201,8 +1209,18 @@ void stateCalib()
     // Exit the calibration state when DC calibration is done for all sectors
     if (CalibStatus)
     {
-    	// Calibration sequence has successfully finished
-		cntrState.event               = e_calib_done;    
+    	if(ucFirstCalibratedFlag==0)
+    	{
+    		ucFirstCalibratedFlag = 1;
+    		gssOffsetValueSaved   = meas.offset.f16Idcb.f16Offset+0x7FFF;
+    		cntrState.state    = init;
+    		cntrState.event    = e_init;
+    	}
+    	else
+    	{
+			// Calibration sequence has successfully finished
+			cntrState.event               = e_calib_done;    
+    	}
     }
 	return;
 }
