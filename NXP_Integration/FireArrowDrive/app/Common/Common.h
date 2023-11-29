@@ -127,7 +127,7 @@ typedef enum
 } B6PERATIONID;
 void b6bridgeoperation(B6PERATIONID operationid, unsigned int uiparamters1);
 extern unsigned int guiEOLTCurrentFilteredValue;
-void eolcurrentfilter(unsigned int uicurrenttmp, unsigned int uioffsetcurrent);
+void eolcurrentfilter(unsigned int uicurrenttmp, signed short ssoffsetcurrent);
 extern unsigned int guiKL15CheckCntr;
 
 unsigned char getnad(void);

@@ -126,7 +126,7 @@ unsigned long ulcurrentcntr     = 0;
 unsigned long uldeltacntr     = 0;
 unsigned long uldefineddelaytime = 1000;// 1ms
 
-
+signed short gssOffsetValueSaved = 0;
 
 
 
@@ -574,6 +574,15 @@ INTERRUPT void PMFreloadA_ISR(void)
 	
 	//FMSTR_Recorder();
 	MotorDrive_uiActualSpeed=MLIB_Abs_F16(drvFOC.pospeSensorless.wRotEl);
+	
+	
+	if(gucEOLCurrentMeasurementNeedFlag==FLAG_SET)
+	{
+		long adcdetectedvalue = (ADC0ResultList[0][0]+ADC0ResultList[0][1]+ADC0ResultList[0][2]+ADC0ResultList[0][3])/4;
+		eolcurrentfilter(adcdetectedvalue, gssOffsetValueSaved);
+	}
+	
+	
 
 	PMFFQCA_PWMRFA = 1; // Clear flag
 	return;

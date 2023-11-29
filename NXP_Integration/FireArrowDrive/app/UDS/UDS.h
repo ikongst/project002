@@ -130,6 +130,7 @@ v011, 2023-01-13, kongyun: uds function optimized.
 
 extern unsigned int guiLibVersion_UDS;
 extern unsigned char gucEOLTFirstSkipFlag;
+extern unsigned char gucEOLCurrentMeasurementNeedFlag;
 void UDS_Main(void);
 extern unsigned char vAPPLLinCheckSleep(void);
 

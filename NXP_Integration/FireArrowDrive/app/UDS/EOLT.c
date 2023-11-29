@@ -4,6 +4,7 @@
 
 
 EOLTRoutinueStruct gEOLTRoutinues;
+unsigned char gucEOLCurrentMeasurementNeedFlag = FLAG_RESET;
 
 #define DELAY_EOLTPOWERED_10ms          20 // 200ms
 static unsigned int suib6poweredflag    = FLAG_RESET;
@@ -19,11 +20,13 @@ void currentcalibration(void)
 				b6bridgeoperation(B6_CALIBRATION, 0);
 				
 				suib6poweredflag = FLAG_SET;
+				gucEOLCurrentMeasurementNeedFlag = FLAG_SET;
 				break;
 			case 0x02:
 				b6bridgeoperation(B6_CLOSE, 0);
 			
 				suib6poweredflag = FLAG_RESET;
+				gucEOLCurrentMeasurementNeedFlag = FLAG_RESET;
 				break;
 			case 0x03:				
 				gEOLTRoutinues.uireturndata = guiEOLTCurrentFilteredValue;
@@ -46,16 +49,19 @@ void phasecurrenttest(void)
 					b6bridgeoperation(B6_PHASE_U, gEOLTRoutinues.Paramters.ucparameters[1]);	
 				
 				  suib6poweredflag = FLAG_SET;
+				  gucEOLCurrentMeasurementNeedFlag = FLAG_SET;
 					break;
 				case 0x02:					
 					b6bridgeoperation(B6_PHASE_V, gEOLTRoutinues.Paramters.ucparameters[1]);	
 				
 					suib6poweredflag = FLAG_SET;
+					gucEOLCurrentMeasurementNeedFlag = FLAG_SET;
 					break;
 				case 0x03:					
 					b6bridgeoperation(B6_PHASE_W, gEOLTRoutinues.Paramters.ucparameters[1]);
 				
 					suib6poweredflag = FLAG_SET;
+					gucEOLCurrentMeasurementNeedFlag = FLAG_SET;
 					break;
 				default:
 						// do nothing.
@@ -66,6 +72,7 @@ void phasecurrenttest(void)
 			b6bridgeoperation(B6_CLOSE, 0);
 		
 			suib6poweredflag = FLAG_RESET;
+			gucEOLCurrentMeasurementNeedFlag = FLAG_RESET;
 			break;
 		case 0x03:			
 			gEOLTRoutinues.uireturndata = guiEOLTCurrentFilteredValue;

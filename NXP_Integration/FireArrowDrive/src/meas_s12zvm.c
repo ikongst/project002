@@ -133,6 +133,7 @@ tBool Meas_Clear(measModule_t *ptr)
 
 @warning
 ******************************************************************************/
+extern signed short gssOffsetValueSaved;
 tBool Meas_CalibCurrentSense(measModule_t *ptr, tU16 svmSector)
 {
 	ADC_RAW_DATA_T 	rawValues;
@@ -161,6 +162,7 @@ tBool Meas_CalibCurrentSense(measModule_t *ptr, tU16 svmSector)
 		{
 			ptr->flag.B.calibDone       = 1;    // end of DC offset calibration
 			ptr->offset.f16Idcb.f16Offset = GDFLIB_FilterMA_F16(rawValues.ph2.f16Arg1, &ptr->offset.f16Idcb.filtParam);
+			gssOffsetValueSaved = ptr->offset.f16Idcb.f16Offset+0x7FFF;
 		}
 	}
 	

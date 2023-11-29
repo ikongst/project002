@@ -13,7 +13,7 @@ unsigned long ulaverageeolcurrent = INIT;
 #define DEF_CURRENTCALIBRATION_FACTOR    (4*100*DEF_NEWGAIN)
 
 	unsigned int uitempvalue = INIT;
-void eolcurrentfilter(unsigned int uicurrenttmp, unsigned int uioffsetcurrent)
+void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 {
 	static unsigned long sulaveargedeolcurrent = INIT;
 	
