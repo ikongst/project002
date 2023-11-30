@@ -538,6 +538,15 @@ INTERRUPT void PMFreloadA_ISR(void)
 
 	MotorDrive_uiTemperature =190-(31458-meas.measured.f16Temp.raw)/69;//meas.measured.f16Temp.filt;//((long)meas.measured.f16Temp.filt*645)>>15; //150-(35788-meas.measured.f16Temp.raw)/69;//190-(2400*100-((long)meas.measured.f16Temp.raw*5000*100>>16))/525;
 	
+	//    Temp = 25 + ((Vtemp ¨C Vtemp@25)/hot slope)
+	//Vtemp@25 = 1.54V
+	//    dVHT = 0.00525 v/deg-c
+	//    Temp = 25 + (vt - 1.54V)/0.00525
+	// Temp = 25 + (meas.measured.f16Temp.raw*5*100000/65536 - 1.54*100000V)/0.00525*100000
+	// Temp = 25 + (meas.measured.f16Temp.raw*5*100000/65536 - 154000)/525
+	//MotorDrive_uiTemperature_2 = 25 + (((meas.measured.f16Temp.raw>>4)*5*100000)/4096 - 154000)/525;
+	MotorDrive_uiTemperature_2 = 25 + ((((unsigned long)meas.measured.f16Temp.raw>>4)*5*100000)/4096 - 154000)/525;
+			
 	//MotorDrive_uiTemperature =((long)meas.measured.f16Temp.filt*100)/6452;//150-(1382-meas.measured.f16Temp.filt>>4)/3;//(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
     //MotorDrive_uiTemperature   =(long)((long)(meas.measured.f16Temp.filt>>3)*645)>>12;   //add for Temperature sample
 

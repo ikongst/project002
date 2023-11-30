@@ -20,7 +20,7 @@ unsigned long ulaverageeolcurrent = INIT;
 
 
 
-//unsigned int adcvaluearrvalid[256]={0};
+unsigned int adcvaluearrvalid[256]={0};
 //unsigned long tempcalculationvalue = 0;
 //unsigned long tempcalculationvalue1 = 0;
 //unsigned long tempcalculationvalue2 = 0;
@@ -48,7 +48,7 @@ void eolcurrentfilter(unsigned int uicurrenttmp, signed short uioffsetcurrent)
 	suifitercounter++;		
 	if((suifitercounter>1500)&&(suifitercounter<=1756))
 	{		
-		//adcvaluearrvalid[suifitercounter-1501] = uicurrentcalculated;
+		adcvaluearrvalid[suifitercounter-1501] = uicurrentcalculated;
 		sulaveargedeolcurrent += uicurrentcalculated;
 		executecntr++;
 	}

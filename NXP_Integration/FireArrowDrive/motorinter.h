@@ -15,6 +15,7 @@ extern signed int  SpeedIN;                        //speed value input
 extern unsigned int MotorDrive_uiVoltage;            //bus voltage measure
 extern unsigned int MotorDrive_uiCurrent;           //bus current (raw)
 extern signed int MotorDrive_uiTemperature;        //MCU temperature
+extern signed int MotorDrive_uiTemperature_2;
 extern signed int MotorDrive_uiTemperatureNTC_Digital;     //PCB temperature
 
 extern signed int MotorDrive_uiTargetSpeed;        //required speed output
