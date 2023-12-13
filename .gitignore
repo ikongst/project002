@@ -11,3 +11,5 @@
 /NXP_Integration/RemoteLaunch/results/*.log
 /NXP_Integration/FireArrowDrive/bootloader/RocketPython_Main_20231123
 /NXP_Integration/FireArrowDrive/SaAnalysispointsManager.apconfig
+/NXP_Integration/FireArrowDrive/bootloader/RocketPython_Main_20231213_1410
+/NXP_Integration/FireArrowDrive/bootloader/*.sx
