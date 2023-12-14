@@ -178,6 +178,8 @@
 
 #include "Common.h"
 extern typeU32 guiInformation_SWIdentifier;
+extern typeU32 guiInformation_BootVersion;
+void getbootloaderversion(void);
 
 extern unsigned char gucswversion_internal;
 

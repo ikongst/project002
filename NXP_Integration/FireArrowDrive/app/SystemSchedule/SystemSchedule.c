@@ -43,6 +43,8 @@ void SystemSchedule_Init(void)
 	
 	guiMaxSpeedCalculated = SYSTEMPARAM_SPEED_MAX_rpm;
 	guiMinSpeedCalculated = SYSTEMPARAM_SPEED_MIN_rpm;
+	
+	getbootloaderversion();
 }
 
 

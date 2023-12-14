@@ -13,6 +13,19 @@ typeU32 guiInformation_Interface    = PAR_CUSTOMERINTERFACE_SELECTION;
 typeU32 guiInformation_version      = PAR_SW_VERSION;
 
 
+typeU32 guiInformation_BootVersion  = 0x00;
+void getbootloaderversion(void)
+{
+	unsigned char bootversionarr[4]={0};
+	typeU32 bootloaderversionadd = 0xFFF9F0;
+	bootversionarr[0] = (*(typeU08 *)(bootloaderversionadd+0));
+	bootversionarr[1] = (*(typeU08 *)(bootloaderversionadd+1));
+	bootversionarr[2] = (*(typeU08 *)(bootloaderversionadd+2));
+	bootversionarr[3] = (*(typeU08 *)(bootloaderversionadd+3));
+	
+	guiInformation_BootVersion = (bootversionarr[0]<<24)|(bootversionarr[1]<<16)|(bootversionarr[2]<<8)|bootversionarr[3];
+}
+
 ////#include "tle_variants.h"
 //#if defined(TLE9877QXA40)
 //	#define SWIDStart       ".ARM.__at_0x1100F00C"
