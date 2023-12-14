@@ -139,6 +139,7 @@ unsigned char ucerrorcntr = 0;
 unsigned char ucFirstCalibratedFlag = 0;
 void main(void)
 {
+	unsigned char datapointarr_init[16]={0,0,0,0,0,0};
 	IVBR = 0xFE02;
 	//unsigned int appcntr222 = 0;
 	cpmu_init();
@@ -153,6 +154,13 @@ void main(void)
 	EEPROM_Init(0x31);
 	initTIM();
 	initLIN();
+	
+	for(unsigned char i = 0; i<16; i++)
+	{
+		datapointarr_init[i]=0x00;
+	}
+	flashoperation_1(datapointarr_init, FLASH_ADDRESS_SWID/16, SW_WRITE_ARR_LENGTH);
+	
 	
 	l_sys_init();
 	l_ifc_init(LIN_NXP);
