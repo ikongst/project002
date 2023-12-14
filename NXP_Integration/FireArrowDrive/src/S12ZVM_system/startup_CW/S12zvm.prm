@@ -1,5 +1,5 @@
 /* This is a linker parameter file for the MC9S12ZVML128 */
-HEXFILE S12ZVL128_bootloader_v2.0.sx
+HEXFILE S12ZVL128_bootloader_v2.1.sx
 NAMES END /* CodeWarrior will pass all the needed files to the linker by command line. But here you may add your own files too. */
 
 SEGMENTS  /* Here all RAM/ROM areas of the device are listed. Used in PLACEMENT below. */
