@@ -132,7 +132,7 @@ signed short gssOffsetValueSaved = 0;
 
 
 unsigned int JY_State,JY_Event,JY_StateArr[20],JY_EventArr[20],JY_CNT;
-
+unsigned char uctemparr[10]={};
 
 unsigned char ucerrorcntr = 0;
 
@@ -154,6 +154,10 @@ void main(void)
 	EEPROM_Init(0x31);
 	initTIM();
 	initLIN();
+	
+	
+	//uctemparr[0]=1;
+	
 	
 	for(unsigned char i = 0; i<16; i++)
 	{
