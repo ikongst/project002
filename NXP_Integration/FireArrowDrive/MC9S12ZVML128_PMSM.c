@@ -1045,7 +1045,7 @@ void stateInit( )
     drvFOC.alignCntr								   	= drvFOC.alignCntrInit;
     
     InitFcnStatus = Meas_Clear(&meas);
-    meas.param.u16CalibSamples                         = 10;    // number of samples = 2^u16CalibSamples
+    meas.param.u16CalibSamples                         = 8;    // number of samples = 2^u16CalibSamples
     meas.offset.f16Idcb.filtParam.u16NSamples		   = meas.param.u16CalibSamples;
  
     
